@@ -6,6 +6,7 @@ import { User } from "../models/user.model";
 import bcrypt from "bcryptjs";
 import { loginSchema, registerSchema, userSchema } from "../validationSchemas";
 import { AuthError } from "next-auth";
+import { Post } from "../models/post.model";
 
 export const handleGoogleLogin = async () => {
   await signIn("google", { redirectTo: "/" });
@@ -180,6 +181,201 @@ export const updateUser = async (
     await User.findByIdAndUpdate(userId, updateFields);
 
     return { success: true, message: "User has been updated" };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
+  }
+};
+
+export const createUser = async (
+  previousState: { success: boolean; message: string },
+  data: unknown
+) => {
+  const validatedFields = registerSchema.safeParse(data);
+
+  if (!validatedFields.success) {
+    console.log(validatedFields.error.flatten().fieldErrors);
+    return {
+      success: false,
+      message: "",
+    };
+  }
+
+  const { username, email, name, password, image, isAdmin } =
+    validatedFields.data;
+
+  const session = await auth();
+  if (!session?.user?.isAdmin) {
+    return {
+      success: false,
+      message: "Admin only",
+    };
+  }
+
+  try {
+    await connectToDB();
+
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return {
+        success: false,
+        message: "Username already exists",
+      };
+    }
+
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return {
+        success: false,
+        message: "Email already exists",
+      };
+    }
+
+    const existingName = await User.findOne({ name });
+    if (existingName) {
+      return {
+        success: false,
+        message: "Name already exists",
+      };
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await User.create({
+      username,
+      name,
+      email,
+      password: hashedPassword,
+      image,
+      isAdmin: isAdmin === "true",
+    });
+
+    return { success: true, message: "User has been created" };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
+  }
+};
+
+export const updateUserAdmin = async (
+  previousState: { success: boolean; message: string },
+  data: unknown
+) => {
+  const validatedFields = userSchema.safeParse(data);
+
+  if (!validatedFields.success) {
+    console.log(validatedFields.error.flatten().fieldErrors);
+    return {
+      success: false,
+      message: "",
+    };
+  }
+
+  const { id, username, email, name, password, image, isAdmin } =
+    validatedFields.data;
+
+  const session = await auth();
+  if (!session?.user?.isAdmin) {
+    return {
+      success: false,
+      message: "Admin only",
+    };
+  }
+
+  try {
+    await connectToDB();
+
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername && existingUsername._id.toString() !== id) {
+      return {
+        success: false,
+        message: "Username is already taken",
+      };
+    }
+
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail && existingEmail._id.toString() !== id) {
+      return {
+        success: false,
+        message: "Email is already taken",
+      };
+    }
+
+    const existingName = await User.findOne({ name });
+    if (existingName && existingName._id.toString() !== id) {
+      return {
+        success: false,
+        message: "Name is already taken",
+      };
+    }
+
+    const updateFields: {
+      username?: string;
+      email?: string;
+      name?: string;
+      image?: string;
+      password?: string;
+      isAdmin?: boolean;
+    } = {
+      username,
+      email,
+      name,
+      image,
+      isAdmin: isAdmin === "true",
+    };
+
+    // Hash password if provided and not just whitespace
+    if (password && password.trim() !== "") {
+      updateFields.password = await bcrypt.hash(password, 10);
+    }
+
+    await User.findByIdAndUpdate(id, updateFields);
+
+    return { success: true, message: "User has been updated" };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
+  }
+};
+
+export const deleteUser = async (
+  previousState: { success: boolean; message: string },
+  formData: FormData
+) => {
+  const id = formData.get("id") as string;
+
+  const session = await auth();
+  if (!session?.user?.isAdmin) {
+    return {
+      success: false,
+      message: "Admin only",
+    };
+  }
+
+  if (!id) {
+    return {
+      success: false,
+      message: "Invalid user ID",
+    };
+  }
+
+  try {
+    await connectToDB();
+
+    await User.findByIdAndDelete(id);
+    // Delete all posts linked to this user
+    await Post.deleteMany({ user: id });
+
+    return { success: true, message: "User has been deleted" };
   } catch (error) {
     console.log(error);
     return {
