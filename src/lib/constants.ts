@@ -6,8 +6,8 @@ export const links: LinkType[] = [
     path: "/",
   },
   {
-    title: "Most Popular",
-    path: "/popular",
+    title: "Posts",
+    path: "/posts",
   },
 ];
 
