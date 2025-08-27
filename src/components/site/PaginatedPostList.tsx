@@ -6,15 +6,17 @@ import { getPaginatedPosts } from "@/lib/data";
 
 const PaginatedPostList = async ({
   page,
+  q,
   category,
   sort,
 }: {
   page: number;
+  q?: string;
   category?: string;
   sort?: string;
 }) => {
   const { posts, totalPosts }: { posts: PostType[]; totalPosts: number } =
-    await getPaginatedPosts(page, undefined, category, sort);
+    await getPaginatedPosts(page, q, category, sort);
 
   return (
     <div>
@@ -28,4 +30,5 @@ const PaginatedPostList = async ({
     </div>
   );
 };
+
 export default PaginatedPostList;

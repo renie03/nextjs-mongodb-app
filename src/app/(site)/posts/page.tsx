@@ -19,4 +19,5 @@ const PostPage = async ({
     </div>
   );
 };
+
 export default PostPage;

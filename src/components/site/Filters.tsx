@@ -27,7 +27,7 @@ const Filters = () => {
   };
 
   return (
-    <div className="flex items-center justify-between mb-5 mt-[1px]">
+    <div className="flex items-center justify-between mb-5">
       {/* Category */}
       <div>
         <span className="mr-1">Sort by:</span>

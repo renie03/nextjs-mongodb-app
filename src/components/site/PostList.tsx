@@ -17,4 +17,5 @@ const PostList = async ({ category }: { category: string }) => {
     </div>
   );
 };
+
 export default PostList;

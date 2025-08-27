@@ -16,4 +16,5 @@ const FeaturedPosts = async () => {
     </div>
   );
 };
+
 export default FeaturedPosts;
