@@ -15,7 +15,7 @@ const PostPage = async ({
 
   return (
     <div>
-      <PaginatedPostList page={page} category={category} sort={sort} />
+      <PaginatedPostList page={page} category={category} sort={sort} />a
     </div>
   );
 };
