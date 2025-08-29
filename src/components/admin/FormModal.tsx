@@ -34,7 +34,7 @@ const FormModal = ({ table, type, data, id }: FormModalProps) => {
   const [open, setOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  // Close form when click outside or esc
+  // Close form when click outside or esc key
   useEffect(() => {
     if (!open) return;
 

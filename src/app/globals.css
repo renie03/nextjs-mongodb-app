@@ -7,7 +7,8 @@
   --color-bgSoft: #f1f5f9;
   --color-text: black;
   --color-textSoft: #6b7280;
-  --color-borderColor: black;
+  --color-borderColor: #d1d5db;
+  --color-hrColor: #e5e7eb;
 }
 
 @layer base {
@@ -17,6 +18,7 @@
     --color-text: white;
     --color-textSoft: #9ca3af;
     --color-borderColor: #4b5563;
+    --color-hrColor: #1f2937;
   }
 }
 

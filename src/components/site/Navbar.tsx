@@ -11,7 +11,7 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <div className="h-20 flex justify-between items-center">
+    <div className="h-20 flex justify-between items-center sticky top-0 bg-bg z-50">
       <Link href="/" className="hidden lg:inline text-lg font-medium">
         Blog App
       </Link>

@@ -4,12 +4,15 @@ import { PostType } from "@/types/types";
 import { format } from "timeago.js";
 import ViewCounter from "@/components/site/ViewCounter";
 import RelatedPosts from "@/components/site/RelatedPosts";
+import Comments from "@/components/site/Comments";
+import { auth } from "@/lib/auth";
 
 const SinglePostPage = async ({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) => {
+  const session = await auth();
   const { id } = await params;
 
   const post: PostType = await getPost(id);
@@ -51,8 +54,10 @@ const SinglePostPage = async ({
           </div>
         </div>
       </div>
-      <hr className="my-5 border-gray-300 dark:border-gray-800" />
+      <hr className="border-hrColor my-5" />
       <RelatedPosts category={post.category} postId={id} />
+      <hr className="border-hrColor my-5" />
+      <Comments postId={id} session={session} />
     </div>
   );
 };
