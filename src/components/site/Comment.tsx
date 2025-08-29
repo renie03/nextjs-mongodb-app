@@ -5,9 +5,9 @@ import { CommentType } from "@/types/types";
 import Image from "next/image";
 import { format } from "timeago.js";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import CommentInteractions from "./CommentInteractions";
 import UpdateCommentForm from "./UpdateCommentForm";
 import DeleteCommentModal from "./DeleteCommentModal";
+import CommentInteractions from "./CommentInteractions";
 
 const Comment = ({
   comment,
