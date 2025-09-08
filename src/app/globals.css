@@ -9,6 +9,7 @@
   --color-textSoft: #6b7280;
   --color-borderColor: #d1d5db;
   --color-hrColor: #e5e7eb;
+  --color-focusColor: black;
 }
 
 @layer theme {
@@ -19,12 +20,20 @@
     --color-textSoft: #9ca3af;
     --color-borderColor: #4b5563;
     --color-hrColor: #1f2937;
+    --color-focusColor: white;
   }
 }
 
 @layer components {
   .spinner {
     @apply inline-block h-5 w-5 animate-spin rounded-full border-2 border-solid border-current border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite];
+  }
+}
+
+/* focus custom styles */
+@layer base {
+  :where(input, textarea, select) {
+    @apply focus:outline-none focus:ring-1 focus:ring-focusColor;
   }
 }
 

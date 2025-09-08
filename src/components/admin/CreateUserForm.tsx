@@ -1,11 +1,17 @@
 "use client";
 
-import { startTransition, useActionState, useEffect, useState } from "react";
-import Image from "next/image";
+import {
+  startTransition,
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { IoCloudUploadOutline } from "react-icons/io5";
+import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary";
-import { register } from "@/lib/actions/userActions";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { createUser } from "@/lib/actions/userActions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -13,12 +19,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, RegisterSchema } from "@/lib/validationSchemas";
 import { CloudinaryResultInfo } from "@/types/types";
 
-const RegisterForm = () => {
+const CreateUserForm = ({
+  setOpen,
+}: {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [avatar, setAvatar] = useState<CloudinaryResultInfo | null>(null);
+  const [file, setFile] = useState<CloudinaryResultInfo | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const [state, formAction, isPending] = useActionState(register, {
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const [state, formAction, isPending] = useActionState(createUser, {
     success: false,
     message: "",
   });
@@ -26,40 +40,45 @@ const RegisterForm = () => {
   const router = useRouter();
 
   const {
-    register: registerForm,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
   });
 
-  const handleRegisterForm: SubmitHandler<RegisterSchema> = (data) => {
+  const handleCreateUserForm: SubmitHandler<RegisterSchema> = (data) => {
     startTransition(() => {
-      formAction({ ...data, image: avatar?.secure_url });
+      formAction({ ...data, image: file?.secure_url });
     });
   };
 
   useEffect(() => {
     if (state.success) {
+      setOpen(false);
       toast.success(state.message);
-      router.push("/login");
+      router.refresh();
     } else if (state.message) {
       toast.error(state.message);
     }
-  }, [state, router]);
+  }, [state, router, setOpen]);
 
   return (
     <form
-      onSubmit={handleSubmit(handleRegisterForm)}
-      className="flex flex-col gap-5 w-[280px]"
+      onSubmit={handleSubmit(handleCreateUserForm)}
+      className="flex flex-col gap-5 w-[280px] text-black"
     >
-      <h1 className="text-lg font-medium text-center">Register</h1>
+      <h1 className="text-lg font-medium text-center">Create User</h1>
       <div>
         <input
-          className="border border-borderColor rounded-md p-3 w-full"
+          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           placeholder="username"
-          autoFocus
-          {...registerForm("username")}
+          {...register("username")}
+          ref={(el) => {
+            // console.log(el);
+            inputRef.current = el;
+            register("username").ref(el);
+          }}
         />
         {errors.username?.message && (
           <p className="text-red-500 text-sm">{errors.username?.message}</p>
@@ -67,10 +86,10 @@ const RegisterForm = () => {
       </div>
       <div>
         <input
-          className="border border-borderColor rounded-md p-3 w-full"
+          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           type="email"
           placeholder="email"
-          {...registerForm("email")}
+          {...register("email")}
         />
         {errors.email?.message && (
           <p className="text-red-500 text-sm">{errors.email?.message}</p>
@@ -78,21 +97,21 @@ const RegisterForm = () => {
       </div>
       <div>
         <input
-          className="border border-borderColor rounded-md p-3 w-full"
+          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           placeholder="name"
-          {...registerForm("name")}
+          {...register("name")}
         />
         {errors.name?.message && (
           <p className="text-red-500 text-sm">{errors.name?.message}</p>
         )}
       </div>
       <div>
-        <div className="border border-borderColor rounded-md p-3 flex items-center justify-between gap-1 focus-within:ring-focusColor focus-within:ring-1">
+        <div className="border border-gray-300 rounded-md p-3 flex items-center justify-between gap-1 focus-within:ring-black focus-within:ring-1">
           <input
             className="w-full ring-0"
             type={showPassword ? "text" : "password"}
             placeholder="password"
-            {...registerForm("password")}
+            {...register("password")}
           />
           <span
             className="cursor-pointer dark:text-textSoft"
@@ -110,34 +129,22 @@ const RegisterForm = () => {
         )}
       </div>
       <div>
-        <div className="border border-borderColor rounded-md p-3 flex items-center justify-between gap-1 focus-within:ring-focusColor focus-within:ring-1">
-          <input
-            className="w-full ring-0"
-            type={showConfirmPassword ? "text" : "password"}
-            placeholder="confirm password"
-            {...registerForm("confirmPassword")}
-          />
-          <span
-            className="cursor-pointer dark:text-textSoft"
-            onClick={() => setShowConfirmPassword((prev) => !prev)}
-          >
-            {showConfirmPassword ? (
-              <MdOutlineVisibility size={20} />
-            ) : (
-              <MdOutlineVisibilityOff size={20} />
-            )}
-          </span>
-        </div>
-        {errors.confirmPassword?.message && (
-          <p className="text-red-500 text-sm">
-            {errors.confirmPassword?.message}
-          </p>
+        <select
+          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
+          {...register("isAdmin")}
+        >
+          <option value="false">Is Admin?</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+        {errors.isAdmin?.message && (
+          <p className="text-red-500 text-sm">{errors.isAdmin.message}</p>
         )}
       </div>
       <div className="flex flex-col">
-        {avatar?.secure_url && (
+        {file?.secure_url && (
           <Image
-            src={avatar.secure_url}
+            src={file.secure_url}
             alt=""
             width={48}
             height={48}
@@ -146,16 +153,15 @@ const RegisterForm = () => {
         )}
         <CldUploadWidget
           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
-          // onSuccess={(result) => console.log(result)}
           onSuccess={(result, { widget }) => {
-            setAvatar(result.info as CloudinaryResultInfo);
+            setFile(result.info as CloudinaryResultInfo);
             widget.close();
           }}
         >
           {({ open }) => {
             return (
               <div
-                className="flex items-center gap-2 cursor-pointer text-textSoft text-sm"
+                className="flex items-center gap-2 cursor-pointer text-gray-500 text-sm"
                 onClick={() => open()}
               >
                 <IoCloudUploadOutline size={20} />
@@ -169,10 +175,10 @@ const RegisterForm = () => {
         className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
         disabled={isPending}
       >
-        {isPending ? <div className="spinner" /> : "Register"}
+        {isPending ? <div className="spinner" /> : "Create"}
       </button>
     </form>
   );
 };
 
-export default RegisterForm;
+export default CreateUserForm;

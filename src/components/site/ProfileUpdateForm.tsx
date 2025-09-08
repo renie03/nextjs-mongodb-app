@@ -96,9 +96,9 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
       {isCredentials && (
         <div className="flex flex-col gap-1">
           <label htmlFor="password">Password</label>
-          <div className="border border-borderColor rounded-md p-3 flex items-center justify-between gap-1 focus-within:ring-text focus-within:ring-1">
+          <div className="border border-borderColor rounded-md p-3 flex items-center justify-between gap-1 focus-within:ring-focusColor focus-within:ring-1">
             <input
-              className="outline-none w-full"
+              className="w-full ring-0"
               type={showPassword ? "text" : "password"}
               id="password"
               placeholder="password"
