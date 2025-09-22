@@ -81,4 +81,5 @@ const MobileMenu = ({ session }: { session: Session | null }) => {
     </div>
   );
 };
+
 export default MobileMenu;

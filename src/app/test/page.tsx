@@ -1,7 +1,6 @@
-import Filters from "@/components/site/Filters";
-import PaginatedPostList from "@/components/site/PaginatedPostList";
+import Test from "@/components/Test";
 
-const SearchPage = async ({
+const TestPage = async ({
   searchParams,
 }: {
   searchParams: Promise<{
@@ -16,15 +15,13 @@ const SearchPage = async ({
   const sort = (await searchParams).sort || "newest";
   const q = (await searchParams).q || "";
 
+  console.log("test page", page, category, sort, q);
+
   return (
-    <div>
-      <h1 className="text-lg text-center mb-2">
-        Search results for <b>{q}</b>
-      </h1>
-      <Filters />
-      <PaginatedPostList page={page} category={category} sort={sort} q={q} />
+    <div className="flex items-center justify-center h-screen">
+      <Test page={page} category={category} sort={sort} q={q} />
     </div>
   );
 };
 
-export default SearchPage;
+export default TestPage;

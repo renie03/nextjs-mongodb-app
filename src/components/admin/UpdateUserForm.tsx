@@ -83,7 +83,7 @@ const UpdateUserForm = ({
   return (
     <form
       onSubmit={handleSubmit(handleUpdateUserForm)}
-      className="flex flex-col gap-5 w-[280px] text-black"
+      className="flex flex-col gap-5 text-black w-[280px]"
     >
       <h1 className="text-lg font-medium text-center">Update User</h1>
       <input type="hidden" value={user._id || ""} {...register("id")} />

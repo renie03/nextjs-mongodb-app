@@ -1,15 +1,15 @@
 import { NextRequest } from "next/server";
 import connectToDB from "@/lib/connectToDB";
 import { Comment } from "@/lib/models/comment.model";
-import { CommentSchema } from "@/lib/validationSchemas";
 import { auth } from "@/lib/auth";
+import { CommentSchema } from "@/lib/validationSchemas";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const cursor = Number(searchParams.get("cursor")) || 0;
   const postId = searchParams.get("postId");
 
-  const LIMIT = 2;
+  const LIMIT = 3;
   try {
     await connectToDB();
 

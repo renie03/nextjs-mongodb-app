@@ -27,4 +27,5 @@ const SidebarLink = ({ link }: { link: SidebarLinkType }) => {
     </Link>
   );
 };
+
 export default SidebarLink;

@@ -94,4 +94,5 @@ const DeleteCommentModal = ({
     </div>
   );
 };
+
 export default DeleteCommentModal;

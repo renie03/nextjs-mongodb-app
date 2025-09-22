@@ -64,7 +64,7 @@ const CreatePostForm = ({
   return (
     <form
       onSubmit={handleSubmit(handleCreatePostForm)}
-      className="flex flex-col gap-5 w-[280px] text-black"
+      className="flex flex-col gap-5 text-black w-[280px]"
     >
       <h1 className="text-lg font-medium text-center">Create Post</h1>
       <div>

@@ -13,9 +13,7 @@ const Filters = () => {
   const handleChange = (key: "category" | "sort", value: string) => {
     const params = new URLSearchParams(searchParams);
 
-    if (pathname !== "/") {
-      params.set("page", "1");
-    }
+    params.set("page", "1");
 
     if (!value) {
       params.delete(key);
@@ -23,7 +21,7 @@ const Filters = () => {
       params.set(key, value);
     }
 
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (

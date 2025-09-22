@@ -36,7 +36,7 @@ const Comments = ({
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 
-  // console.log(data);
+  console.log(data);
 
   const allComments: CommentType[] =
     data?.pages?.flatMap((page) => page.comments) || [];
@@ -86,14 +86,20 @@ const Comments = ({
           // }
         >
           <div className="flex flex-col gap-7 mt-7">
-            {allComments.map((comment) => (
-              <Comment
-                key={comment._id}
-                comment={comment}
-                postId={postId}
-                userId={session?.user.id}
-              />
-            ))}
+            {allComments.length === 0 ? (
+              <div className="text-center text-textSoft font-semibold py-5">
+                No comments yet. Be the first to comment!
+              </div>
+            ) : (
+              allComments.map((comment) => (
+                <Comment
+                  key={comment._id}
+                  comment={comment}
+                  postId={postId}
+                  userId={session?.user.id}
+                />
+              ))
+            )}
           </div>
         </InfiniteScroll>
       )}

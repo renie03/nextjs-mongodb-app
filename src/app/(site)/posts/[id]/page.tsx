@@ -20,11 +20,11 @@ const SinglePostPage = async ({
   return (
     <div>
       <ViewCounter id={id} />
-      <div className="flex gap-5 h-[530px]">
+      <div className="flex gap-5 min-h-[530px]">
         <div className="w-1/2 relative">
           <Image
             src={post.img || "/noproduct.jpg"}
-            alt=""
+            alt={post.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
             className="rounded-xl"
@@ -46,7 +46,7 @@ const SinglePostPage = async ({
                 src={post.user?.image || "/noavatar.png"}
                 width={40}
                 height={40}
-                alt=""
+                alt={post.user?.name || "userImage"}
                 className="h-10 w-10 rounded-full object-cover"
               />
               {post.user?.name}

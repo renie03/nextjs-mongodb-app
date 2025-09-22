@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export const transactions = [
+const transactions = [
   {
     id: 1,
     name: "John Doe",
@@ -93,4 +93,5 @@ const Transactions = () => {
     </div>
   );
 };
+
 export default Transactions;

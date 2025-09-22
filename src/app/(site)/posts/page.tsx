@@ -1,3 +1,4 @@
+import Filters from "@/components/site/Filters";
 import PaginatedPostList from "@/components/site/PaginatedPostList";
 
 const PostsPage = async ({
@@ -15,6 +16,7 @@ const PostsPage = async ({
 
   return (
     <div>
+      <Filters />
       <PaginatedPostList page={page} category={category} sort={sort} />
     </div>
   );

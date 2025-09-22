@@ -2,7 +2,7 @@ import Card from "@/components/admin/Card";
 import Transactions from "@/components/admin/Transactions";
 import Chart from "@/components/admin/Chart";
 
-export const cards = [
+const cards = [
   {
     id: 1,
     title: "Total Users",
@@ -25,17 +25,16 @@ export const cards = [
 
 const AdminDashboardPage = () => {
   return (
-    <div>
-      <div className="flex flex-col gap-5">
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-          {cards.map((item) => (
-            <Card key={item.id} item={item} />
-          ))}
-        </div>
-        <Transactions />
-        <Chart />
+    <div className="flex flex-col gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+        {cards.map((item) => (
+          <Card key={item.id} item={item} />
+        ))}
       </div>
+      <Transactions />
+      <Chart />
     </div>
   );
 };
+
 export default AdminDashboardPage;

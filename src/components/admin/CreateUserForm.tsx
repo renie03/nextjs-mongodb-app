@@ -66,7 +66,7 @@ const CreateUserForm = ({
   return (
     <form
       onSubmit={handleSubmit(handleCreateUserForm)}
-      className="flex flex-col gap-5 w-[280px] text-black"
+      className="flex flex-col gap-5 text-black w-[280px]"
     >
       <h1 className="text-lg font-medium text-center">Create User</h1>
       <div>

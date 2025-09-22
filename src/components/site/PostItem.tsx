@@ -6,10 +6,7 @@ import { PostType } from "@/types/types";
 const PostItem = ({ post }: { post: PostType }) => {
   return (
     <div key={post._id} className="flex flex-col">
-      <Link
-        href={`/posts/${post._id}`}
-        className="relative w-full aspect-[2/1]"
-      >
+      <Link href={`/posts/${post._id}`} className="relative aspect-[2/1]">
         <Image
           src={post.img || "/noproduct.jpg"}
           fill

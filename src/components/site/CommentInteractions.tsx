@@ -111,4 +111,5 @@ const CommentInteractions = ({
     </div>
   );
 };
+
 export default CommentInteractions;

@@ -12,4 +12,5 @@ const ViewCounter = ({ id }: { id: string }) => {
 
   return null;
 };
+
 export default ViewCounter;

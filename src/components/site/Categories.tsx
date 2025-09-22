@@ -21,10 +21,6 @@ const Categories = () => {
   const handleChange = (value: string) => {
     const params = new URLSearchParams(searchParams);
 
-    if (pathname !== "/") {
-      params.set("page", "1");
-    }
-
     if (!value) {
       params.delete("category");
     } else {
