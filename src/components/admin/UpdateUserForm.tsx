@@ -84,7 +84,7 @@ const UpdateUserForm = ({
               className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
               id="username"
               {...register("username")}
-              autoFocus
+              autoFocus={isCredentials}
             />
             {errors.username?.message && (
               <p className="text-red-500 text-sm">{errors.username?.message}</p>
@@ -108,6 +108,7 @@ const UpdateUserForm = ({
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           id="name"
+          autoFocus={!isCredentials}
           {...register("name")}
         />
         {errors.name?.message && (

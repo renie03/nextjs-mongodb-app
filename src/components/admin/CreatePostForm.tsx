@@ -60,8 +60,8 @@ const CreatePostForm = ({
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           placeholder="title"
-          {...register("title")}
           autoFocus
+          {...register("title")}
         />
         {errors.title?.message && (
           <p className="text-red-500 text-sm">{errors.title?.message}</p>

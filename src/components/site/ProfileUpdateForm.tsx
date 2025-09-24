@@ -74,7 +74,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
           <input
             className="border border-borderColor rounded-md p-3 w-full"
             id="username"
-            autoFocus
+            autoFocus={isCredentials}
             {...register("username")}
           />
           {errors.username?.message && (
@@ -87,6 +87,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
         <input
           className="border border-borderColor rounded-md p-3 w-full"
           id="name"
+          autoFocus={!isCredentials}
           {...register("name")}
         />
         {errors.name?.message && (

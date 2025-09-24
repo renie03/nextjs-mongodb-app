@@ -62,8 +62,8 @@ const CreateUserForm = ({
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           placeholder="username"
-          {...register("username")}
           autoFocus
+          {...register("username")}
         />
         {errors.username?.message && (
           <p className="text-red-500 text-sm">{errors.username?.message}</p>
