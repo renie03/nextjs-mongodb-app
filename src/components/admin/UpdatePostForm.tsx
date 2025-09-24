@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  startTransition,
-  useActionState,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
 import Image from "next/image";
 import { CldUploadWidget } from "next-cloudinary";
 import { IoCloudUploadOutline } from "react-icons/io5";
@@ -28,11 +22,6 @@ const UpdatePostForm = ({
   const [file, setFile] = useState<CloudinaryResultInfo | null>(
     post?.img ? { secure_url: post.img } : null
   );
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
 
   const [state, formAction, isPending] = useActionState(updatePost, {
     success: false,
@@ -84,11 +73,7 @@ const UpdatePostForm = ({
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           id="title"
           {...register("title")}
-          ref={(el) => {
-            // console.log(el);
-            inputRef.current = el;
-            register("title").ref(el);
-          }}
+          autoFocus
         />
         {errors.title?.message && (
           <p className="text-red-500 text-sm">{errors.title?.message}</p>

@@ -18,12 +18,12 @@ const UpdateCommentForm = ({
 }) => {
   const [desc, setDesc] = useState(comment.desc);
   const [openEmoji, setOpenEmoji] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  // const inputRef = useRef<HTMLInputElement | null>(null);
   const emojiRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+  // useEffect(() => {
+  //   inputRef.current?.focus();
+  // }, []);
 
   const handleEmojiClick = (e: EmojiClickData) => {
     setDesc((prev) => prev + e.emoji);
@@ -81,7 +81,8 @@ const UpdateCommentForm = ({
         type="text"
         onChange={(e) => setDesc(e.target.value)}
         value={desc}
-        ref={inputRef}
+        // ref={inputRef}
+        autoFocus
       />
       <div className="flex items-center justify-between">
         {/* emoji */}
