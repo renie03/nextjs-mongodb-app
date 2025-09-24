@@ -30,11 +30,6 @@ const UpdateUserForm = ({
   const [file, setFile] = useState<CloudinaryResultInfo | null>(
     user?.image ? { secure_url: user.image } : null
   );
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
 
   const [state, formAction, isPending] = useActionState(updateUserAdmin, {
     success: false,
@@ -95,11 +90,7 @@ const UpdateUserForm = ({
               className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
               id="username"
               {...register("username")}
-              ref={(el) => {
-                // console.log(el);
-                inputRef.current = el;
-                register("username").ref(el);
-              }}
+              autoFocus
             />
             {errors.username?.message && (
               <p className="text-red-500 text-sm">{errors.username?.message}</p>
