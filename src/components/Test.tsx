@@ -1,66 +1,57 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { CloudinaryResultInfo } from "@/types/types";
+import { CldUploadWidget } from "next-cloudinary";
+import Image from "next/image";
+import { useState } from "react";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 const Test = () => {
-  const [desc, setDesc] = useState("");
-  const [openModal, setOpenModal] = useState(false);
-  const modalRef = useRef<HTMLDivElement | null>(null);
-
-  // Close modal when clicking outside
-  useEffect(() => {
-    if (!openModal) return;
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        setOpenModal(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [openModal]);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(desc);
-    setOpenModal(false);
-  };
+  const [avatar, setAvatar] = useState<CloudinaryResultInfo | null>(null);
+  console.log(avatar?.secure_url);
 
   return (
-    <div>
-      <button
-        className="bg-blue-500 rounded-md p-1 cursor-pointer"
-        onClick={() => setOpenModal((prev) => !prev)}
-      >
-        Open Modal
-      </button>
-      {openModal && (
-        <div
-          className="border p-5 rounded-xl mt-5 flex flex-col"
-          ref={modalRef}
-        >
-          <span
-            className="self-end cursor-pointer"
-            onClick={() => setOpenModal(false)}
+    <div className="flex flex-col">
+      {/* PREVIEW IMAGE */}
+      {avatar?.secure_url && (
+        <div className="self-center relative">
+          <Image
+            src={avatar.secure_url}
+            alt="selected profile picture"
+            width={48}
+            height={48}
+            className="h-12 w-12 object-cover rounded-full mb-1"
+            placeholder="blur"
+            blurDataURL="/blur.jpg"
+          />
+          <div
+            className="absolute -top-1 right-0 cursor-pointer bg-bgSoft bg-opacity-50 dark:text-white h-4 w-4 rounded-full flex items-center justify-center text-xs"
+            onClick={() => setAvatar(null)}
           >
             X
-          </span>
-          <form onSubmit={handleSubmit}>
-            <input
-              className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
-              type="text"
-              placeholder="Title"
-              onChange={(e) => setDesc(e.target.value)}
-              autoFocus
-            />
-            <button className="bg-blue-500 rounded-md p-1 cursor-pointer mt-2">
-              Submit
-            </button>
-          </form>
+          </div>
         </div>
       )}
+      <CldUploadWidget
+        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
+        // onSuccess={(result) => console.log(result)}
+        onSuccess={(result, { widget }) => {
+          setAvatar(result.info as CloudinaryResultInfo);
+          widget.close();
+        }}
+      >
+        {({ open }) => {
+          return (
+            <div
+              className="flex items-center gap-2 cursor-pointer text-textSoft text-sm"
+              onClick={() => open()}
+            >
+              <IoCloudUploadOutline size={20} />
+              <span>Upload a photo</span>
+            </div>
+          );
+        }}
+      </CldUploadWidget>
     </div>
   );
 };

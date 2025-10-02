@@ -48,7 +48,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
 
   const handleProfileUpdateForm: SubmitHandler<UserSchema> = (data) => {
     startTransition(() => {
-      formAction({ ...data, image: avatar?.secure_url });
+      formAction({ ...data, image: avatar?.secure_url || "" });
     });
   };
 
@@ -122,17 +122,29 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
         </div>
       )}
       <div className="flex flex-col">
-        {(avatar?.secure_url || session?.user?.image) && (
-          <Image
-            src={avatar?.secure_url || session?.user.image || ""}
-            alt=""
-            width={48}
-            height={48}
-            className="h-12 w-12 object-cover rounded-full mb-1 self-center"
-          />
+        {/* PREVIEW IMAGE */}
+        {avatar?.secure_url && (
+          <div className="self-center relative">
+            <Image
+              src={avatar.secure_url}
+              alt=""
+              width={48}
+              height={48}
+              className="h-12 w-12 object-cover rounded-full mb-1"
+              placeholder="blur"
+              blurDataURL="/blur.jpg"
+            />
+            <div
+              className="absolute -top-1 right-0 cursor-pointer bg-bgSoft dark:text-white h-4 w-4 rounded-full flex items-center justify-center text-xs"
+              onClick={() => setAvatar(null)}
+            >
+              X
+            </div>
+          </div>
         )}
         <CldUploadWidget
           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
+          // onSuccess={(result) => console.log(result)}
           onSuccess={(result, { widget }) => {
             setAvatar(result.info as CloudinaryResultInfo);
             widget.close();

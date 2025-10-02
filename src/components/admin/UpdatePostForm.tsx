@@ -122,17 +122,29 @@ const UpdatePostForm = ({
         )}
       </div>
       <div className="flex flex-col">
-        {(file?.secure_url || post?.img) && (
-          <Image
-            src={file?.secure_url || post.img || ""}
-            alt=""
-            width={48}
-            height={48}
-            className="h-12 w-12 object-cover rounded-full mb-1 self-center"
-          />
+        {/* PREVIEW IMAGE */}
+        {file?.secure_url && (
+          <div className="self-center relative">
+            <Image
+              src={file.secure_url}
+              alt=""
+              width={48}
+              height={48}
+              className="h-12 w-12 object-cover rounded-full mb-1"
+              placeholder="blur"
+              blurDataURL="/blur.jpg"
+            />
+            <div
+              className="absolute -top-1 right-0 cursor-pointer bg-slate-100 bg-opacity-50 h-4 w-4 rounded-full flex items-center justify-center text-xs"
+              onClick={() => setFile(null)}
+            >
+              X
+            </div>
+          </div>
         )}
         <CldUploadWidget
           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
+          // onSuccess={(result) => console.log(result)}
           onSuccess={(result, { widget }) => {
             setFile(result.info as CloudinaryResultInfo);
             widget.close();

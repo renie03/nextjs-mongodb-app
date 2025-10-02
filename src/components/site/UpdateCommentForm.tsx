@@ -76,6 +76,7 @@ const UpdateCommentForm = ({
         type="text"
         onChange={(e) => setDesc(e.target.value)}
         value={desc}
+        required
         autoFocus
       />
       <div className="flex items-center justify-between">

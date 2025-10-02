@@ -30,7 +30,7 @@ const UserMenu = ({ session }: { session: Session | null }) => {
       <div className="cursor-pointer" onClick={() => setOpen((prev) => !prev)}>
         <Image
           src={session?.user?.image || "/noavatar.png"}
-          alt=""
+          alt={session?.user?.name || "user avatar"}
           width={32}
           height={32}
           className="w-8 h-8 object-cover rounded-full"

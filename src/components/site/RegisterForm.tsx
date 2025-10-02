@@ -135,14 +135,25 @@ const RegisterForm = () => {
         )}
       </div>
       <div className="flex flex-col">
+        {/* PREVIEW IMAGE */}
         {avatar?.secure_url && (
-          <Image
-            src={avatar.secure_url}
-            alt=""
-            width={48}
-            height={48}
-            className="h-12 w-12 object-cover rounded-full mb-1 self-center"
-          />
+          <div className="self-center relative">
+            <Image
+              src={avatar.secure_url}
+              alt="selected profile picture"
+              width={48}
+              height={48}
+              className="h-12 w-12 object-cover rounded-full mb-1"
+              placeholder="blur"
+              blurDataURL="/blur.jpg"
+            />
+            <div
+              className="absolute -top-1 right-0 cursor-pointer bg-bgSoft dark:text-white h-4 w-4 rounded-full flex items-center justify-center text-xs"
+              onClick={() => setAvatar(null)}
+            >
+              X
+            </div>
+          </div>
         )}
         <CldUploadWidget
           uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
