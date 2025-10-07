@@ -13,6 +13,8 @@ const PostItem = ({ post }: { post: PostType }) => {
           className="rounded-xl"
           alt={post.title}
           sizes="(max-width: 768px) 100vw, 33vw"
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
         />
       </Link>
       <h1 className="text-lg font-medium mt-1">{post.title}</h1>

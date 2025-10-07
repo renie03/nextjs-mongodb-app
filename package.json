@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
+    "@plaiceholder/next": "^3.0.0",
     "@tanstack/react-query": "^5.87.1",
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
@@ -26,6 +27,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-toastify": "^11.0.5",
     "recharts": "^3.1.2",
+    "sharp": "^0.34.4",
     "timeago.js": "^4.0.2",
     "use-debounce": "^10.0.6",
     "zod": "^4.1.5"
