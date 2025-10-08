@@ -2,6 +2,8 @@ import FeaturedPosts from "@/components/site/FeaturedPosts";
 import Categories from "@/components/site/Categories";
 import PostList from "@/components/site/PostList";
 import Link from "next/link";
+import Accept from "@/assets/image.png";
+import Image from "next/image";
 
 const HomePage = async ({
   searchParams,
@@ -12,6 +14,7 @@ const HomePage = async ({
 
   return (
     <div>
+      <Image src={Accept} alt="" width={500} height={500} placeholder="blur" />
       <FeaturedPosts />
       <div>
         <h1 className="text-2xl font-bold mb-5">Recent Posts</h1>

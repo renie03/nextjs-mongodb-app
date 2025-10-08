@@ -10,11 +10,11 @@ const PostItem = ({ post }: { post: PostType }) => {
         <Image
           src={post.img || "/noproduct.jpg"}
           fill
-          className="rounded-xl"
+          className="rounded-xl transition-opacity duration-300 ease-in-out"
           alt={post.title}
           sizes="(max-width: 768px) 100vw, 33vw"
           placeholder="blur"
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/w8AAuMBgqA7zGAAAAAASUVORK5CYII="
         />
       </Link>
       <h1 className="text-lg font-medium mt-1">{post.title}</h1>
