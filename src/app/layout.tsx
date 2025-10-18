@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { ToastContainer } from "react-toastify";
 import QueryProvider from "@/providers/QueryProvider";
+import { ImageKitProvider } from "@imagekit/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,7 +38,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <QueryProvider>
-            {children}
+            <ImageKitProvider
+              urlEndpoint={process.env.NEXT_PUBLIC_URL_ENDPOINT!}
+            >
+              {children}
+            </ImageKitProvider>
             <ToastContainer position="bottom-right" />
           </QueryProvider>
         </ThemeProvider>

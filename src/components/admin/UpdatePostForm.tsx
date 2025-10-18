@@ -46,7 +46,7 @@ const UpdatePostForm = ({
 
   const handleUpdatePostForm: SubmitHandler<PostSchema> = (data) => {
     startTransition(() => {
-      formAction({ ...data, img: file?.secure_url });
+      formAction({ ...data, img: file?.secure_url || "" });
     });
   };
 
@@ -132,7 +132,7 @@ const UpdatePostForm = ({
               height={48}
               className="h-12 w-12 object-cover rounded-full mb-1"
               placeholder="blur"
-              blurDataURL="/blur.jpg"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcs3j9fwAGwALvQexiRwAAAABJRU5ErkJggg=="
             />
             <div
               className="absolute -top-1 right-0 cursor-pointer bg-slate-100 bg-opacity-50 h-4 w-4 rounded-full flex items-center justify-center text-xs"
