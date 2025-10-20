@@ -5,22 +5,29 @@ import { PostType } from "@/types/types";
 
 const PostItem = ({ post }: { post: PostType }) => {
   return (
-    <div key={post._id} className="flex flex-col">
+    <div
+      key={post._id}
+      className="flex flex-col border border-bgSoft rounded-xl"
+    >
       <Link href={`/posts/${post._id}`}>
         <div className="relative aspect-[2/1]">
           <Image
             src={post.img || "/noproduct.jpg"}
             fill
-            className="rounded-xl"
+            className="rounded-t-xl"
             alt={post.title}
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
       </Link>
-      <h1 className="text-lg font-medium mt-1">{post.title}</h1>
-      <div className="flex items-center justify-between">
-        <h2>{post.category}</h2>
-        <span className="text-textSoft text-sm">{format(post.createdAt)}</span>
+      <div className="p-3">
+        <h1 className="text-lg font-medium">{post.title}</h1>
+        <div className="flex items-center justify-between">
+          <h2>{post.category}</h2>
+          <span className="text-textSoft text-sm">
+            {format(post.createdAt)}
+          </span>
+        </div>
       </div>
     </div>
   );

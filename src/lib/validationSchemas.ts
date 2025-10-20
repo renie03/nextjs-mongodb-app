@@ -92,7 +92,7 @@ export const postSchema = z.object({
     message: "Category is required",
   }),
   isFeatured: z.enum(["true", "false"]),
-  img: z.string().optional(),
+  img: z.string().optional().nullable(),
 });
 
 export type PostSchema = z.infer<typeof postSchema>;

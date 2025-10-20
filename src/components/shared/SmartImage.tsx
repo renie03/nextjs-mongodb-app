@@ -7,8 +7,7 @@ const SmartImage = ({ src, alt }: { src: string; alt: string }) => {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative aspect-[2/1] rounded-md overflow-hidden">
-      {/* Main Image */}
+    <div>
       <Image
         src={src}
         alt={alt}
