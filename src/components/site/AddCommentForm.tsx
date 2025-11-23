@@ -10,6 +10,7 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
   const [desc, setDesc] = useState("");
   const [openEmoji, setOpenEmoji] = useState(false);
   const emojiRef = useRef<HTMLDivElement | null>(null);
+  const [focused, setFocused] = useState(false);
 
   const handleEmojiClick = (e: EmojiClickData) => {
     setDesc((prev) => prev + e.emoji);
@@ -70,33 +71,45 @@ const AddCommentForm = ({ postId }: { postId: string }) => {
         required
         onChange={(e) => setDesc(e.target.value)}
         value={desc}
+        onFocus={() => setFocused(true)}
       />
-      <div className="flex items-center justify-between">
-        {/* emoji */}
-        <div className="relative" ref={emojiRef}>
-          <div
-            className="cursor-pointer text-xl"
-            onClick={() => setOpenEmoji((prev) => !prev)}
-          >
-            😊
-          </div>
-          {openEmoji && (
-            <div className="absolute left-0 bottom-16">
-              <EmojiPicker
-                height={350}
-                onEmojiClick={handleEmojiClick}
-                searchDisabled={true}
-              />
+      {focused && (
+        <div className="flex items-center justify-between">
+          {/* emoji */}
+          <div className="relative" ref={emojiRef}>
+            <div
+              className="cursor-pointer text-xl"
+              onClick={() => setOpenEmoji((prev) => !prev)}
+            >
+              😊
             </div>
-          )}
+            {openEmoji && (
+              <div className="absolute left-0 bottom-16">
+                <EmojiPicker
+                  height={350}
+                  onEmojiClick={handleEmojiClick}
+                  searchDisabled={true}
+                />
+              </div>
+            )}
+          </div>
+          <div className="flex items-center gap-3 mt-2">
+            <button
+              className="w-16 h-8 bg-gray-600 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-800 text-white rounded-md cursor-pointer"
+              type="button"
+              onClick={() => setFocused(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="w-21 h-8 bg-blue-600 dark:bg-blue-700 enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-800 text-white rounded-md cursor-pointer disabled:cursor-auto disabled:opacity-70"
+              disabled={mutation.isPending || desc.trim() === ""}
+            >
+              {mutation.isPending ? <div className="spinner" /> : "Comment"}
+            </button>
+          </div>
         </div>
-        <button
-          className="w-21 h-8 bg-blue-500 dark:bg-blue-700 text-white rounded-md mt-2 cursor-pointer disabled:cursor-not-allowed"
-          disabled={mutation.isPending}
-        >
-          {mutation.isPending ? <div className="spinner" /> : "Comment"}
-        </button>
-      </div>
+      )}
     </form>
   );
 };

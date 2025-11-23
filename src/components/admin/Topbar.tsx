@@ -21,7 +21,7 @@ const Topbar = () => {
         </div>
         <ThemeToggle />
         <Link href="/" className="flex items-center gap-1">
-          <MdPublic size={18} />
+          <MdPublic size={20} />
         </Link>
       </div>
     </div>

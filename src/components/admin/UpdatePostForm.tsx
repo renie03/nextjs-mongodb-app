@@ -2,15 +2,17 @@
 
 import { startTransition, useActionState, useEffect, useState } from "react";
 import Image from "next/image";
-import { CldUploadWidget } from "next-cloudinary";
-import { IoCloudUploadOutline } from "react-icons/io5";
 import { updatePost } from "@/lib/actions/postActions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { postSchema, PostSchema } from "@/lib/validationSchemas";
-import { CloudinaryResultInfo, PostType } from "@/types/types";
+import {
+  UpdatePostFormInputs,
+  updatePostSchema,
+} from "@/lib/validationSchemas";
+import { PostType } from "@/types/types";
+import ImageKitUpload from "../shared/ImageKitUpload";
 
 const UpdatePostForm = ({
   setOpen,
@@ -19,9 +21,8 @@ const UpdatePostForm = ({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   post: PostType;
 }) => {
-  const [file, setFile] = useState<CloudinaryResultInfo | null>(
-    post?.img ? { secure_url: post.img } : null
-  );
+  const [file, setFile] = useState<string | null>(post?.img || null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const [state, formAction, isPending] = useActionState(updatePost, {
     success: false,
@@ -34,8 +35,8 @@ const UpdatePostForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<PostSchema>({
-    resolver: zodResolver(postSchema),
+  } = useForm<UpdatePostFormInputs>({
+    resolver: zodResolver(updatePostSchema),
     defaultValues: {
       title: post.title,
       desc: post.desc,
@@ -44,9 +45,9 @@ const UpdatePostForm = ({
     },
   });
 
-  const handleUpdatePostForm: SubmitHandler<PostSchema> = (data) => {
+  const handleUpdatePostForm: SubmitHandler<UpdatePostFormInputs> = (data) => {
     startTransition(() => {
-      formAction({ ...data, img: file?.secure_url || "" });
+      formAction({ ...data, img: file });
     });
   };
 
@@ -71,6 +72,7 @@ const UpdatePostForm = ({
         <label htmlFor="title">Title</label>
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
+          type="text"
           id="title"
           autoFocus
           {...register("title")}
@@ -83,6 +85,7 @@ const UpdatePostForm = ({
         <label htmlFor="desc">Description</label>
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
+          type="text"
           id="desc"
           {...register("desc")}
         />
@@ -103,9 +106,6 @@ const UpdatePostForm = ({
           <option value="sports">Sports</option>
           <option value="education">Education</option>
         </select>
-        {errors.category?.message && (
-          <p className="text-red-500 text-sm">{errors.category?.message}</p>
-        )}
       </div>
       <div>
         <label htmlFor="isFeatured">Featured:</label>
@@ -117,55 +117,25 @@ const UpdatePostForm = ({
           <option value="true">Yes</option>
           <option value="false">No</option>
         </select>
-        {errors.isFeatured?.message && (
-          <p className="text-red-500 text-sm">{errors.isFeatured?.message}</p>
-        )}
       </div>
       <div className="flex flex-col">
-        {/* PREVIEW IMAGE */}
-        {file?.secure_url && (
-          <div className="self-center relative">
+        {file && (
+          <div className="self-center">
             <Image
-              src={file.secure_url}
-              alt=""
+              src={file}
               width={48}
               height={48}
+              alt="post image preview"
               className="h-12 w-12 object-cover rounded-full mb-1"
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcs3j9fwAGwALvQexiRwAAAABJRU5ErkJggg=="
             />
-            <div
-              className="absolute -top-1 right-0 cursor-pointer bg-slate-100 bg-opacity-50 h-4 w-4 rounded-full flex items-center justify-center text-xs"
-              onClick={() => setFile(null)}
-            >
-              X
-            </div>
           </div>
         )}
-        <CldUploadWidget
-          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
-          // onSuccess={(result) => console.log(result)}
-          onSuccess={(result, { widget }) => {
-            setFile(result.info as CloudinaryResultInfo);
-            widget.close();
-          }}
-        >
-          {({ open }) => {
-            return (
-              <div
-                className="flex items-center gap-2 cursor-pointer text-gray-500 text-sm"
-                onClick={() => open()}
-              >
-                <IoCloudUploadOutline size={20} />
-                <span>Upload a photo</span>
-              </div>
-            );
-          }}
-        </CldUploadWidget>
+        <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
+      <input type="hidden" value={file || ""} {...register("img")} />
       <button
-        className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
-        disabled={isPending}
+        className="bg-blue-600 dark:bg-blue-700 enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+        disabled={isPending || isUploading}
       >
         {isPending ? <div className="spinner" /> : "Update"}
       </button>

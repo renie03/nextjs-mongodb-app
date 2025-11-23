@@ -4,6 +4,7 @@ import { PostType } from "@/types/types";
 import { format } from "timeago.js";
 import ViewCounter from "@/components/site/ViewCounter";
 import RelatedPosts from "@/components/site/RelatedPosts";
+import ImageKitBlur from "@/components/shared/ImageKitBlur";
 import Comments from "@/components/site/Comments";
 import { auth } from "@/lib/auth";
 
@@ -22,12 +23,12 @@ const SinglePostPage = async ({
       <ViewCounter id={id} />
       <div className="flex gap-5 min-h-[530px]">
         <div className="w-1/2 relative">
-          <Image
+          <ImageKitBlur
             src={post.img || "/noproduct.jpg"}
-            alt={post.title}
+            alt={post.title || "post image"}
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
             className="rounded-xl"
+            sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
         <div className="w-1/2 flex flex-col justify-between pl-5">
@@ -46,7 +47,7 @@ const SinglePostPage = async ({
                 src={post.user?.image || "/noavatar.png"}
                 width={40}
                 height={40}
-                alt={post.user?.name || "userImage"}
+                alt={post.user?.name || "user avatar"}
                 className="h-10 w-10 rounded-full object-cover"
               />
               {post.user?.name}

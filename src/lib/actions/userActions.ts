@@ -4,7 +4,18 @@ import { auth, signIn, signOut } from "@/lib/auth";
 import connectToDB from "../connectToDB";
 import { User } from "../models/user.model";
 import bcrypt from "bcryptjs";
-import { loginSchema, registerSchema, userSchema } from "../validationSchemas";
+import {
+  AdminUpdateUserFormInputs,
+  adminUpdateUserSchema,
+  LoginFormInputs,
+  loginSchema,
+  RegisterFormInputs,
+  registerSchema,
+  UpdateUserFormInputs,
+  updateUserSchema,
+  UserFormInputs,
+  userSchema,
+} from "../validationSchemas";
 import { AuthError } from "next-auth";
 import { Post } from "../models/post.model";
 import { Comment } from "../models/comment.model";
@@ -22,20 +33,19 @@ export const handleLogout = async () => {
 };
 
 export const register = async (
-  previousState: { success: boolean; message: string },
-  data: unknown
+  previousState: { success: boolean; message?: string },
+  formData: RegisterFormInputs
 ) => {
-  const validatedFields = registerSchema.safeParse(data);
+  const parsed = registerSchema.safeParse(formData);
 
-  if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return {
       success: false,
-      message: "",
     };
   }
 
-  const { username, email, name, password, image } = validatedFields.data;
+  const { username, email, name, password, image } = parsed.data;
 
   try {
     await connectToDB();
@@ -85,24 +95,23 @@ export const register = async (
 };
 
 export const login = async (
-  previousState: { success: boolean; message: string },
-  data: unknown
+  previousState: { success: boolean; message?: string },
+  formData: LoginFormInputs
 ) => {
-  const validatedFields = loginSchema.safeParse(data);
+  const parsed = loginSchema.safeParse(formData);
 
-  if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return {
       success: false,
-      message: "",
     };
   }
 
-  const { username, password } = validatedFields.data;
+  const { username, password } = parsed.data;
 
   try {
     await signIn("credentials", { username, password, redirectTo: "/" });
-    return { success: true, message: "" };
+    return { success: true };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -120,20 +129,19 @@ export const login = async (
 };
 
 export const updateUser = async (
-  previousState: { success: boolean; message: string },
-  data: unknown
+  previousState: { success: boolean; message?: string },
+  formData: UpdateUserFormInputs
 ) => {
-  const validatedFields = userSchema.safeParse(data);
+  const parsed = updateUserSchema.safeParse(formData);
 
-  if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return {
       success: false,
-      message: "",
     };
   }
 
-  const { username, name, password, image } = validatedFields.data;
+  const { username, name, password, image } = parsed.data;
 
   const session = await auth();
   const userId = session?.user?.id;
@@ -166,7 +174,7 @@ export const updateUser = async (
     const updateFields: {
       username?: string;
       name?: string;
-      image?: string;
+      image?: string | null;
       password?: string;
     } = {
       username,
@@ -174,8 +182,7 @@ export const updateUser = async (
       image,
     };
 
-    // Hash password if provided and not just whitespace
-    if (password && password.trim() !== "") {
+    if (password) {
       updateFields.password = await bcrypt.hash(password, 10);
     }
 
@@ -191,22 +198,21 @@ export const updateUser = async (
   }
 };
 
+// ----------------- USER ACTIONS -----------------
 export const createUser = async (
-  previousState: { success: boolean; message: string },
-  data: unknown
+  previousState: { success: boolean; message?: string },
+  formData: UserFormInputs
 ) => {
-  const validatedFields = registerSchema.safeParse(data);
+  const parsed = userSchema.safeParse(formData);
 
-  if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return {
       success: false,
-      message: "",
     };
   }
 
-  const { username, email, name, password, image, isAdmin } =
-    validatedFields.data;
+  const { username, email, name, password, image, isAdmin } = parsed.data;
 
   const session = await auth();
   if (!session?.user?.isAdmin) {
@@ -264,22 +270,20 @@ export const createUser = async (
   }
 };
 
-export const updateUserAdmin = async (
-  previousState: { success: boolean; message: string },
-  data: unknown
+export const adminUpdateUser = async (
+  previousState: { success: boolean; message?: string },
+  formData: AdminUpdateUserFormInputs
 ) => {
-  const validatedFields = userSchema.safeParse(data);
+  const parsed = adminUpdateUserSchema.safeParse(formData);
 
-  if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return {
       success: false,
-      message: "",
     };
   }
 
-  const { id, username, email, name, password, image, isAdmin } =
-    validatedFields.data;
+  const { id, username, email, name, password, image, isAdmin } = parsed.data;
 
   const session = await auth();
   if (!session?.user?.isAdmin) {
@@ -320,7 +324,7 @@ export const updateUserAdmin = async (
       username?: string;
       email?: string;
       name?: string;
-      image?: string;
+      image?: string | null;
       password?: string;
       isAdmin?: boolean;
     } = {
@@ -331,8 +335,7 @@ export const updateUserAdmin = async (
       isAdmin: isAdmin === "true",
     };
 
-    // Hash password if provided and not just whitespace
-    if (password && password.trim() !== "") {
+    if (password) {
       updateFields.password = await bcrypt.hash(password, 10);
     }
 

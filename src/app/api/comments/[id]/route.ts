@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import connectToDB from "@/lib/connectToDB";
 import { Comment } from "@/lib/models/comment.model";
-import { CommentSchema } from "@/lib/validationSchemas";
+import { updateCommentSchema } from "@/lib/validationSchemas";
 import { NextRequest } from "next/server";
 
 export async function PUT(
@@ -17,12 +17,13 @@ export async function PUT(
   const body = await req.json();
   // const { desc } = body;
 
-  const validatedFields = CommentSchema.safeParse(body);
-  if (!validatedFields.success) {
+  const parsed = updateCommentSchema.safeParse(body);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return new Response("Invalid input", { status: 400 });
   }
 
-  const { desc } = validatedFields.data;
+  const { desc } = parsed.data;
 
   try {
     await connectToDB();

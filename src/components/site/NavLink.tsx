@@ -19,12 +19,13 @@ const NavLink = ({
     <Link
       className={`${
         isMobile
-          ? "w-full p-3 text-center text-lg font-medium rounded-md hover:bg-blue-500 hover:text-white dark:hover:bg-white dark:hover:text-black"
+          ? "w-full p-3 text-center text-lg font-medium rounded-md"
           : "py-1 px-3 rounded-full text-lg font-medium"
       }
        ${
-         pathname === link.path &&
-         "bg-blue-500 dark:bg-white text-white dark:text-black"
+         pathname === link.path
+           ? "bg-blue-600 dark:bg-white text-white dark:text-black"
+           : "hover:bg-blue-600 dark:hover:bg-white hover:text-white dark:hover:text-black"
        }`}
       href={link.path}
       onClick={onClick}
@@ -33,4 +34,5 @@ const NavLink = ({
     </Link>
   );
 };
+
 export default NavLink;

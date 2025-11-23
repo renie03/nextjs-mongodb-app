@@ -78,7 +78,7 @@ const CommentInteractions = ({
     <div className="flex items-center gap-3 mt-0.5">
       <div className="flex items-center gap-0.5 mb-1 w-7.5">
         <button
-          className="cursor-pointer disabled:opacity-50"
+          className="cursor-pointer disabled:opacity-50 disabled:cursor-auto"
           disabled={likeMutation.isPending || dislikeMutation.isPending}
           onClick={handleLike}
         >
@@ -94,7 +94,7 @@ const CommentInteractions = ({
       </div>
       <div className="flex items-center gap-0.5 mb-1 w-7.5">
         <button
-          className="cursor-pointer disabled:opacity-50"
+          className="cursor-pointer disabled:opacity-50 disabled:cursor-auto"
           disabled={likeMutation.isPending || dislikeMutation.isPending}
           onClick={handleDislike}
         >

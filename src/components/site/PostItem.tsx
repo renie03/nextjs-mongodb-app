@@ -1,7 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import { format } from "timeago.js";
 import { PostType } from "@/types/types";
+import ImageKitBlur from "../shared/ImageKitBlur";
+import Image from "next/image";
 
 const PostItem = ({ post }: { post: PostType }) => {
   return (
@@ -10,12 +11,12 @@ const PostItem = ({ post }: { post: PostType }) => {
       className="flex flex-col border border-bgSoft rounded-xl"
     >
       <Link href={`/posts/${post._id}`}>
-        <div className="relative aspect-[2/1]">
-          <Image
+        <div className="relative aspect-[2/1] rounded-t-xl overflow-hidden">
+          <ImageKitBlur
             src={post.img || "/noproduct.jpg"}
+            alt={post.title || "post image"}
             fill
-            className="rounded-t-xl"
-            alt={post.title}
+            className="hover:scale-105 transition-all duration-300"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>

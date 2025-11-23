@@ -44,9 +44,9 @@ const AdminUsersPage = async ({
                   <div className="flex items-center gap-2">
                     <Image
                       src={user.image || "/noavatar.png"}
-                      alt={user.name}
                       width={40}
                       height={40}
+                      alt={user.name || "user image"}
                       className="w-10 h-10 object-cover rounded-full"
                     />
                     {user.name}

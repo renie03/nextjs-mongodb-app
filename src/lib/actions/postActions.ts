@@ -2,24 +2,28 @@
 
 import connectToDB from "../connectToDB";
 import { Post } from "../models/post.model";
-import { postSchema } from "../validationSchemas";
+import {
+  PostFormInputs,
+  postSchema,
+  UpdatePostFormInputs,
+  updatePostSchema,
+} from "../validationSchemas";
 import { auth } from "../auth";
 
 export const createPost = async (
-  previousState: { success: boolean; message: string },
-  data: unknown
+  previousState: { success: boolean; message?: string },
+  formData: PostFormInputs
 ) => {
-  const validatedFields = postSchema.safeParse(data);
+  const parsed = postSchema.safeParse(formData);
 
-  if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return {
       success: false,
-      message: "",
     };
   }
 
-  const { title, desc, img, category, isFeatured } = validatedFields.data;
+  const { title, desc, img, category, isFeatured } = parsed.data;
 
   const session = await auth();
   if (!session?.user?.isAdmin) {
@@ -60,20 +64,19 @@ export const createPost = async (
 };
 
 export const updatePost = async (
-  previousState: { success: boolean; message: string },
-  data: unknown
+  previousState: { success: boolean; message?: string },
+  formData: UpdatePostFormInputs
 ) => {
-  const validatedFields = postSchema.safeParse(data);
+  const parsed = updatePostSchema.safeParse(formData);
 
-  if (!validatedFields.success) {
-    console.log(validatedFields.error.flatten().fieldErrors);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return {
       success: false,
-      message: "",
     };
   }
 
-  const { id, title, desc, img, category, isFeatured } = validatedFields.data;
+  const { id, title, desc, img, category, isFeatured } = parsed.data;
 
   const session = await auth();
   if (!session?.user?.isAdmin) {
@@ -111,6 +114,7 @@ export const updatePost = async (
     };
   }
 };
+
 export const deletePost = async (
   previousState: { success: boolean; message: string },
   formData: FormData

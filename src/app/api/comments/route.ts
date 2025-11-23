@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import connectToDB from "@/lib/connectToDB";
 import { Comment } from "@/lib/models/comment.model";
 import { auth } from "@/lib/auth";
-import { CommentSchema } from "@/lib/validationSchemas";
+import { commentSchema } from "@/lib/validationSchemas";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
@@ -12,6 +12,8 @@ export async function GET(req: NextRequest) {
   const LIMIT = 3;
   try {
     await connectToDB();
+
+    const totalCount = await Comment.countDocuments({ post: postId });
 
     const comments = await Comment.find({ post: postId })
       .populate("user", "name image")
@@ -24,7 +26,11 @@ export async function GET(req: NextRequest) {
     // await new Promise((resolve) => setTimeout(resolve, 2000));
 
     return new Response(
-      JSON.stringify({ comments, nextCursor: hasNextPage ? cursor + 1 : null }),
+      JSON.stringify({
+        comments,
+        nextCursor: hasNextPage ? cursor + 1 : null,
+        totalCount,
+      }),
       { status: 200 }
     );
   } catch (error) {
@@ -42,12 +48,13 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   // const { postId, desc } = body;
 
-  const validatedFields = CommentSchema.safeParse(body);
-  if (!validatedFields.success) {
+  const parsed = commentSchema.safeParse(body);
+  if (!parsed.success) {
+    console.log(parsed.error.issues);
     return new Response("Invalid input", { status: 400 });
   }
 
-  const { postId, desc } = validatedFields.data;
+  const { postId, desc } = parsed.data;
 
   try {
     await connectToDB();

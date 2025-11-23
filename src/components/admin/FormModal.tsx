@@ -89,14 +89,14 @@ const FormModal = ({ table, type, data, id }: FormModalProps) => {
             <form action={formAction} className="flex flex-col items-center">
               <input type="hidden" name="id" value={id} />
               <button
-                className="w-16 h-8 bg-red-500 dark:bg-red-700 text-white rounded-md cursor-pointer disabled:cursor-not-allowed"
+                className="w-16 h-8 bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-800 text-white rounded-md cursor-pointer disabled:cursor-not-allowed"
                 disabled={isPending}
               >
                 {isPending ? <div className="spinner" /> : "Delete"}
               </button>
             </form>
             <button
-              className="w-16 h-8 bg-gray-500 dark:bg-gray-700 text-white rounded-md cursor-pointer"
+              className="w-16 h-8 bg-gray-600 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-800 text-white rounded-md cursor-pointer"
               onClick={() => setOpen(false)}
             >
               Cancel
@@ -124,10 +124,10 @@ const FormModal = ({ table, type, data, id }: FormModalProps) => {
       <button
         className={`py-1 px-2 rounded-md cursor-pointer capitalize ${
           type === "create"
-            ? "bg-blue-500 dark:bg-blue-700 text-white"
+            ? "bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 text-white"
             : type === "update"
-            ? "bg-green-500 dark:bg-green-700 text-white"
-            : "bg-red-500 dark:bg-red-700 text-white"
+            ? "bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-800 text-white"
+            : "bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-800 text-white"
         }`}
         onClick={() => setOpen(true)}
       >

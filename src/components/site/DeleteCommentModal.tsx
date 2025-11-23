@@ -77,14 +77,14 @@ const DeleteCommentModal = ({
         </span>
         <div className="self-center flex gap-3">
           <button
-            className="w-16 h-8 bg-red-500 dark:bg-red-700 text-white rounded-md cursor-pointer disabled:cursor-not-allowed"
+            className="w-16 h-8 bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-800 text-white rounded-md cursor-pointer disabled:cursor-not-allowed"
             disabled={mutation.isPending}
             onClick={() => mutation.mutate()}
           >
             {mutation.isPending ? <div className="spinner" /> : "Delete"}
           </button>
           <button
-            className="w-16 h-8 bg-gray-500 dark:bg-gray-700 text-white rounded-md cursor-pointer"
+            className="w-16 h-8 bg-gray-600 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-800 text-white rounded-md cursor-pointer"
             onClick={() => setOpenDelete(false)}
           >
             Cancel

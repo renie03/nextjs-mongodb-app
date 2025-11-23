@@ -45,7 +45,7 @@ const Comment = ({
         src={comment.user?.image || "/noavatar.png"}
         height={48}
         width={48}
-        alt=""
+        alt={comment.user?.name || "user image"}
         className="h-12 w-12 rounded-full object-cover"
       />
       {openUpdate ? (
@@ -80,7 +80,7 @@ const Comment = ({
               {open && (
                 <div className="absolute top-5 right-0 p-3 bg-bgSoft rounded-lg flex flex-col gap-2 z-30">
                   <button
-                    className="p-1 hover:bg-gray-200 hover:dark:bg-gray-700 rounded-md font-medium cursor-pointer"
+                    className="p-1 hover:bg-gray-300 hover:dark:bg-gray-700 rounded-md font-medium cursor-pointer"
                     onClick={() => {
                       setOpenUpdate(true);
                       setOpen(false);
@@ -89,7 +89,7 @@ const Comment = ({
                     Update
                   </button>
                   <button
-                    className="p-1 hover:bg-gray-200 hover:dark:bg-gray-700 rounded-md font-medium cursor-pointer"
+                    className="p-1 hover:bg-gray-300 hover:dark:bg-gray-700 rounded-md font-medium cursor-pointer"
                     onClick={() => {
                       setOpen(false);
                       setOpenDelete(true);

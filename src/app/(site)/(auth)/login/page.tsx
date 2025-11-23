@@ -14,12 +14,12 @@ const LoginPage = () => {
         <LoginForm />
         <h1 className="text-center mb-3 mt-1">or</h1>
         <form action={handleGoogleLogin}>
-          <button className="p-3 bg-slate-100 dark:bg-white text-black rounded-md w-full flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed">
+          <button className="p-3 bg-slate-200 dark:bg-white hover:bg-slate-300 dark:hover:bg-slate-200 text-black rounded-md w-full flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed">
             <FcGoogle size={20} /> Signin with Google
           </button>
         </form>
         <form action={handleGithubLogin} className="mt-3">
-          <button className="p-3 bg-slate-100 dark:bg-white text-black rounded-md w-full flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed">
+          <button className="p-3 bg-slate-200 dark:bg-white hover:bg-slate-300 dark:hover:bg-slate-200 text-black rounded-md w-full flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed">
             <FaGithub size={20} /> Signin with Github
           </button>
         </form>

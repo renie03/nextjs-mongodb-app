@@ -21,13 +21,13 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     Credentials({
       authorize: async (credentials) => {
         try {
-          const parsedCredentials = loginSchema.safeParse(credentials);
-          if (!parsedCredentials.success) {
-            console.log(parsedCredentials.error.flatten().fieldErrors);
+          const parsed = loginSchema.safeParse(credentials);
+          if (!parsed.success) {
+            console.log(parsed.error.issues);
             return null;
           }
 
-          const { username, password } = parsedCredentials.data;
+          const { username, password } = parsed.data;
 
           await connectToDB();
 

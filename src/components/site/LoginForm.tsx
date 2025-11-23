@@ -6,7 +6,7 @@ import { login } from "@/lib/actions/userActions";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, LoginSchema } from "@/lib/validationSchemas";
+import { loginSchema, LoginFormInputs } from "@/lib/validationSchemas";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,11 +20,11 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginSchema>({
+  } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
 
-  const handleLoginForm: SubmitHandler<LoginSchema> = (data) => {
+  const handleLoginForm: SubmitHandler<LoginFormInputs> = (data) => {
     startTransition(() => {
       formAction(data);
     });
@@ -47,6 +47,7 @@ const LoginForm = () => {
       <div>
         <input
           className="border border-borderColor rounded-md p-3 w-full"
+          type="text"
           placeholder="username"
           autoFocus
           {...register("username")}
@@ -79,7 +80,7 @@ const LoginForm = () => {
         )}
       </div>
       <button
-        className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+        className="bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
         disabled={isPending}
       >
         {isPending ? <div className="spinner" /> : "Login"}

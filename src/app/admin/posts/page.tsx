@@ -42,9 +42,9 @@ const AdminPostsPage = async ({
                   <div className="flex items-center gap-2">
                     <Image
                       src={post.img || "/noproduct.jpg"}
-                      alt={post.title}
                       width={40}
                       height={40}
+                      alt={post.title || "post image"}
                       className="w-10 h-10 object-cover rounded-full"
                     />
                     {post.title}

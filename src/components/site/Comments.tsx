@@ -36,21 +36,25 @@ const Comments = ({
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 
-  console.log(data);
+  // console.log(data);
 
   const allComments: CommentType[] =
     data?.pages?.flatMap((page) => page.comments) || [];
 
+  const totalCount = data?.pages?.[0]?.totalCount || 0;
+
   return (
     <>
-      <h1 className="text-2xl font-medium mb-5">Comments</h1>
+      <h1 className="text-xl font-medium mb-5">
+        {totalCount} {totalCount === 1 ? "Comment" : "Comments"}
+      </h1>
       {session?.user ? (
         <div className="flex gap-2">
           <Image
             src={session.user?.image || "/noavatar.png"}
-            alt=""
             width={48}
             height={48}
+            alt={session.user?.name || "user avatar"}
             className="h-12 w-12 rounded-full object-cover"
           />
           <AddCommentForm postId={postId} />

@@ -30,9 +30,9 @@ const UserMenu = ({ session }: { session: Session | null }) => {
       <div className="cursor-pointer" onClick={() => setOpen((prev) => !prev)}>
         <Image
           src={session?.user?.image || "/noavatar.png"}
-          alt={session?.user?.name || "user avatar"}
           width={32}
           height={32}
+          alt={session?.user?.name || "user avatar"}
           className="w-8 h-8 object-cover rounded-full"
         />
       </div>
@@ -40,9 +40,9 @@ const UserMenu = ({ session }: { session: Session | null }) => {
         <div className="absolute top-9 -right-8 md:right-0 w-65 p-5 bg-bgSoft rounded-xl flex flex-col items-center gap-1">
           <Image
             src={session?.user?.image || "/noavatar.png"}
-            alt=""
             width={48}
             height={48}
+            alt={session?.user?.name || "user avatar"}
             className="w-12 h-12 object-cover rounded-full"
           />
           <div className="flex flex-col items-center">
@@ -52,7 +52,7 @@ const UserMenu = ({ session }: { session: Session | null }) => {
           <div className="w-full flex items-center gap-3 mt-1 text-white">
             <Link
               href="/update-user"
-              className="flex-1 p-1 bg-green-700 rounded-md font-medium text-center"
+              className="flex-1 p-1 bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-800 rounded-md font-medium text-center"
               onClick={() => setOpen(false)}
             >
               Update

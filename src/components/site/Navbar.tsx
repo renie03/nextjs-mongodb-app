@@ -3,9 +3,9 @@ import { auth } from "@/lib/auth";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 import NavLink from "./NavLink";
-import MobileMenu from "./MobileMenu";
 import ThemeToggle from "../shared/ThemeToggle";
 import { links } from "@/lib/constants";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = async () => {
   const session = await auth();
@@ -17,7 +17,10 @@ const Navbar = async () => {
         Blog App
       </Link>
       <Search />
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-2">
+        <div className="mr-3">
+          <ThemeToggle />
+        </div>
         <div className="hidden md:flex items-center gap-2">
           {links.map((link) => (
             <NavLink key={link.title} link={link} />
@@ -26,16 +29,12 @@ const Navbar = async () => {
             <NavLink link={{ title: "Dashboard", path: "/admin/dashboard" }} />
           )}
         </div>
-        <ThemeToggle />
         {session?.user ? (
           <UserMenu session={session} />
         ) : (
-          <Link
-            href="/login"
-            className="hidden md:inline py-1 px-2 rounded-md font-medium bg-blue-500 dark:bg-white text-white dark:text-black"
-          >
-            Login
-          </Link>
+          <div className="hidden md:block">
+            <NavLink link={{ title: "Login", path: "/login" }} />
+          </div>
         )}
         {/* MOBILE MENU */}
         <MobileMenu session={session} />

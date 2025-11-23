@@ -2,14 +2,13 @@
 
 import { startTransition, useActionState, useEffect, useState } from "react";
 import Image from "next/image";
-import { CldUploadWidget } from "next-cloudinary";
-import { IoCloudUploadOutline } from "react-icons/io5";
 import { createPost } from "@/lib/actions/postActions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { postSchema, PostSchema } from "@/lib/validationSchemas";
+import { PostFormInputs, postSchema } from "@/lib/validationSchemas";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ImageKitUpload from "../shared/ImageKitUpload";
 
 const CreatePostForm = ({
   setOpen,
@@ -17,6 +16,7 @@ const CreatePostForm = ({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [file, setFile] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const [state, formAction, isPending] = useActionState(createPost, {
     success: false,
@@ -29,18 +29,16 @@ const CreatePostForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<PostSchema>({
+  } = useForm<PostFormInputs>({
     resolver: zodResolver(postSchema),
   });
 
-  // ✅ Handle form submission
-  const handleCreatePostForm: SubmitHandler<PostSchema> = (data) => {
+  const handleCreatePostForm: SubmitHandler<PostFormInputs> = (data) => {
     startTransition(() => {
       formAction({ ...data, img: file });
     });
   };
 
-  // ✅ Handle toast + modal close on result
   useEffect(() => {
     if (state.success) {
       setOpen(false);
@@ -57,8 +55,6 @@ const CreatePostForm = ({
       className="flex flex-col gap-5 text-black w-[280px]"
     >
       <h1 className="text-lg font-medium text-center">Create Post</h1>
-
-      {/* Title */}
       <div>
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
@@ -70,8 +66,6 @@ const CreatePostForm = ({
           <p className="text-red-500 text-sm">{errors.title.message}</p>
         )}
       </div>
-
-      {/* Description */}
       <div>
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
@@ -82,14 +76,14 @@ const CreatePostForm = ({
           <p className="text-red-500 text-sm">{errors.desc.message}</p>
         )}
       </div>
-
-      {/* Category */}
       <div>
         <select
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           {...register("category")}
         >
-          <option value="">Select Category</option>
+          <option value="" hidden>
+            Select Category
+          </option>
           <option value="general">General</option>
           <option value="technology">Technology</option>
           <option value="health">Health</option>
@@ -100,71 +94,35 @@ const CreatePostForm = ({
           <p className="text-red-500 text-sm">{errors.category.message}</p>
         )}
       </div>
-
-      {/* Is Featured */}
-      <div>
-        <select
-          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
-          {...register("isFeatured")}
-        >
-          <option value="false">Is Featured?</option>
-          <option value="true">Yes</option>
-          <option value="false">No</option>
-        </select>
-        {errors.isFeatured?.message && (
-          <p className="text-red-500 text-sm">{errors.isFeatured.message}</p>
-        )}
-      </div>
-
-      {/* Image Upload */}
+      <select
+        className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
+        defaultValue="false"
+        {...register("isFeatured")}
+      >
+        <option value="false" hidden>
+          Is Featured?
+        </option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
       <div className="flex flex-col">
-        {/* ✅ Image Preview */}
         {file && (
-          <div className="self-center relative">
+          <div className="self-center">
             <Image
               src={file}
-              alt="Uploaded photo"
               width={48}
               height={48}
+              alt="post image preview"
               className="h-12 w-12 object-cover rounded-full mb-1"
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcs3j9fwAGwALvQexiRwAAAABJRU5ErkJggg=="
             />
-            <div
-              className="absolute -top-1 right-0 cursor-pointer bg-gray-200 dark:bg-gray-700 text-xs h-4 w-4 rounded-full flex items-center justify-center"
-              onClick={() => setFile(null)}
-            >
-              X
-            </div>
           </div>
         )}
-
-        {/* ✅ Cloudinary Upload Widget */}
-        <CldUploadWidget
-          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
-          // onSuccess={(result) => console.log(result)}
-          onSuccess={(result, { widget }) => {
-            const info = result.info as { secure_url?: string };
-            if (info?.secure_url) setFile(info.secure_url);
-            widget.close();
-          }}
-        >
-          {({ open }) => (
-            <div
-              className="flex items-center gap-2 cursor-pointer text-gray-500 text-sm"
-              onClick={() => open()}
-            >
-              <IoCloudUploadOutline size={20} />
-              <span>Upload a photo</span>
-            </div>
-          )}
-        </CldUploadWidget>
+        <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
-
-      {/* Submit Button */}
+      <input type="hidden" value={file || ""} {...register("img")} />
       <button
-        className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
-        disabled={isPending}
+        className="bg-blue-600 dark:bg-blue-700 enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+        disabled={isPending || isUploading}
       >
         {isPending ? <div className="spinner" /> : "Create"}
       </button>

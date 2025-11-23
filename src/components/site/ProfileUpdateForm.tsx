@@ -4,21 +4,23 @@ import { startTransition, useActionState, useEffect, useState } from "react";
 import { Session } from "next-auth";
 import Image from "next/image";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { IoCloudUploadOutline } from "react-icons/io5";
-import { CldUploadWidget } from "next-cloudinary";
 import { updateUser } from "@/lib/actions/userActions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userSchema, UserSchema } from "@/lib/validationSchemas";
-import { CloudinaryResultInfo } from "@/types/types";
+import {
+  UpdateUserFormInputs,
+  updateUserSchema,
+} from "@/lib/validationSchemas";
+import ImageKitUpload from "../shared/ImageKitUpload";
 
 const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [avatar, setAvatar] = useState<CloudinaryResultInfo | null>(
-    session?.user?.image ? { secure_url: session.user.image } : null
+  const [avatar, setAvatar] = useState<string | null>(
+    session?.user?.image || null
   );
+  const [isUploading, setIsUploading] = useState(false);
 
   const [state, formAction, isPending] = useActionState(updateUser, {
     success: false,
@@ -34,8 +36,8 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<UserSchema>({
-    resolver: zodResolver(userSchema),
+  } = useForm<UpdateUserFormInputs>({
+    resolver: zodResolver(updateUserSchema),
     defaultValues: isCredentials
       ? {
           username: session?.user?.username ?? "",
@@ -46,9 +48,11 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
         },
   });
 
-  const handleProfileUpdateForm: SubmitHandler<UserSchema> = (data) => {
+  const handleProfileUpdateForm: SubmitHandler<UpdateUserFormInputs> = (
+    data
+  ) => {
     startTransition(() => {
-      formAction({ ...data, image: avatar?.secure_url || "" });
+      formAction({ ...data, image: avatar });
     });
   };
 
@@ -73,6 +77,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
           <label htmlFor="username">Username</label>
           <input
             className="border border-borderColor rounded-md p-3 w-full"
+            type="text"
             id="username"
             autoFocus={isCredentials}
             {...register("username")}
@@ -86,6 +91,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
         <label htmlFor="name">Name</label>
         <input
           className="border border-borderColor rounded-md p-3 w-full"
+          type="text"
           id="name"
           autoFocus={!isCredentials}
           {...register("name")}
@@ -122,50 +128,23 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
         </div>
       )}
       <div className="flex flex-col">
-        {/* PREVIEW IMAGE */}
-        {avatar?.secure_url && (
-          <div className="self-center relative">
+        {avatar && (
+          <div className="self-center">
             <Image
-              src={avatar.secure_url}
-              alt=""
+              src={avatar}
               width={48}
               height={48}
+              alt="profile picture preview"
               className="h-12 w-12 object-cover rounded-full mb-1"
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcs3j9fwAGwALvQexiRwAAAABJRU5ErkJggg=="
             />
-            <div
-              className="absolute -top-1 right-0 cursor-pointer bg-bgSoft dark:text-white h-4 w-4 rounded-full flex items-center justify-center text-xs"
-              onClick={() => setAvatar(null)}
-            >
-              X
-            </div>
           </div>
         )}
-        <CldUploadWidget
-          uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!}
-          // onSuccess={(result) => console.log(result)}
-          onSuccess={(result, { widget }) => {
-            setAvatar(result.info as CloudinaryResultInfo);
-            widget.close();
-          }}
-        >
-          {({ open }) => {
-            return (
-              <div
-                className="flex items-center gap-2 cursor-pointer text-textSoft text-sm"
-                onClick={() => open()}
-              >
-                <IoCloudUploadOutline size={20} />
-                <span>Upload a photo</span>
-              </div>
-            );
-          }}
-        </CldUploadWidget>
+        <ImageKitUpload setState={setAvatar} setIsUploading={setIsUploading} />
       </div>
+      <input type="hidden" value={avatar || ""} {...register("image")} />
       <button
-        className="bg-blue-500 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
-        disabled={isPending}
+        className="bg-blue-600 dark:bg-blue-700 enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+        disabled={isPending || isUploading}
       >
         {isPending ? <div className="spinner" /> : "Update"}
       </button>

@@ -86,11 +86,11 @@ const Sidebar = async () => {
       <div>
         <div className="flex items-center gap-5 mb-5">
           <Image
-            className="rounded-full object-cover"
             src={session?.user?.image || "/noavatar.png"}
-            alt=""
-            width="50"
-            height="50"
+            width={48}
+            height={48}
+            alt={session?.user?.name || "user profile picture"}
+            className="rounded-full object-cover w-12 h-12"
           />
           <div className="hidden md:flex flex-col">
             <span className="font-medium">{session?.user?.name}</span>

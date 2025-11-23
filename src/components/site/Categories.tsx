@@ -38,7 +38,7 @@ const Categories = () => {
           className={`w-25 rounded-md font-bold text-center text-white cursor-pointer ${
             category === item.value
               ? "bg-blue-700 dark:bg-blue-900"
-              : "bg-blue-500 dark:bg-blue-700"
+              : "bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-900"
           }`}
           onClick={() => handleChange(item.value)}
         >
