@@ -2,7 +2,6 @@ import FeaturedPosts from "@/components/site/FeaturedPosts";
 import Categories from "@/components/site/Categories";
 import PostList from "@/components/site/PostList";
 import Link from "next/link";
-import Image from "next/image";
 
 const HomePage = async ({
   searchParams,
