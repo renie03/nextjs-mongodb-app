@@ -19,7 +19,7 @@ const NavLink = ({
     <Link
       className={`${
         isMobile
-          ? "w-full p-3 text-center text-lg font-medium rounded-md"
+          ? "w-full p-3 text-center text-xl font-bold rounded-md"
           : "py-1 px-3 rounded-full text-lg font-medium"
       }
        ${
