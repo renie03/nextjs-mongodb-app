@@ -9,7 +9,7 @@ export async function proxy(request: NextRequest) {
     secureCookie: process.env.NODE_ENV === "production",
   });
 
-  console.log("JSON Web Token", token);
+  // console.log("JSON Web Token", token);
 
   const { pathname } = request.nextUrl;
 
