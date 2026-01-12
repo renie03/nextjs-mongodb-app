@@ -21,7 +21,6 @@ const LoginPage = () => {
             icon={<FcGoogle size={20} />}
             className="bg-slate-100 dark:bg-white hover:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 disabled:cursor-not-allowed disabled:bg-slate-200"
           />
-          a
         </form>
         <form action={githubLogin} className="mt-3">
           <SubmitButton
