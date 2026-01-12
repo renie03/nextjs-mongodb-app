@@ -2,10 +2,13 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-const secret = process.env.NEXTAUTH_SECRET;
-
 export async function proxy(request: NextRequest) {
-  const token = await getToken({ req: request, secret });
+  const token = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+    secureCookie: process.env.NODE_ENV === "production",
+  });
+
   console.log("JSON Web Token", token);
 
   const { pathname } = request.nextUrl;
