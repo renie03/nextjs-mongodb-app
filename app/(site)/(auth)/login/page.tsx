@@ -10,19 +10,23 @@ const LoginPage = () => {
     <div className="h-[calc(100vh-140px)] flex items-center justify-center">
       <div className="border border-borderColor rounded-lg p-5 w-80">
         <LoginForm />
-        <h1 className="text-center mb-3 mt-1">or</h1>
+        <div className="flex items-center my-3">
+          <hr className="flex-1 border-t border-borderColor" />
+          <span className="px-3 text-center">or</span>
+          <hr className="flex-1 border-t border-borderColor" />
+        </div>
         <form action={googleLogin}>
           <SubmitButton
             text="Signin with Google"
             icon={<FcGoogle size={20} />}
-            className="bg-slate-200 dark:bg-white hover:bg-slate-300 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 disabled:cursor-not-allowed"
+            className="bg-slate-100 dark:bg-white hover:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 disabled:cursor-not-allowed disabled:bg-slate-200"
           />
         </form>
         <form action={githubLogin} className="mt-3">
           <SubmitButton
             text="Signin with Github"
             icon={<FaGithub size={20} />}
-            className="bg-slate-200 dark:bg-white hover:bg-slate-300 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 disabled:cursor-not-allowed"
+            className="bg-slate-100 dark:bg-white hover:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 disabled:cursor-not-allowed disabled:bg-slate-200"
           />
         </form>
         <span className="text-sm text-textSoft mt-3">
