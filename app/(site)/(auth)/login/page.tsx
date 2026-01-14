@@ -1,6 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { githubLogin, googleLogin } from "@/lib/actions/userActions";
+import { githubLogin, googleLogin } from "@/lib/actions/authActions";
 import SubmitButton from "@/components/shared/SubmitButton";
 import LoginForm from "@/components/site/LoginForm";
 import Link from "next/link";

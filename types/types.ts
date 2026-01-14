@@ -16,3 +16,13 @@ export type PostType = {
     image?: string;
   };
 };
+
+export type UserType = {
+  _id: string;
+  username?: string;
+  name: string;
+  email: string;
+  image?: string;
+  isAdmin: boolean;
+  createdAt: string;
+};

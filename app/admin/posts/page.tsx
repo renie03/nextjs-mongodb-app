@@ -4,15 +4,18 @@ import { getPaginatedPosts } from "@/lib/data";
 import { format } from "timeago.js";
 import { PostType } from "@/types/types";
 import AdminSearch from "@/components/admin/AdminSearch";
+import AdminPagination from "@/components/admin/AdminPagination";
 
 const AdminPostsPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ search?: string }>;
+  searchParams: Promise<{ page?: string; search?: string }>;
 }) => {
+  const page = Number((await searchParams).page) || 1;
   const search = (await searchParams).search || "";
 
-  const posts: PostType[] = await getPaginatedPosts(search);
+  const { posts, totalPosts }: { posts: PostType[]; totalPosts: number } =
+    await getPaginatedPosts(page, search);
 
   return (
     <div className="bg-bgSoft p-5 rounded-xl">
@@ -20,7 +23,7 @@ const AdminPostsPage = async ({
         <AdminSearch placeholder="Search for a post..." />
         <FormModal table="post" type="create" />
       </div>
-      <div className="h-170 overflow-y-scroll scrollbar-hide">
+      <div className="h-170">
         <table className="w-full border-separate border-spacing-3">
           <thead>
             <tr className="text-left">
@@ -66,7 +69,7 @@ const AdminPostsPage = async ({
           </tbody>
         </table>
       </div>
-      <div>Admin Pagination</div>
+      <AdminPagination totalData={totalPosts} />
     </div>
   );
 };

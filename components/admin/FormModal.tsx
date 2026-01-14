@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import CreatePostForm from "./CreatePostForm";
 import UpdatePostForm from "./UpdatePostForm";
 import DeleteForm from "./DeleteForm";
+import { deletePost } from "@/lib/actions/postActions";
 
 const FormModal = ({
   table,
@@ -72,15 +73,21 @@ const FormModal = ({
             >
               X
             </button>
-            {/* Conditional Form */}
-            {type === "create" && table === "post" && (
+
+            {/* POSTS*/}
+            {table === "post" && type === "create" && (
               <CreatePostForm setOpen={setOpen} />
             )}
-            {type === "update" && table === "post" && data && (
+            {table === "post" && type === "update" && data && (
               <UpdatePostForm setOpen={setOpen} post={data} />
             )}
-            {type === "delete" && table === "post" && id && (
-              <DeleteForm setOpen={setOpen} id={id} table="post" />
+            {table === "post" && type === "delete" && id && (
+              <DeleteForm
+                setOpen={setOpen}
+                id={id}
+                table="post"
+                action={deletePost}
+              />
             )}
           </div>
         </div>

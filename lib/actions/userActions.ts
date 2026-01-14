@@ -1,48 +1,23 @@
 "use server";
 
-import { auth, signIn, signOut } from "@/lib/auth";
+import bcrypt from "bcryptjs";
+import { auth } from "../auth";
 import connectToDB from "../connectToDB";
 import { User } from "../models/user.model";
-import bcrypt from "bcryptjs";
+import { Post } from "../models/post.model";
 import {
-  LoginInputs,
-  loginSchema,
-  RegisterInputs,
-  registerSchema,
-  UpdateUserInputs,
-  updateUserSchema,
-} from "../schemas/auth.schema";
-import { AuthError } from "next-auth";
+  AdminUpdateUserInputs,
+  adminUpdateUserSchema,
+  UserInputs,
+  userSchema,
+} from "../schemas/user.schema";
+import { revalidatePath } from "next/cache";
 
-export const googleLogin = async () => {
-  await signIn("google", { redirectTo: "/" });
-};
-
-export const githubLogin = async () => {
-  await signIn("github", { redirectTo: "/" });
-};
-
-export const logout = async (
-  previousState: { success: boolean; message: string },
-  formData: FormData
-) => {
-  try {
-    await signOut({ redirect: false });
-    return { success: true, message: "Logged out successfully" };
-  } catch (error) {
-    console.log(error);
-    return {
-      success: false,
-      message: "Something went wrong",
-    };
-  }
-};
-
-export const register = async (
+export const createUser = async (
   previousState: { success: boolean; message?: string },
-  formData: RegisterInputs
+  formData: UserInputs
 ) => {
-  const parsed = registerSchema.safeParse(formData);
+  const parsed = userSchema.safeParse(formData);
 
   if (!parsed.success) {
     console.log(parsed.error.issues);
@@ -51,7 +26,15 @@ export const register = async (
     };
   }
 
-  const { username, email, name, password, image } = parsed.data;
+  const { username, email, name, password, image, isAdmin } = parsed.data;
+
+  const session = await auth();
+  if (!session?.user?.isAdmin) {
+    return {
+      success: false,
+      message: "Admin only",
+    };
+  }
 
   try {
     await connectToDB();
@@ -80,16 +63,12 @@ export const register = async (
       name,
       password: hashedPassword,
       image,
+      isAdmin,
     });
 
-    await signIn("credentials", {
-      username,
-      password,
-      redirect: false,
-    });
+    revalidatePath("/admin/users");
 
-    // return { success: true, message: "You have registered successfully." };
-    return { success: true };
+    return { success: true, message: "User has been created" };
   } catch (error) {
     console.log(error);
     return {
@@ -99,11 +78,11 @@ export const register = async (
   }
 };
 
-export const login = async (
+export const adminUpdateUser = async (
   previousState: { success: boolean; message?: string },
-  formData: LoginInputs
+  formData: AdminUpdateUserInputs
 ) => {
-  const parsed = loginSchema.safeParse(formData);
+  const parsed = adminUpdateUserSchema.safeParse(formData);
 
   if (!parsed.success) {
     console.log(parsed.error.issues);
@@ -112,50 +91,13 @@ export const login = async (
     };
   }
 
-  const { username, password } = parsed.data;
-
-  try {
-    await signIn("credentials", { username, password, redirectTo: "/" });
-    return { success: true };
-    // await signIn("credentials", { username, password, redirect: false });
-    // return { success: true, message: "Login successfully" };
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return {
-            success: false,
-            message: "Invalid Credentials",
-          };
-        default:
-          return { success: false, message: "Something went wrong" };
-      }
-    }
-    throw error;
-  }
-};
-
-export const updateUser = async (
-  previousState: { success: boolean; message?: string },
-  formData: UpdateUserInputs
-) => {
-  const parsed = updateUserSchema.safeParse(formData);
-
-  if (!parsed.success) {
-    console.log(parsed.error.issues);
-    return {
-      success: false,
-    };
-  }
-
-  const { username, email, name, password, image } = parsed.data;
+  const { id, username, email, name, password, image, isAdmin } = parsed.data;
 
   const session = await auth();
-  const userId = session?.user?.id;
-  if (!userId) {
+  if (!session?.user?.isAdmin) {
     return {
       success: false,
-      message: "Unauthorized",
+      message: "Admin only",
     };
   }
 
@@ -163,10 +105,18 @@ export const updateUser = async (
     await connectToDB();
 
     const existingUsername = await User.findOne({ username });
-    if (existingUsername && existingUsername._id.toString() !== userId) {
+    if (existingUsername && existingUsername._id.toString() !== id) {
       return {
         success: false,
         message: "Username is already taken",
+      };
+    }
+
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail && existingEmail._id.toString() !== id) {
+      return {
+        success: false,
+        message: "Email is already taken",
       };
     }
 
@@ -176,9 +126,11 @@ export const updateUser = async (
       name?: string;
       password?: string;
       image?: string | null;
+      isAdmin?: boolean;
     } = {
       name,
       image,
+      isAdmin,
     };
 
     if (username) {
@@ -193,9 +145,51 @@ export const updateUser = async (
       updateFields.password = await bcrypt.hash(password, 10);
     }
 
-    await User.findByIdAndUpdate(userId, updateFields);
+    await User.findByIdAndUpdate(id, updateFields);
+
+    revalidatePath("/admin/users");
 
     return { success: true, message: "User has been updated" };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
+  }
+};
+
+export const deleteUser = async (
+  previousState: { success: boolean; message: string },
+  formData: FormData
+) => {
+  const id = formData.get("id") as string;
+
+  const session = await auth();
+  if (!session?.user?.isAdmin) {
+    return {
+      success: false,
+      message: "Admin only",
+    };
+  }
+
+  if (!id) {
+    return {
+      success: false,
+      message: "Invalid user ID",
+    };
+  }
+
+  try {
+    await connectToDB();
+
+    await User.findByIdAndDelete(id);
+    // Delete all posts linked to this user
+    await Post.deleteMany({ user: id });
+
+    // revalidatePath("/admin/users");
+
+    return { success: true, message: "User has been deleted" };
   } catch (error) {
     console.log(error);
     return {

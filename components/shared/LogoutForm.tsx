@@ -1,6 +1,6 @@
 "use client";
 
-import { logout } from "@/lib/actions/userActions";
+import { logout } from "@/lib/actions/authActions";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";

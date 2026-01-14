@@ -3,7 +3,7 @@
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { Session } from "next-auth";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
-import { updateUser } from "@/lib/actions/userActions";
+import { updateUser } from "@/lib/actions/authActions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
@@ -169,7 +169,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
       </div>
       <input type="hidden" value={avatar || ""} {...register("image")} />
       <button
-        className="bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+        className="bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-400 dark:disabled:bg-blue-500"
         disabled={isPending || isUploading}
       >
         {isPending ? <div className="spinner" /> : "Update"}

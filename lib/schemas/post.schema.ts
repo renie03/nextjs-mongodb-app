@@ -12,8 +12,8 @@ export const postSchema = z.object({
     .min(5, { message: "Desc must be at least 5 characters" })
     .max(300, { message: "Desc must be at most 300 characters" }),
   category: z.string().min(1, "Category is required"),
-  isFeatured: z.boolean(),
   img: z.string().nullable().optional(),
+  isFeatured: z.boolean(),
 });
 
 export type PostInputs = z.infer<typeof postSchema>;

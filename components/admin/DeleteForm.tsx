@@ -1,20 +1,26 @@
 "use client";
 
-import { deletePost } from "@/lib/actions/postActions";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
+
+type DeleteAction = (
+  previousState: { success: boolean; message: string },
+  formData: FormData
+) => Promise<{ success: boolean; message: string }>;
 
 const DeleteForm = ({
   setOpen,
   id,
   table,
+  action,
 }: {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
   table: string;
+  action: DeleteAction;
 }) => {
-  const [state, formAction, isPending] = useActionState(deletePost, {
+  const [state, formAction, isPending] = useActionState(action, {
     success: false,
     message: "",
   });

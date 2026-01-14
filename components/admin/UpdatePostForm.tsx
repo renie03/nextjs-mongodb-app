@@ -63,37 +63,40 @@ const UpdatePostForm = ({
       <input type="hidden" value={post._id} {...register("id")} />
       <div className="flex flex-col gap-1">
         <label htmlFor="title">Title</label>
-        <input
-          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
-          type="text"
-          id="title"
-          autoFocus
-          aria-invalid={!!errors.title}
-          {...register("title")}
-        />
-        {errors.title?.message && (
-          <p className="text-red-500 text-sm">{errors.title?.message}</p>
-        )}
+        <div>
+          <input
+            className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
+            type="text"
+            id="title"
+            autoFocus
+            aria-invalid={!!errors.title}
+            {...register("title")}
+          />
+          {errors.title?.message && (
+            <p className="text-red-500 text-sm">{errors.title?.message}</p>
+          )}
+        </div>
       </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="desc">Description</label>
-        <input
-          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
-          type="text"
-          id="desc"
-          aria-invalid={!!errors.desc}
-          {...register("desc")}
-        />
-        {errors.desc?.message && (
-          <p className="text-red-500 text-sm">{errors.desc?.message}</p>
-        )}
+        <div>
+          <input
+            className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
+            type="text"
+            id="desc"
+            aria-invalid={!!errors.desc}
+            {...register("desc")}
+          />
+          {errors.desc?.message && (
+            <p className="text-red-500 text-sm">{errors.desc?.message}</p>
+          )}
+        </div>
       </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="category">Category</label>
         <select
-          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
+          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
           id="category"
-          aria-invalid={!!errors.category}
           {...register("category")}
         >
           <option value="general">General</option>
@@ -128,7 +131,7 @@ const UpdatePostForm = ({
       </div>
       <input type="hidden" value={file || ""} {...register("img")} />
       <button
-        className="bg-blue-600 dark:bg-blue-700 enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed"
+        className="bg-blue-600 hover:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-400"
         disabled={isPending || isUploading}
       >
         {isPending ? <div className="spinner" /> : "Update"}
