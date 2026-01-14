@@ -2,7 +2,7 @@
 
 import { startTransition, useActionState, useEffect, useState } from "react";
 import Image from "next/image";
-import { updatePost } from "@/lib/actions/postActions";
+import { revalidateAdminPosts, updatePost } from "@/lib/actions/postActions";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,6 +49,7 @@ const UpdatePostForm = ({
     if (state.success) {
       toast.success(state.message);
       setOpen(false);
+      revalidateAdminPosts();
     } else if (state.message) {
       toast.error(state.message);
     }

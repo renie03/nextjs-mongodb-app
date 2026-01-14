@@ -2,7 +2,7 @@
 
 import { startTransition, useActionState, useEffect, useState } from "react";
 import Image from "next/image";
-import { createPost } from "@/lib/actions/postActions";
+import { createPost, revalidateAdminPosts } from "@/lib/actions/postActions";
 import { toast } from "react-toastify";
 import { PostInputs, postSchema } from "@/lib/schemas/post.schema";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -43,6 +43,7 @@ const CreatePostForm = ({
     if (state.success) {
       toast.success(state.message);
       setOpen(false);
+      revalidateAdminPosts();
     } else if (state.message) {
       toast.error(state.message);
     }

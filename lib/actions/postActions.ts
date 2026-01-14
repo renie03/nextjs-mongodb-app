@@ -11,6 +11,10 @@ import {
 import { auth } from "../auth";
 import { revalidatePath } from "next/cache";
 
+export const revalidateAdminPosts = async () => {
+  revalidatePath("/admin/posts");
+};
+
 export const createPost = async (
   previousState: { success: boolean; message?: string },
   formData: PostInputs
@@ -53,8 +57,6 @@ export const createPost = async (
       category,
       isFeatured,
     });
-
-    revalidatePath("/admin/posts");
 
     return { success: true, message: "Post has been created" };
   } catch (error) {
@@ -108,8 +110,6 @@ export const updatePost = async (
       isFeatured,
     });
 
-    revalidatePath("/admin/posts");
-
     return { success: true, message: "Post has been updated" };
   } catch (error) {
     console.log(error);
@@ -145,8 +145,6 @@ export const deletePost = async (
     await connectToDB();
 
     await Post.findByIdAndDelete(id);
-
-    // revalidatePath("/admin/posts");
 
     return { success: true, message: "Post has been deleted" };
   } catch (error) {

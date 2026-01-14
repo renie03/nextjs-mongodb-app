@@ -1,5 +1,6 @@
 "use client";
 
+import { revalidateAdminPosts } from "@/lib/actions/postActions";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -31,7 +32,7 @@ const DeleteForm = ({
     if (state.success) {
       toast.success(state.message);
       setOpen(false);
-      router.refresh();
+      revalidateAdminPosts();
     } else if (state.message) {
       toast.error(state.message);
     }
