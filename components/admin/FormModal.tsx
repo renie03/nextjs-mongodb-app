@@ -1,23 +1,30 @@
 "use client";
 
-import { PostType } from "@/types/types";
+import { PostType, UserType } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
 import CreatePostForm from "./CreatePostForm";
 import UpdatePostForm from "./UpdatePostForm";
 import DeleteForm from "./DeleteForm";
 import { deletePost } from "@/lib/actions/postActions";
+import { deleteUser } from "@/lib/actions/userActions";
+import CreateUserForm from "./CreateUserForm";
+import UpdateUserForm from "./UpdateUserForm";
 
-const FormModal = ({
-  table,
-  type,
-  data,
-  id,
-}: {
-  table: "post";
-  type: "create" | "update" | "delete";
-  data?: PostType;
-  id?: string;
-}) => {
+type FormModalProps =
+  | {
+      table: "post";
+      type: "create" | "update" | "delete";
+      data?: PostType;
+      id?: string;
+    }
+  | {
+      table: "user";
+      type: "create" | "update" | "delete";
+      data?: UserType;
+      id?: string;
+    };
+
+const FormModal = ({ table, type, data, id }: FormModalProps) => {
   const [open, setOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -74,7 +81,7 @@ const FormModal = ({
               X
             </button>
 
-            {/* POSTS*/}
+            {/* POSTS */}
             {table === "post" && type === "create" && (
               <CreatePostForm setOpen={setOpen} />
             )}
@@ -83,10 +90,26 @@ const FormModal = ({
             )}
             {table === "post" && type === "delete" && id && (
               <DeleteForm
+                table="post"
                 setOpen={setOpen}
                 id={id}
-                table="post"
                 action={deletePost}
+              />
+            )}
+
+            {/* USERS */}
+            {table === "user" && type === "create" && (
+              <CreateUserForm setOpen={setOpen} />
+            )}
+            {table === "user" && type === "update" && data && (
+              <UpdateUserForm setOpen={setOpen} user={data} />
+            )}
+            {table === "user" && type === "delete" && id && (
+              <DeleteForm
+                table="user"
+                setOpen={setOpen}
+                id={id}
+                action={deleteUser}
               />
             )}
           </div>
