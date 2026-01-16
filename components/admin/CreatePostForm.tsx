@@ -123,7 +123,7 @@ const CreatePostForm = ({
       </div>
       <input type="hidden" value={file || ""} {...register("img")} />
       <button
-        className="bg-blue-600 hover:bg-blue-700 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-400"
+        className="bg-blue-600 hover:bg-black text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-400"
         disabled={isPending || isUploading}
       >
         {isPending ? <div className="spinner" /> : "Create"}

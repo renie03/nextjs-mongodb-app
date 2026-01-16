@@ -4,19 +4,28 @@ import { getPaginatedUsers } from "@/lib/data";
 import { format } from "timeago.js";
 import { UserType } from "@/types/types";
 import { auth } from "@/lib/auth";
+import AdminSearch from "@/components/admin/AdminSearch";
+import AdminPagination from "@/components/admin/AdminPagination";
 
-const AdminUsersPage = async () => {
+const AdminUsersPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; search?: string }>;
+}) => {
+  const page = Number((await searchParams).page) || 1;
+  const search = (await searchParams).search || "";
   const session = await auth();
 
-  const users: UserType[] = await getPaginatedUsers(session?.user?.id);
+  const { users, totalUsers }: { users: UserType[]; totalUsers: number } =
+    await getPaginatedUsers(page, search, session?.user?.id);
 
   return (
     <div className="bg-bgSoft p-5 rounded-xl">
       <div className="flex items-center justify-between mb-3">
-        <div>Admin Search</div>
+        <AdminSearch placeholder="Search for a post..." />
         <FormModal table="user" type="create" />
       </div>
-      <div className="h-170 overflow-y-scroll scrollbar-hide">
+      <div className="h-170">
         <table className="w-full border-separate border-spacing-3">
           <thead>
             <tr className="text-left">
@@ -62,7 +71,7 @@ const AdminUsersPage = async () => {
           </tbody>
         </table>
       </div>
-      <div>Admin Pagination</div>
+      <AdminPagination totalData={totalUsers} />
     </div>
   );
 };

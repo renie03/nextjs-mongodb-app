@@ -2,7 +2,7 @@ import connectToDB from "./connectToDB";
 import { QueryFilter } from "mongoose";
 import { Post, IPost } from "./models/post.model";
 import { ITEM_PER_PAGE } from "./constants";
-import { User } from "./models/user.model";
+import { IUser, User } from "./models/user.model";
 
 export const getPaginatedPosts = async (page?: number, search?: string) => {
   const currentPage = page || 1;
@@ -30,15 +30,30 @@ export const getPaginatedPosts = async (page?: number, search?: string) => {
   }
 };
 
-export const getPaginatedUsers = async (userId?: string) => {
+export const getPaginatedUsers = async (
+  page?: number,
+  search?: string,
+  userId?: string
+) => {
+  const currentPage = page || 1;
+
   try {
-    await connectToDB();
+    connectToDB();
 
-    const users = await User.find({ _id: { $ne: userId } }).sort({
-      createdAt: -1,
-    });
+    const query: QueryFilter<IUser> = { _id: { $ne: userId } };
 
-    return JSON.parse(JSON.stringify(users));
+    if (search) {
+      query.name = { $regex: search, $options: "i" };
+    }
+
+    const users = await User.find(query)
+      .sort({ createdAt: -1 })
+      .limit(ITEM_PER_PAGE)
+      .skip(ITEM_PER_PAGE * (currentPage - 1));
+
+    const totalUsers = await User.countDocuments(query);
+
+    return { users: JSON.parse(JSON.stringify(users)), totalUsers };
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch users!");

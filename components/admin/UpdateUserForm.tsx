@@ -61,7 +61,6 @@ const UpdateUserForm = ({
     if (state.success) {
       toast.success(state.message);
       setOpen(false);
-      // setValue("password", "");
     } else if (state.message) {
       toast.error(state.message);
     }
