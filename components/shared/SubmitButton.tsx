@@ -15,7 +15,10 @@ const SubmitButton = ({ text, className, icon }: SubmitButtonProps) => {
   return (
     <button type="submit" className={className} disabled={pending}>
       {pending ? (
-        <div className="spinner" />
+        <div className="flex items-center justify-center gap-2">
+          <div className="spinner" />
+          <span>Signing in...</span>
+        </div>
       ) : (
         <>
           {icon && icon}

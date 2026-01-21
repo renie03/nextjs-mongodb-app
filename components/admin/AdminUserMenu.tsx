@@ -56,7 +56,7 @@ const AdminUserMenu = ({ session }: { session: Session | null }) => {
             <div className="w-full flex items-center gap-3 mt-1 text-white">
               <Link
                 href="/update-user"
-                className="flex-1 p-1 bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-800 rounded-md font-medium text-center"
+                className="flex-1 p-1 bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 rounded-md font-medium text-center"
                 onClick={() => setOpen(false)}
               >
                 Update

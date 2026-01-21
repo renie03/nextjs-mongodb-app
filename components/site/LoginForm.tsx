@@ -82,10 +82,17 @@ const LoginForm = () => {
         )}
       </div>
       <button
-        className="bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-400 dark:disabled:bg-blue-500"
+        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending}
       >
-        {isPending ? <div className="spinner" /> : "Login"}
+        {isPending ? (
+          <div className="flex items-center justify-center gap-2">
+            <div className="spinner" />
+            <span>Logging in...</span>
+          </div>
+        ) : (
+          "Login"
+        )}
       </button>
     </form>
   );

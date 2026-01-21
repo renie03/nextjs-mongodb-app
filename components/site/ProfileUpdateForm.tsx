@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [avatar, setAvatar] = useState<string | null>(
-    session?.user?.image || null
+    session?.user?.image || null,
   );
   const [isUploading, setIsUploading] = useState(false);
 
@@ -169,10 +169,17 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
       </div>
       <input type="hidden" value={avatar || ""} {...register("image")} />
       <button
-        className="bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 text-white rounded-md p-3 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-400 dark:disabled:bg-blue-500"
+        className="bg-blue-600 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending || isUploading}
       >
-        {isPending ? <div className="spinner" /> : "Update"}
+        {isPending ? (
+          <div className="flex items-center justify-center gap-2">
+            <div className="spinner" />
+            <span>Updating...</span>
+          </div>
+        ) : (
+          "Update"
+        )}
       </button>
     </form>
   );

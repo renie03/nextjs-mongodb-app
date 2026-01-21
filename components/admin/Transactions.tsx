@@ -77,8 +77,8 @@ const Transactions = () => {
                     item.status === "pending"
                       ? "bg-orange-600 dark:bg-orange-700"
                       : item.status === "done"
-                      ? "bg-gray-600 dark:bg-gray-700"
-                      : "bg-red-600 dark:bg-red-700"
+                        ? "bg-gray-600 dark:bg-gray-700"
+                        : "bg-red-600 dark:bg-red-700"
                   } px-1 py-0.5 rounded-md text-white`}
                 >
                   {item.status}

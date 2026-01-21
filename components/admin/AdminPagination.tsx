@@ -22,9 +22,7 @@ const AdminPagination = ({ totalData }: { totalData: number }) => {
   return (
     <div className="flex items-center justify-between gap-1 mt-2">
       <button
-        className="bg-gray-300 dark:bg-gray-600 py-1 px-2 rounded-md
-           cursor-pointer disabled:opacity-50 disabled:cursor-auto
-           enabled:hover:bg-gray-400 enabled:dark:hover:bg-gray-700"
+        className="bg-gray-300 dark:bg-gray-600 py-1 px-2 rounded-md cursor-pointer enabled:hover:bg-gray-400 enabled:dark:hover:bg-gray-500 disabled:cursor-auto disabled:opacity-50"
         disabled={!hasPrev}
         onClick={() => handlePageChange(page - 1)}
       >
@@ -46,13 +44,11 @@ const AdminPagination = ({ totalData }: { totalData: number }) => {
                 {pageIndex}
               </button>
             );
-          }
+          },
         )}
       </div>
       <button
-        className="bg-gray-300 dark:bg-gray-600 py-1 px-2 rounded-md
-           cursor-pointer disabled:opacity-50 disabled:cursor-auto
-           enabled:hover:bg-gray-400 enabled:dark:hover:bg-gray-700"
+        className="bg-gray-300 dark:bg-gray-600 py-1 px-2 rounded-md cursor-pointer enabled:hover:bg-gray-400 enabled:dark:hover:bg-gray-500 disabled:cursor-auto disabled:opacity-50"
         disabled={!hasNext}
         onClick={() => handlePageChange(page + 1)}
       >

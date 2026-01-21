@@ -33,7 +33,7 @@ export const getPaginatedPosts = async (page?: number, search?: string) => {
 export const getPaginatedUsers = async (
   page?: number,
   search?: string,
-  userId?: string
+  userId?: string,
 ) => {
   const currentPage = page || 1;
 
@@ -57,5 +57,21 @@ export const getPaginatedUsers = async (
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch users!");
+  }
+};
+
+export const getFeaturedPosts = async () => {
+  try {
+    await connectToDB();
+
+    const posts = await Post.find({ isFeatured: true })
+      .sort({ createdAt: -1 })
+      .limit(3);
+
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+    return posts;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to fetch post!");
   }
 };

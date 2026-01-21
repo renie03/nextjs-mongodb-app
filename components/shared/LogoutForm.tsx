@@ -26,7 +26,7 @@ const LogoutForm = () => {
   return (
     <form className="flex-1" action={formAction}>
       <button
-        className="w-full p-1 bg-green-600 dark:bg-green-700 hover:bg-green-700 hover:dark:bg-green-800 text-white rounded-md font-medium cursor-pointer disabled:cursor-not-allowed disabled:bg-green-400 dark:disabled:bg-green-500"
+        className="w-full p-1 bg-green-600 dark:bg-green-700 text-white rounded-md font-medium cursor-pointer enabled:hover:bg-green-700 enabled:dark:hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending}
       >
         {isPending ? <div className="spinner" /> : "Logout"}

@@ -58,10 +58,10 @@ const FormModal = ({ table, type, data, id }: FormModalProps) => {
       <button
         className={`py-1 px-2 rounded-md cursor-pointer capitalize ${
           type === "create"
-            ? "bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-800 text-white"
+            ? "bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-600 text-white"
             : type === "update"
-            ? "bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-800 text-white"
-            : "bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-800 text-white"
+              ? "bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 text-white"
+              : "bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600 text-white"
         }`}
         onClick={() => setOpen(true)}
       >
