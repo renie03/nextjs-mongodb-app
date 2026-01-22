@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Filters from "@/components/site/Filters";
 import PaginatedPostList from "@/components/site/PaginatedPostList";
 
@@ -17,7 +18,16 @@ const PostsPage = async ({
   return (
     <div>
       <Filters />
-      <PaginatedPostList page={page} category={category} sort={sort} />
+      <Suspense
+        fallback={
+          <div className="h-64 flex items-center justify-center gap-2">
+            <div className="spinner" />
+            <span>Loading posts...</span>
+          </div>
+        }
+      >
+        <PaginatedPostList page={page} category={category} sort={sort} />
+      </Suspense>
     </div>
   );
 };
