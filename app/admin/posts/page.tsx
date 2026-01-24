@@ -18,12 +18,12 @@ const AdminPostsPage = async ({
     await getPaginatedPosts(page, search);
 
   return (
-    <div className="bg-bgSoft p-5 rounded-xl">
-      <div className="flex items-center justify-between mb-3">
-        <AdminSearch placeholder="Search for a post..." />
-        <FormModal table="post" type="create" />
-      </div>
-      <div className="h-170">
+    <div className="bg-bgSoft p-5 rounded-xl h-200 flex flex-col justify-between">
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <AdminSearch placeholder="Search for a post..." />
+          <FormModal table="post" type="create" />
+        </div>
         <table className="w-full border-separate border-spacing-3">
           <thead>
             <tr className="text-left">

@@ -24,8 +24,8 @@ const NavLink = ({
       }
        ${
          pathname === link.path
-           ? "bg-blue-600 dark:bg-white text-white dark:text-black"
-           : "hover:bg-blue-600 dark:hover:bg-white hover:text-white dark:hover:text-black"
+           ? "bg-gray-800 dark:bg-white text-white dark:text-black"
+           : "hover:bg-gray-800 dark:hover:bg-white hover:text-white dark:hover:text-black"
        }`}
       href={link.path}
       onClick={onClick}

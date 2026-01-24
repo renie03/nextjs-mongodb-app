@@ -35,10 +35,10 @@ const Categories = () => {
       {categories.map((item) => (
         <button
           key={item.value}
-          className={`w-25 rounded-md font-bold text-center text-white cursor-pointer ${
+          className={`w-25 rounded-md font-medium text-center cursor-pointer ${
             category === item.value
-              ? "bg-blue-800 dark:bg-blue-900"
-              : "bg-blue-600 dark:bg-blue-700"
+              ? "bg-gray-800 dark:bg-white text-white dark:text-black"
+              : "bg-gray-200 dark:bg-gray-700"
           }`}
           onClick={() => handleChange(item.value)}
         >

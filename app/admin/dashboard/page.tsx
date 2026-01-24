@@ -32,7 +32,7 @@ const AdminDashboardPage = () => {
         ))}
       </div>
       <Transactions />
-      {/* <Chart /> */}
+      <Chart />
     </div>
   );
 };

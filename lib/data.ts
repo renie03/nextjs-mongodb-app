@@ -16,6 +16,7 @@ export const getPosts = async (category?: string) => {
       posts = await Post.find().sort({ createdAt: -1 }).limit(12);
     }
 
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
     return posts;
   } catch (error) {
     console.log(error);
@@ -31,6 +32,7 @@ export const getFeaturedPosts = async () => {
       .sort({ createdAt: -1 })
       .limit(3);
 
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
     return posts;
   } catch (error) {
     console.log(error);

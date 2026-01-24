@@ -3,6 +3,7 @@ import FeaturedPosts from "@/components/site/FeaturedPosts";
 import Categories from "@/components/site/Categories";
 import PostList from "@/components/site/PostList";
 import Link from "next/link";
+import PostItemSkeleton from "@/components/site/PostItemSkeleton";
 
 export default async function Home({
   searchParams,
@@ -17,9 +18,10 @@ export default async function Home({
         <h1 className="text-2xl font-bold mb-5">Featured Posts</h1>
         <Suspense
           fallback={
-            <div className="h-80 flex items-center justify-center gap-2">
-              <div className="spinner" />
-              <span>Loading featured posts...</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <PostItemSkeleton key={i} />
+              ))}
             </div>
           }
         >
@@ -31,9 +33,10 @@ export default async function Home({
         <Categories />
         <Suspense
           fallback={
-            <div className="h-64 flex items-center justify-center gap-2">
-              <div className="spinner" />
-              <span>Loading recent posts...</span>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <PostItemSkeleton key={i} />
+              ))}
             </div>
           }
         >
