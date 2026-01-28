@@ -25,10 +25,10 @@ const Filters = () => {
   };
 
   return (
-    <div className="flex items-center justify-between mb-5 mt-px">
+    <div className="flex items-center justify-between mb-5">
       {/* Category */}
       <div>
-        <span className="mr-1">Sort by:</span>
+        <span className="mr-1">Category:</span>
         <select
           name="category"
           value={category}

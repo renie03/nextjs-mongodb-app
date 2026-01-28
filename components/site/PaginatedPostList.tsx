@@ -7,13 +7,15 @@ const PaginatedPostList = async ({
   page,
   category,
   sort,
+  q,
 }: {
   page: number;
   category: string;
   sort: string;
+  q?: string;
 }) => {
   const { posts, totalPosts }: { posts: PostType[]; totalPosts: number } =
-    await getPaginatedPosts(page, undefined, category, sort);
+    await getPaginatedPosts(page, q, category, sort);
 
   const emptyMessage = category
     ? `No posts found in ${category} category.`
@@ -23,7 +25,7 @@ const PaginatedPostList = async ({
     <div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {posts.length === 0 ? (
-          <div className="h-60 flex items-center justify-center col-span-full text-textSoft font-semibold">
+          <div className="h-120 flex items-center justify-center col-span-full text-textSoft font-semibold">
             {emptyMessage}
           </div>
         ) : (

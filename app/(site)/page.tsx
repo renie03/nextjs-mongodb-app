@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import FeaturedPosts from "@/components/site/FeaturedPosts";
+import PostItemSkeleton from "@/components/site/PostItemSkeleton";
 import Categories from "@/components/site/Categories";
 import PostList from "@/components/site/PostList";
 import Link from "next/link";
-import PostItemSkeleton from "@/components/site/PostItemSkeleton";
 
 export default async function Home({
   searchParams,
@@ -34,7 +34,7 @@ export default async function Home({
         <Suspense
           fallback={
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-              {Array.from({ length: 8 }).map((_, i) => (
+              {Array.from({ length: 12 }).map((_, i) => (
                 <PostItemSkeleton key={i} />
               ))}
             </div>

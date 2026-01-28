@@ -1,14 +1,13 @@
 const Loading = () => {
   return (
-    <div className="bg-bgSoft p-5 rounded-xl h-200 flex flex-col justify-between animate-pulse">
-      <div>
-        {/* Header */}
-        <div className="flex items-center justify-between mb-5">
-          <div className="h-8 w-55 bg-bg rounded-2xl" />
-          <div className="h-8 w-16 bg-bg rounded-md" />
-        </div>
+    <div className="bg-bgSoft p-5 rounded-xl animate-pulse">
+      <div className="flex items-center justify-between mb-2.5">
+        <div className="h-8 w-55 bg-bg rounded-2xl" />
+        <div className="h-8 w-16 bg-bg rounded-md" />
+      </div>
 
-        {/* Table Skeleton */}
+      {/* Table Skeleton */}
+      <div className="h-168">
         <table className="w-full border-separate border-spacing-3">
           <thead>
             <tr>
@@ -32,7 +31,6 @@ const Loading = () => {
               </th>
             </tr>
           </thead>
-
           <tbody>
             {Array.from({ length: 12 }).map((_, i) => (
               <tr key={i}>
@@ -46,7 +44,7 @@ const Loading = () => {
                   <div className="h-5 w-25 bg-bg rounded" />
                 </td>
                 <td className="hidden lg:table-cell">
-                  <div className="h-5 w-35 bg-bg rounded" />
+                  <div className="h-5 w-25 bg-bg rounded" />
                 </td>
                 <td className="hidden lg:table-cell">
                   <div className="h-5 w-25 bg-bg rounded" />

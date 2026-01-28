@@ -8,7 +8,7 @@ const FeaturedPosts = async () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {posts.length === 0 ? (
-        <div className="h-79.75 flex items-center justify-center col-span-full text-textSoft font-semibold">
+        <div className="h-80 flex items-center justify-center col-span-full text-textSoft font-semibold">
           No featured posts available.
         </div>
       ) : (
