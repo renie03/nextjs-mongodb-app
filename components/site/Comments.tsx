@@ -37,11 +37,10 @@ const Comments = ({
   });
 
   // console.log(data);
+  const totalComments = data?.pages?.[0]?.totalComments || 0;
 
   const allComments: CommentType[] =
     data?.pages?.flatMap((page) => page.comments) || [];
-
-  const totalComments = data?.pages?.[0]?.totalComments || 0;
 
   return (
     <>
