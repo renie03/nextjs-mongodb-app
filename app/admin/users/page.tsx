@@ -49,7 +49,7 @@ const AdminUsersPage = async ({
                       alt={user.name || "user image"}
                       className="w-10 h-10 object-cover rounded-full"
                     />
-                    {user.name}
+                    <span>{user.name}</span>
                   </div>
                 </td>
                 <td className="hidden lg:table-cell">{user.username}</td>

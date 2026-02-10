@@ -11,6 +11,7 @@ type ImageKitBlurProps = {
   fill?: boolean;
   sizes?: string;
   className?: string;
+  priority?: boolean;
 };
 
 const ImageKitBlur = ({
@@ -21,6 +22,7 @@ const ImageKitBlur = ({
   fill,
   sizes,
   className,
+  priority,
 }: ImageKitBlurProps) => {
   const [showPlaceholder, setShowPlaceholder] = useState(true);
 
@@ -33,6 +35,7 @@ const ImageKitBlur = ({
       className={className}
       fill={fill}
       sizes={sizes}
+      priority={priority}
       style={
         showPlaceholder
           ? {

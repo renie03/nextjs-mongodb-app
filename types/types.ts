@@ -26,3 +26,30 @@ export type UserType = {
   isAdmin: boolean;
   createdAt: string;
 };
+
+export type ProductType = {
+  id: string | number;
+  name: string;
+  shortDescription: string;
+  description: string;
+  price: number;
+  sizes: string[];
+  colors: string[];
+  images: Record<string, string>;
+};
+
+export type CommentType = {
+  _id: string;
+  post: string;
+  desc: string;
+  likes: string[];
+  likesCount: number;
+  dislikes: string[];
+  dislikesCount: number;
+  createdAt: string;
+  user: {
+    _id: string;
+    name: string;
+    image?: string;
+  };
+};

@@ -23,6 +23,19 @@ export const getPosts = async (category?: string) => {
   }
 };
 
+export const getPost = async (id: string) => {
+  try {
+    await connectToDB();
+
+    const post = await Post.findById(id).populate("user", "name image");
+
+    return post;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to fetch post!");
+  }
+};
+
 export const getFeaturedPosts = async () => {
   try {
     await connectToDB();
@@ -77,6 +90,22 @@ export const getPaginatedPosts = async (
   } catch (error) {
     console.log(error);
     throw new Error("Failed to fetch posts!");
+  }
+};
+
+export const getRelatedPosts = async (category: string, postId: string) => {
+  try {
+    await connectToDB();
+
+    const posts = await Post.find({ category, _id: { $ne: postId } })
+      .sort({ createdAt: -1 })
+      .limit(4);
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return posts;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to fetch post!");
   }
 };
 

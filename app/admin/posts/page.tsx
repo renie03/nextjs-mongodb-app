@@ -47,7 +47,7 @@ const AdminPostsPage = async ({
                       alt={post.title || "post image"}
                       className="w-10 h-10 object-cover rounded-full"
                     />
-                    {post.title}
+                    <span>{post.title}</span>
                   </div>
                 </td>
                 <td className="hidden xl:table-cell">{post.desc}</td>
