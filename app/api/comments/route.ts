@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const cursor = Number(searchParams.get("cursor")) || 0;
   const postId = searchParams.get("postId");
 
-  const LIMIT = 3;
+  const LIMIT = 5;
 
   try {
     await connectToDB();
