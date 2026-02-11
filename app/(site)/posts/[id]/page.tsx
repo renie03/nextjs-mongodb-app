@@ -6,7 +6,7 @@ import { format } from "timeago.js";
 import ImageKitBlur from "@/components/shared/ImageKitBlur";
 import ViewCounter from "@/components/site/ViewCounter";
 import RelatedPosts from "@/components/site/RelatedPosts";
-import PostItemSkeleton from "@/components/site/PostItemSkeleton";
+import PostItemSkeleton from "@/components/skeletons/PostItemSkeleton";
 import Comments from "@/components/site/Comments";
 import { auth } from "@/lib/auth";
 

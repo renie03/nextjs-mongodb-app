@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Filters from "@/components/site/Filters";
 import PaginatedPostList from "@/components/site/PaginatedPostList";
-import PaginatedPostListSkeleton from "@/components/site/PaginatedPostListSkeleton";
+import PaginatedPostListSkeleton from "@/components/skeletons/PaginatedPostListSkeleton";
 
 const SearchPage = async ({
   searchParams,

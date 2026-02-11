@@ -8,7 +8,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Image from "next/image";
 import AddCommentForm from "./AddCommentForm";
 import Link from "next/link";
-import CommentsHeaderSkeleton from "./CommentsHeaderSkeleton";
+import CommentsHeaderSkeleton from "../skeletons/CommentsHeaderSkeleton";
+import CommentItemSkeleton from "../skeletons/CommentItemSkeleton";
 
 const fetchComments = async ({
   pageParam,
@@ -83,15 +84,7 @@ const Comments = ({
           <div>
             <div className="flex flex-col gap-7 mt-7">
               {Array.from({ length: 3 }).map((_, i) => (
-                <div className="flex gap-2" key={i}>
-                  <div className="h-10 w-10 bg-bgSoft rounded-full" />
-                  <div className="w-full">
-                    <div className="h-4 w-35 bg-bgSoft rounded mb-1" />
-                    <div className="h-5 w-full bg-bgSoft rounded mb-1" />
-                    <div className="h-5 w-full bg-bgSoft rounded mb-3" />
-                    <div className="h-5 w-16 bg-bgSoft rounded" />
-                  </div>
-                </div>
+                <CommentItemSkeleton key={i} />
               ))}
             </div>
             <div className="w-full flex justify-center py-5">

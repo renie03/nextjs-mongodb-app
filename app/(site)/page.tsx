@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import FeaturedPosts from "@/components/site/FeaturedPosts";
-import PostItemSkeleton from "@/components/site/PostItemSkeleton";
+import PostItemSkeleton from "@/components/skeletons/PostItemSkeleton";
 import Categories from "@/components/site/Categories";
 import PostList from "@/components/site/PostList";
 import Link from "next/link";

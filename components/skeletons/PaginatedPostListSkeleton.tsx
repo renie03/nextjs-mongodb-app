@@ -1,4 +1,4 @@
-import PostItemSkeleton from "./PostItemSkeleton";
+import PostItemSkeleton from "../skeletons/PostItemSkeleton";
 
 const PaginatedPostListSkeleton = () => {
   return (

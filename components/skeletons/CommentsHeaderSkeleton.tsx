@@ -2,7 +2,7 @@ import { Session } from "next-auth";
 
 const CommentsHeaderSkeleton = ({ session }: { session: Session | null }) => {
   return (
-    <div>
+    <div className="animate-pulse">
       <div className="h-5 w-28 bg-bgSoft rounded mb-5" />
       {session?.user ? (
         <div className="flex items-center gap-2">
