@@ -10,7 +10,7 @@ const PaginatedPostListSkeleton = () => {
       </div>
 
       {/* Pagination Skeleton */}
-      <div className="flex items-center justify-center gap-1 mt-5">
+      <div className="flex items-center justify-center gap-1 mt-5 animate-pulse">
         <div className="flex items-center gap-1">
           {Array.from({ length: 5 }).map((_, i) => (
             <div className="h-8 w-8 bg-bgSoft rounded-md" key={i} />

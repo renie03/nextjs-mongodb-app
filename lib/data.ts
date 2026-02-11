@@ -101,7 +101,6 @@ export const getRelatedPosts = async (category: string, postId: string) => {
       .sort({ createdAt: -1 })
       .limit(4);
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
     return posts;
   } catch (error) {
     console.log(error);
