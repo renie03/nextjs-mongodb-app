@@ -2,6 +2,7 @@
 
 import connectToDB from "../connectToDB";
 import { Post } from "../models/post.model";
+import { Comment } from "../models/comment.model";
 import {
   PostInputs,
   postSchema,
@@ -13,7 +14,7 @@ import { revalidatePath } from "next/cache";
 
 export const createPost = async (
   previousState: { success: boolean; message?: string },
-  formData: PostInputs
+  formData: PostInputs,
 ) => {
   const parsed = postSchema.safeParse(formData);
 
@@ -68,7 +69,7 @@ export const createPost = async (
 
 export const updatePost = async (
   previousState: { success: boolean; message?: string },
-  formData: UpdatePostInputs
+  formData: UpdatePostInputs,
 ) => {
   const parsed = updatePostSchema.safeParse(formData);
 
@@ -122,7 +123,7 @@ export const updatePost = async (
 
 export const deletePost = async (
   previousState: { success: boolean; message: string },
-  formData: FormData
+  formData: FormData,
 ) => {
   const id = formData.get("id") as string;
 
@@ -145,6 +146,8 @@ export const deletePost = async (
     await connectToDB();
 
     await Post.findByIdAndDelete(id);
+    // Delete all comments linked to this post
+    await Comment.deleteMany({ post: id });
 
     // revalidatePath("/admin/posts");
 

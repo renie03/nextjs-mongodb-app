@@ -38,78 +38,80 @@ const Comments = ({
 
   // console.log(data);
 
-  const totalComments = data?.pages?.[0]?.totalComments || 0;
-
   const allComments: CommentType[] =
     data?.pages?.flatMap((page) => page.comments) || [];
 
+  const totalComments = data?.pages?.[0]?.totalComments || 0;
+
+  if (status === "pending") {
+    return (
+      <div className="w-full flex justify-center">
+        <div className="spinner" />
+      </div>
+    );
+  }
+
+  if (status === "error") {
+    return "Something went wrong";
+  }
+
   return (
-    <>
-      {status === "pending" ? (
-        <div className="w-full flex justify-center">
-          <div className="spinner" />
+    <div>
+      <h1 className="text-xl font-medium mb-5">
+        {totalComments} {totalComments === 1 ? "comment" : "comments"}
+      </h1>
+      {session?.user ? (
+        <div className="flex gap-2">
+          <Image
+            src={session.user?.image || "/noavatar.png"}
+            width={40}
+            height={40}
+            alt={session.user?.name || "user avatar"}
+            className="h-10 w-10 rounded-full object-cover"
+          />
+          <AddCommentForm postId={postId} />
         </div>
-      ) : status === "error" ? (
-        "Something went wrong"
       ) : (
-        <div>
-          <h1 className="text-xl font-medium mb-5">
-            {totalComments} {totalComments === 1 ? "comment" : "comments"}
-          </h1>
-          {session?.user ? (
-            <div className="flex gap-2">
-              <Image
-                src={session.user?.image || "/noavatar.png"}
-                width={40}
-                height={40}
-                alt={session.user?.name || "user avatar"}
-                className="h-10 w-10 rounded-full object-cover"
-              />
-              <AddCommentForm postId={postId} />
-            </div>
-          ) : (
-            <div className="mb-2">
-              <Link href="/login" className="underline">
-                Login to write a comment
-              </Link>
-            </div>
-          )}
-          <InfiniteScroll
-            dataLength={allComments.length}
-            next={fetchNextPage}
-            hasMore={!!hasNextPage}
-            loader={
-              <div className="w-full flex justify-center pt-20 pb-5">
-                <div className="spinner" />
-              </div>
-            }
-            style={{ overflow: "visible" }}
-            // endMessage={
-            //   <p>
-            //     <b>All posts loaded!</b>
-            //   </p>
-            // }
-          >
-            <div className="flex flex-col gap-7 mt-7">
-              {allComments.length === 0 ? (
-                <div className="text-center text-textSoft font-semibold py-5">
-                  No comments yet. Be the first to comment!
-                </div>
-              ) : (
-                allComments.map((comment) => (
-                  <Comment
-                    key={comment._id}
-                    comment={comment}
-                    postId={postId}
-                    userId={session?.user.id}
-                  />
-                ))
-              )}
-            </div>
-          </InfiniteScroll>
+        <div className="mb-2">
+          <Link href="/login" className="underline">
+            Login to write a comment
+          </Link>
         </div>
       )}
-    </>
+      <InfiniteScroll
+        dataLength={allComments.length}
+        next={fetchNextPage}
+        hasMore={!!hasNextPage}
+        loader={
+          <div className="w-full flex justify-center pt-20 pb-5">
+            <div className="spinner" />
+          </div>
+        }
+        style={{ overflow: "visible" }}
+        endMessage={
+          allComments.length !== 0 && (
+            <p className="mt-5 text-textSoft">All comments loaded!</p>
+          )
+        }
+      >
+        <div className="flex flex-col gap-7 mt-7">
+          {allComments.length === 0 ? (
+            <div className="text-center text-textSoft font-semibold py-5">
+              No comments yet. Be the first to comment!
+            </div>
+          ) : (
+            allComments.map((comment) => (
+              <Comment
+                key={comment._id}
+                comment={comment}
+                postId={postId}
+                userId={session?.user.id}
+              />
+            ))
+          )}
+        </div>
+      </InfiniteScroll>
+    </div>
   );
 };
 

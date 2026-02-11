@@ -5,6 +5,7 @@ import { auth } from "../auth";
 import connectToDB from "../connectToDB";
 import { User } from "../models/user.model";
 import { Post } from "../models/post.model";
+import { Comment } from "../models/comment.model";
 import {
   AdminUpdateUserInputs,
   adminUpdateUserSchema,
@@ -15,7 +16,7 @@ import { revalidatePath } from "next/cache";
 
 export const createUser = async (
   previousState: { success: boolean; message?: string },
-  formData: UserInputs
+  formData: UserInputs,
 ) => {
   const parsed = userSchema.safeParse(formData);
 
@@ -80,7 +81,7 @@ export const createUser = async (
 
 export const adminUpdateUser = async (
   previousState: { success: boolean; message?: string },
-  formData: AdminUpdateUserInputs
+  formData: AdminUpdateUserInputs,
 ) => {
   const parsed = adminUpdateUserSchema.safeParse(formData);
 
@@ -161,7 +162,7 @@ export const adminUpdateUser = async (
 
 export const deleteUser = async (
   previousState: { success: boolean; message: string },
-  formData: FormData
+  formData: FormData,
 ) => {
   const id = formData.get("id") as string;
 
@@ -184,8 +185,9 @@ export const deleteUser = async (
     await connectToDB();
 
     await User.findByIdAndDelete(id);
-    // Delete all posts linked to this user
+    // Delete all posts and comments linked to this user
     await Post.deleteMany({ user: id });
+    await Comment.deleteMany({ user: id });
 
     // revalidatePath("/admin/users");
 

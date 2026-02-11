@@ -7,6 +7,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useEffect, useRef, useState } from "react";
 import UpdateCommentForm from "./UpdateCommentForm";
 import DeleteCommentModal from "./DeleteCommentModal";
+import CommentInteractions from "./CommentInteractions";
 
 const Comment = ({
   comment,
@@ -60,7 +61,13 @@ const Comment = ({
               <p>{comment.user.name}</p>
               <span className="text-textSoft">{format(comment.createdAt)}</span>
             </div>
-            <p>{comment.desc}</p>
+            <p className="mb-2">{comment.desc}</p>
+            {/*like and unlike button */}
+            <CommentInteractions
+              comment={comment}
+              userId={userId}
+              postId={postId}
+            />
           </div>
           {userId === comment.user._id && (
             <div className="relative" ref={modalRef}>
