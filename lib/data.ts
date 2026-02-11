@@ -138,3 +138,5 @@ export const getPaginatedUsers = async (
     throw new Error("Failed to fetch users!");
   }
 };
+
+export const getComments = async (postId: string) => {};
