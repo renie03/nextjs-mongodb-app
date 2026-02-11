@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       .skip(cursor * LIMIT);
     const hasNextPage = comments.length === LIMIT;
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
 
     const totalComments = await Comment.countDocuments({ post: postId });
 
