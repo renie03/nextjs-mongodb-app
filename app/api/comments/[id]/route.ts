@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
-import { updateCommentSchema } from "@/lib/schemas/comment.schema";
+import { updateCommentSchema } from "@/lib/schemas";
 import connectToDB from "@/lib/connectToDB";
 import { Comment } from "@/lib/models/comment.model";
 

@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import connectToDB from "@/lib/connectToDB";
 import { Comment } from "@/lib/models/comment.model";
 import { auth } from "@/lib/auth";
-import { commentSchema } from "@/lib/schemas/comment.schema";
+import { createCommentSchema } from "@/lib/schemas";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   // const { postId, desc } = body;
 
-  const parsed = commentSchema.safeParse(body);
+  const parsed = createCommentSchema.safeParse(body);
   if (!parsed.success) {
     console.log(parsed.error.issues);
     return new Response("Invalid input", { status: 400 });

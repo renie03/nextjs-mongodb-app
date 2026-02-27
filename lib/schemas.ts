@@ -146,3 +146,13 @@ export const adminUpdateUserSchema = z.object({
 });
 
 export type AdminUpdateUserInputs = z.infer<typeof adminUpdateUserSchema>;
+
+// -- COMMENTS --
+export const createCommentSchema = z.object({
+  postId: z.string(),
+  desc: z.string().trim().min(1, { message: "Desc is required" }),
+});
+
+export const updateCommentSchema = z.object({
+  desc: z.string().trim().min(1, { message: "Desc is required" }),
+});
