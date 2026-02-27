@@ -11,7 +11,7 @@ import {
   registerSchema,
   UpdateUserInputs,
   updateUserSchema,
-} from "../schemas/auth.schema";
+} from "../schemas";
 import { AuthError } from "next-auth";
 
 export const googleLogin = async () => {
@@ -24,7 +24,7 @@ export const githubLogin = async () => {
 
 export const logout = async (
   previousState: { success: boolean; message: string },
-  formData: FormData
+  formData: FormData,
 ) => {
   try {
     await signOut({ redirect: false });
@@ -40,7 +40,7 @@ export const logout = async (
 
 export const register = async (
   previousState: { success: boolean; message?: string },
-  formData: RegisterInputs
+  formData: RegisterInputs,
 ) => {
   const parsed = registerSchema.safeParse(formData);
 
@@ -101,7 +101,7 @@ export const register = async (
 
 export const login = async (
   previousState: { success: boolean; message?: string },
-  formData: LoginInputs
+  formData: LoginInputs,
 ) => {
   const parsed = loginSchema.safeParse(formData);
 
@@ -137,7 +137,7 @@ export const login = async (
 
 export const updateUser = async (
   previousState: { success: boolean; message?: string },
-  formData: UpdateUserInputs
+  formData: UpdateUserInputs,
 ) => {
   const parsed = updateUserSchema.safeParse(formData);
 
@@ -197,7 +197,7 @@ export const updateUser = async (
       updateFields.email = email;
     }
 
-    if (password) {
+    if (password && password.trim() !== "") {
       updateFields.password = await bcrypt.hash(password, 10);
     }
 

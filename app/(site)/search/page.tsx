@@ -20,7 +20,7 @@ const SearchPage = async ({
 
   return (
     <div>
-      <h1 className="text-2xl text-center mb-2">
+      <h1 className="text-2xl text-center mb-2 mt-8 lg:mt-0">
         Search results for <b>{q}</b>
       </h1>
       <Filters />

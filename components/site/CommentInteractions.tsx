@@ -1,3 +1,5 @@
+"use client";
+
 import { CommentType } from "@/types/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";

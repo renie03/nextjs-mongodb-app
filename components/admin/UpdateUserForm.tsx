@@ -7,12 +7,10 @@ import { adminUpdateUser } from "@/lib/actions/userActions";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  AdminUpdateUserInputs,
-  adminUpdateUserSchema,
-} from "@/lib/schemas/user.schema";
+import { AdminUpdateUserInputs, adminUpdateUserSchema } from "@/lib/schemas";
 import { UserType } from "@/types/types";
 import ImageKitUpload from "../shared/ImageKitUpload";
+import { IoClose } from "react-icons/io5";
 
 const UpdateUserForm = ({
   setOpen,
@@ -22,7 +20,7 @@ const UpdateUserForm = ({
   user: UserType;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [file, setFile] = useState<string | null>(user?.image || null);
+  const [file, setFile] = useState<string | null>(user.image || null);
   const [isUploading, setIsUploading] = useState(false);
 
   const [state, formAction, isPending] = useActionState(adminUpdateUser, {
@@ -30,7 +28,7 @@ const UpdateUserForm = ({
     message: "",
   });
 
-  const isCredentials = !!user?.username;
+  const isCredentials = !!user.username;
 
   const {
     register,
@@ -38,22 +36,34 @@ const UpdateUserForm = ({
     formState: { errors },
   } = useForm<AdminUpdateUserInputs>({
     resolver: zodResolver(adminUpdateUserSchema),
-    defaultValues: isCredentials
-      ? {
-          username: user.username,
-          email: user.email,
-          name: user.name,
-          isAdmin: user.isAdmin,
-        }
-      : {
-          name: user.name,
-          isAdmin: user.isAdmin,
-        },
+    defaultValues: {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      name: user.name,
+      isAdmin: user.isAdmin,
+    },
   });
 
   const handleUpdateUserForm: SubmitHandler<AdminUpdateUserInputs> = (data) => {
+    const updateData: AdminUpdateUserInputs = {
+      id: data.id,
+      name: data.name,
+      image: file,
+      isAdmin: data.isAdmin,
+    };
+
+    if (isCredentials) {
+      updateData.username = data.username;
+      updateData.email = data.email;
+
+      if (data.password && data.password.trim() !== "") {
+        updateData.password = data.password;
+      }
+    }
+
     startTransition(() => {
-      formAction({ ...data, image: file });
+      formAction(updateData);
     });
   };
 
@@ -72,7 +82,7 @@ const UpdateUserForm = ({
       className="flex flex-col gap-5 text-black"
     >
       <h1 className="text-lg font-medium text-center">Update User</h1>
-      <input type="hidden" value={user._id} {...register("id")} />
+      <input type="hidden" {...register("id")} />
       {isCredentials && (
         <>
           <div className="flex flex-col gap-1">
@@ -167,21 +177,29 @@ const UpdateUserForm = ({
         />
         <label htmlFor="isAdmin">Is Admin?</label>
       </div>
-      <div className="flex flex-col">
+      <div>
         {file && (
-          <div className="self-center">
-            <Image
-              src={file}
-              width={48}
-              height={48}
-              alt="user image preview"
-              className="h-12 w-12 object-cover rounded-full mb-1"
-            />
+          <div className="flex flex-col items-center mb-2">
+            <div className="relative">
+              <Image
+                src={file}
+                width={48}
+                height={48}
+                alt="post image preview"
+                className="h-12 w-12 object-cover rounded-full"
+              />
+              <button
+                type="button"
+                onClick={() => setFile(null)}
+                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer"
+              >
+                <IoClose size={18} />
+              </button>
+            </div>
           </div>
         )}
         <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
-      <input type="hidden" value={file || ""} {...register("image")} />
       <button
         className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending || isUploading}

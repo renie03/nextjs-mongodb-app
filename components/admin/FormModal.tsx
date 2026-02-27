@@ -2,6 +2,7 @@
 
 import { PostType, UserType } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
+import { IoClose } from "react-icons/io5";
 import CreatePostForm from "./CreatePostForm";
 import UpdatePostForm from "./UpdatePostForm";
 import DeleteForm from "./DeleteForm";
@@ -75,10 +76,10 @@ const FormModal = ({ table, type, data, id }: FormModalProps) => {
             ref={modalRef}
           >
             <button
-              className="text-black cursor-pointer absolute top-1 right-3"
+              className="text-black cursor-pointer absolute top-2 right-2"
               onClick={() => setOpen(false)}
             >
-              X
+              <IoClose size={22} />
             </button>
 
             {/* POSTS */}

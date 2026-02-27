@@ -26,7 +26,7 @@ const Search = () => {
 
   return (
     <form
-      className="border border-borderColor rounded-lg p-1 w-1/4 lg:w-1/3 flex items-center justify-between gap-2 focus-within:ring-focusColor focus-within:ring-1"
+      className="border border-borderColor rounded-lg py-1.5 px-1 flex items-center justify-between gap-2 focus-within:ring-focusColor focus-within:ring-1"
       onSubmit={handleSearch}
     >
       <input

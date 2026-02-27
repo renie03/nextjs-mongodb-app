@@ -8,7 +8,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import ImageKitUpload from "../shared/ImageKitUpload";
-import { UpdateUserInputs, updateUserSchema } from "@/lib/schemas/auth.schema";
+import { IoClose } from "react-icons/io5";
+import { UpdateUserInputs, updateUserSchema } from "@/lib/schemas";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -35,20 +36,30 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
     formState: { errors },
   } = useForm<UpdateUserInputs>({
     resolver: zodResolver(updateUserSchema),
-    defaultValues: isCredentials
-      ? {
-          username: session?.user?.username ?? "",
-          email: session?.user?.email ?? "",
-          name: session?.user?.name ?? "",
-        }
-      : {
-          name: session?.user?.name ?? "",
-        },
+    defaultValues: {
+      username: session?.user?.username ?? "",
+      email: session?.user?.email ?? "",
+      name: session?.user?.name ?? "",
+    },
   });
 
   const handleProfileUpdateForm: SubmitHandler<UpdateUserInputs> = (data) => {
+    const updateData: UpdateUserInputs = {
+      name: data.name,
+      image: avatar,
+    };
+
+    if (isCredentials) {
+      updateData.username = data.username;
+      updateData.email = data.email;
+
+      if (data.password && data.password.trim() !== "") {
+        updateData.password = data.password;
+      }
+    }
+
     startTransition(() => {
-      formAction({ ...data, image: avatar });
+      formAction(updateData);
     });
   };
 
@@ -153,23 +164,31 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
           </div>
         </div>
       )}
-      <div className="flex flex-col">
+      <div>
         {avatar && (
-          <div className="self-center">
-            <Image
-              src={avatar}
-              width={48}
-              height={48}
-              alt="profile picture preview"
-              className="h-12 w-12 object-cover rounded-full mb-1"
-            />
+          <div className="flex flex-col items-center mb-2">
+            <div className="relative">
+              <Image
+                src={avatar}
+                width={48}
+                height={48}
+                alt="profile picture preview"
+                className="h-12 w-12 object-cover rounded-full"
+              />
+              <button
+                type="button"
+                onClick={() => setAvatar(null)}
+                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer"
+              >
+                <IoClose size={18} />
+              </button>
+            </div>
           </div>
         )}
         <ImageKitUpload setState={setAvatar} setIsUploading={setIsUploading} />
       </div>
-      <input type="hidden" value={avatar || ""} {...register("image")} />
       <button
-        className="bg-blue-600 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending || isUploading}
       >
         {isPending ? (

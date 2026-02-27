@@ -3,12 +3,13 @@
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import Image from "next/image";
-import { createUser } from "@/lib/actions/userActions";
+import { adminCreateUser } from "@/lib/actions/userActions";
 import { toast } from "react-toastify";
-import { UserInputs, userSchema } from "@/lib/schemas/user.schema";
+import { AdminCreateUserInputs, adminCreateUserSchema } from "@/lib/schemas";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ImageKitUpload from "../shared/ImageKitUpload";
+import { IoClose } from "react-icons/io5";
 
 const CreateUserForm = ({
   setOpen,
@@ -19,7 +20,7 @@ const CreateUserForm = ({
   const [file, setFile] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  const [state, formAction, isPending] = useActionState(createUser, {
+  const [state, formAction, isPending] = useActionState(adminCreateUser, {
     success: false,
     message: "",
   });
@@ -28,11 +29,11 @@ const CreateUserForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UserInputs>({
-    resolver: zodResolver(userSchema),
+  } = useForm<AdminCreateUserInputs>({
+    resolver: zodResolver(adminCreateUserSchema),
   });
 
-  const handleCreateUserForm: SubmitHandler<UserInputs> = (data) => {
+  const handleCreateUserForm: SubmitHandler<AdminCreateUserInputs> = (data) => {
     startTransition(() => {
       formAction({ ...data, image: file });
     });
@@ -125,21 +126,29 @@ const CreateUserForm = ({
         />
         <label htmlFor="isAdmin">Is Admin?</label>
       </div>
-      <div className="flex flex-col">
+      <div>
         {file && (
-          <div className="self-center">
-            <Image
-              src={file}
-              width={48}
-              height={48}
-              alt="user image preview"
-              className="h-12 w-12 object-cover rounded-full mb-1"
-            />
+          <div className="flex flex-col items-center mb-2">
+            <div className="relative">
+              <Image
+                src={file}
+                width={48}
+                height={48}
+                alt="post image preview"
+                className="h-12 w-12 object-cover rounded-full"
+              />
+              <button
+                type="button"
+                onClick={() => setFile(null)}
+                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer"
+              >
+                <IoClose size={18} />
+              </button>
+            </div>
           </div>
         )}
         <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
-      <input type="hidden" value={file || ""} {...register("image")} />
       <button
         className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending || isUploading}

@@ -4,7 +4,7 @@ import { startTransition, useActionState, useEffect, useState } from "react";
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import { login } from "@/lib/actions/authActions";
 import { toast } from "react-toastify";
-import { loginSchema, LoginInputs } from "@/lib/schemas/auth.schema";
+import { loginSchema, LoginInputs } from "@/lib/schemas";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 

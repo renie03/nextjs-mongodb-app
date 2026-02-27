@@ -7,18 +7,18 @@ import { User } from "../models/user.model";
 import { Post } from "../models/post.model";
 import { Comment } from "../models/comment.model";
 import {
+  AdminCreateUserInputs,
+  adminCreateUserSchema,
   AdminUpdateUserInputs,
   adminUpdateUserSchema,
-  UserInputs,
-  userSchema,
-} from "../schemas/user.schema";
+} from "../schemas";
 import { revalidatePath } from "next/cache";
 
-export const createUser = async (
+export const adminCreateUser = async (
   previousState: { success: boolean; message?: string },
-  formData: UserInputs,
+  formData: AdminCreateUserInputs,
 ) => {
-  const parsed = userSchema.safeParse(formData);
+  const parsed = adminCreateUserSchema.safeParse(formData);
 
   if (!parsed.success) {
     console.log(parsed.error.issues);
@@ -142,7 +142,7 @@ export const adminUpdateUser = async (
       updateFields.email = email;
     }
 
-    if (password) {
+    if (password && password.trim() !== "") {
       updateFields.password = await bcrypt.hash(password, 10);
     }
 

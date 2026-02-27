@@ -4,10 +4,11 @@ import { startTransition, useActionState, useEffect, useState } from "react";
 import Image from "next/image";
 import { createPost } from "@/lib/actions/postActions";
 import { toast } from "react-toastify";
-import { PostInputs, postSchema } from "@/lib/schemas/post.schema";
+import { PostInputs, postSchema } from "@/lib/schemas";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ImageKitUpload from "../shared/ImageKitUpload";
+import { IoClose } from "react-icons/io5";
 
 const CreatePostForm = ({
   setOpen,
@@ -107,21 +108,29 @@ const CreatePostForm = ({
         />
         <label htmlFor="isFeatured">Is Featured?</label>
       </div>
-      <div className="flex flex-col">
+      <div>
         {file && (
-          <div className="self-center">
-            <Image
-              src={file}
-              width={48}
-              height={48}
-              alt="post image preview"
-              className="h-12 w-12 object-cover rounded-full mb-1"
-            />
+          <div className="flex flex-col items-center mb-2">
+            <div className="relative">
+              <Image
+                src={file}
+                width={48}
+                height={48}
+                alt="post image preview"
+                className="h-12 w-12 object-cover rounded-full"
+              />
+              <button
+                type="button"
+                onClick={() => setFile(null)}
+                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer"
+              >
+                <IoClose size={18} />
+              </button>
+            </div>
           </div>
         )}
         <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
-      <input type="hidden" value={file || ""} {...register("img")} />
       <button
         className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending || isUploading}

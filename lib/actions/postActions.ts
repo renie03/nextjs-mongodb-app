@@ -3,12 +3,7 @@
 import connectToDB from "../connectToDB";
 import { Post } from "../models/post.model";
 import { Comment } from "../models/comment.model";
-import {
-  PostInputs,
-  postSchema,
-  UpdatePostInputs,
-  updatePostSchema,
-} from "../schemas/post.schema";
+import { PostInputs, postSchema } from "../schemas";
 import { auth } from "../auth";
 import { revalidatePath } from "next/cache";
 
@@ -69,9 +64,9 @@ export const createPost = async (
 
 export const updatePost = async (
   previousState: { success: boolean; message?: string },
-  formData: UpdatePostInputs,
+  formData: PostInputs,
 ) => {
-  const parsed = updatePostSchema.safeParse(formData);
+  const parsed = postSchema.safeParse(formData);
 
   if (!parsed.success) {
     console.log(parsed.error.issues);

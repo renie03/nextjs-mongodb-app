@@ -6,6 +6,7 @@ import NavLink from "./NavLink";
 import ThemeToggle from "../shared/ThemeToggle";
 import { links } from "@/lib/constants";
 import MobileMenu from "./MobileMenu";
+import MobileSearch from "./MobileSearch";
 
 const Navbar = async () => {
   const session = await auth();
@@ -13,12 +14,15 @@ const Navbar = async () => {
 
   return (
     <div className="h-20 flex justify-between items-center sticky top-0 bg-bg z-50">
-      <Link href="/" className="hidden lg:inline text-lg font-medium">
+      <Link href="/" className="text-xl font-medium">
         Blog App
       </Link>
-      <Search />
+      <div className="hidden lg:block w-1/4 lg:w-1/3">
+        <Search />
+      </div>
       <div className="flex items-center gap-2">
-        <div className="mr-3">
+        <MobileSearch />
+        <div className="mr-3 md:mr-2">
           <ThemeToggle />
         </div>
         <div className="hidden md:flex items-center gap-2">

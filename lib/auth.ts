@@ -4,7 +4,7 @@ import GitHub from "next-auth/providers/github";
 import connectToDB from "./connectToDB";
 import { User } from "./models/user.model";
 import Credentials from "next-auth/providers/credentials";
-import { loginSchema } from "./schemas/auth.schema";
+import { loginSchema } from "./schemas";
 import bcrypt from "bcryptjs";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
@@ -36,7 +36,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
           const isPasswordCorrect = await bcrypt.compare(
             password,
-            user.password
+            user.password,
           );
           if (!isPasswordCorrect) throw new Error("Wrong credentials!");
 
@@ -94,34 +94,42 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       // return token;
 
       await connectToDB();
+
+      // first login only
       if (user) {
         const existingUser = await User.findOne({ email: user.email });
+
         if (existingUser) {
           token.id = existingUser._id.toString();
-        }
-      }
-
-      if (token.id) {
-        const existingUser = await User.findById(token.id);
-        if (existingUser) {
-          token.name = existingUser.name;
-          token.email = existingUser.email;
-          token.image = existingUser.image || null;
           token.username = existingUser.username || null;
           token.isAdmin = existingUser.isAdmin;
         }
+
+        return token;
       }
 
-      // console.log("token", token);
+      // refresh token from DB to update user
+      if (token?.id) {
+        const existingUser = await User.findById(token.id);
+
+        if (existingUser) {
+          token.username = existingUser.username || null;
+          token.isAdmin = existingUser.isAdmin;
+          token.name = existingUser.name;
+          token.email = existingUser.email;
+          token.image = existingUser.image || null;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id;
-      session.user.name = token.name;
-      session.user.email = token.email;
-      session.user.image = token.image;
-      session.user.username = token.username;
-      session.user.isAdmin = token.isAdmin;
+      session.user.id = token.id ?? "";
+      session.user.username = token.username ?? null;
+      session.user.isAdmin = token.isAdmin ?? false;
+      session.user.name = token.name ?? "";
+      session.user.email = token.email ?? "";
+      session.user.image = token.image ?? null;
 
       // console.log("session", session);
       return session;

@@ -6,9 +6,10 @@ import { updatePost } from "@/lib/actions/postActions";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UpdatePostInputs, updatePostSchema } from "@/lib/schemas/post.schema";
+import { PostInputs, postSchema } from "@/lib/schemas";
 import { PostType } from "@/types/types";
 import ImageKitUpload from "../shared/ImageKitUpload";
+import { IoClose } from "react-icons/io5";
 
 const UpdatePostForm = ({
   setOpen,
@@ -17,7 +18,7 @@ const UpdatePostForm = ({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   post: PostType;
 }) => {
-  const [file, setFile] = useState<string | null>(post?.img || null);
+  const [file, setFile] = useState<string | null>(post.img || null);
   const [isUploading, setIsUploading] = useState(false);
 
   const [state, formAction, isPending] = useActionState(updatePost, {
@@ -29,9 +30,10 @@ const UpdatePostForm = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<UpdatePostInputs>({
-    resolver: zodResolver(updatePostSchema),
+  } = useForm<PostInputs>({
+    resolver: zodResolver(postSchema),
     defaultValues: {
+      id: post._id,
       title: post.title,
       desc: post.desc,
       category: post.category,
@@ -39,7 +41,7 @@ const UpdatePostForm = ({
     },
   });
 
-  const handleUpdatePostForm: SubmitHandler<UpdatePostInputs> = (data) => {
+  const handleUpdatePostForm: SubmitHandler<PostInputs> = (data) => {
     startTransition(() => {
       formAction({ ...data, img: file });
     });
@@ -60,7 +62,7 @@ const UpdatePostForm = ({
       className="flex flex-col gap-5 text-black"
     >
       <h1 className="text-lg font-medium text-center">Update Post</h1>
-      <input type="hidden" value={post._id} {...register("id")} />
+      <input type="hidden" {...register("id")} />
       <div className="flex flex-col gap-1">
         <label htmlFor="title">Title</label>
         <div>
@@ -115,21 +117,29 @@ const UpdatePostForm = ({
         />
         <label htmlFor="isFeatured">Is Featured?</label>
       </div>
-      <div className="flex flex-col">
+      <div>
         {file && (
-          <div className="self-center">
-            <Image
-              src={file}
-              width={48}
-              height={48}
-              alt="post image preview"
-              className="h-12 w-12 object-cover rounded-full mb-1"
-            />
+          <div className="flex flex-col items-center mb-2">
+            <div className="relative">
+              <Image
+                src={file}
+                width={48}
+                height={48}
+                alt="post image preview"
+                className="h-12 w-12 object-cover rounded-full"
+              />
+              <button
+                type="button"
+                onClick={() => setFile(null)}
+                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer"
+              >
+                <IoClose size={18} />
+              </button>
+            </div>
           </div>
         )}
         <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
-      <input type="hidden" value={file || ""} {...register("img")} />
       <button
         className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending || isUploading}
