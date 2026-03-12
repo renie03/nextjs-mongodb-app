@@ -5,7 +5,7 @@ import ImageKitBlur from "../shared/ImageKitBlur";
 
 const PostItem = ({ post }: { post: PostType }) => {
   return (
-    <div key={post._id} className="border border-bgSoft rounded-xl">
+    <div className="border border-bgSoft rounded-xl">
       <Link href={`/posts/${post._id}`}>
         <div className="relative aspect-2/1 rounded-t-xl overflow-hidden">
           <ImageKitBlur

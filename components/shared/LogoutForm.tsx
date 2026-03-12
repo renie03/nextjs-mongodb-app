@@ -24,7 +24,7 @@ const LogoutForm = () => {
   }, [state, router]);
 
   return (
-    <form className="flex-1" action={formAction}>
+    <form className="w-full" action={formAction}>
       <button
         className="w-full p-1 bg-green-600 dark:bg-green-700 text-white rounded-md font-medium cursor-pointer enabled:hover:bg-green-700 enabled:dark:hover:bg-green-600 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending}

@@ -137,7 +137,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
           <label htmlFor="password">Password</label>
           <div>
             <div
-              className="border border-borderColor rounded-md p-3 flex items-center justify-between gap-1 focus-within:ring-focusColor focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
+              className="border border-borderColor rounded-md p-3 flex items-center justify-between focus-within:ring-focusColor focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
               aria-invalid={!!errors.password}
             >
               <input

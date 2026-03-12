@@ -10,8 +10,8 @@ import {
   MdOutlineSettings,
   MdHelpCenter,
 } from "react-icons/md";
-import SidebarLink from "./SidebarLink";
 import AdminUserMenu from "./AdminUserMenu";
+import SidebarLink from "./SidebarLink";
 
 const menuItems = [
   {

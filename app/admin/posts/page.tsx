@@ -50,7 +50,9 @@ const AdminPostsPage = async ({
                     <span>{post.title}</span>
                   </div>
                 </td>
-                <td className="hidden xl:table-cell">{post.desc}</td>
+                <td className="hidden xl:table-cell max-w-20 truncate">
+                  {post.desc}
+                </td>
                 <td className="hidden lg:table-cell">{post.category}</td>
                 <td className="hidden lg:table-cell">
                   {post.isFeatured ? "true" : "false"}

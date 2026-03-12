@@ -14,7 +14,7 @@ const Topbar = () => {
       <div className="text-textSoft font-bold capitalize">
         {pathname.split("/").pop()}
       </div>
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-2">
         <div className="border border-borderColor rounded-lg p-1 pl-2 flex items-center gap-2 focus-within:ring-focusColor focus-within:ring-1">
           <FaSearch />
           <input className="ring-0" type="text" placeholder="Search..." />

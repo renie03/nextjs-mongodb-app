@@ -26,11 +26,15 @@ const CreatePostForm = ({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<PostInputs>({
     resolver: zodResolver(postSchema),
     defaultValues: {
+      title: "",
+      desc: "",
       category: "",
+      isFeatured: false,
     },
   });
 
@@ -43,11 +47,13 @@ const CreatePostForm = ({
   useEffect(() => {
     if (state.success) {
       toast.success(state.message);
+      reset();
+      setFile(null);
       setOpen(false);
     } else if (state.message) {
       toast.error(state.message);
     }
-  }, [state, setOpen]);
+  }, [state, setOpen, reset]);
 
   return (
     <form

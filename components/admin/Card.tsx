@@ -9,10 +9,10 @@ type CardType = {
 
 const Card = ({ item }: { item: CardType }) => {
   return (
-    <div className="bg-bgSoft p-5 rounded-xl flex gap-5 cursor-pointer">
+    <div className="bg-bgSoft p-5 rounded-xl flex gap-5">
       <MdSupervisedUserCircle size={25} />
       <div className="flex flex-col gap-5">
-        <span className="">{item.title}</span>
+        <span>{item.title}</span>
         <span className="text-2xl font-medium">{item.number}</span>
         <span className="text-sm font-light">
           <span

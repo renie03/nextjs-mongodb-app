@@ -141,7 +141,7 @@ const UpdateUserForm = ({
           <label htmlFor="password">Password</label>
           <div>
             <div
-              className="border border-gray-300 rounded-md p-3 flex items-center justify-between gap-1 focus-within:ring-black focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
+              className="border border-gray-300 rounded-md p-3 flex items-center justify-between focus-within:ring-black focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
               aria-invalid={!!errors.password}
             >
               <input

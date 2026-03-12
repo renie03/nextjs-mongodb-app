@@ -9,7 +9,7 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="relative flex items-center justify-center cursor-pointer"
+      className="relative w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10"
     >
       <div className="absolute transition-all duration-300 scale-100 rotate-0 dark:scale-0 dark:-rotate-90">
         <MdDarkMode size={20} />

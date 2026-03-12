@@ -22,7 +22,7 @@ const AdminUsersPage = async ({
   return (
     <div className="bg-bgSoft p-5 rounded-xl">
       <div className="flex items-center justify-between mb-2">
-        <AdminSearch placeholder="Search for a post..." />
+        <AdminSearch placeholder="Search for a user..." />
         <FormModal table="user" type="create" />
       </div>
       <div className="h-168">

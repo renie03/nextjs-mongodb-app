@@ -17,6 +17,8 @@ const NavLink = ({
 
   return (
     <Link
+      href={link.path}
+      onClick={onClick}
       className={`${
         isMobile
           ? "w-full p-3 text-center text-xl font-bold rounded-md"
@@ -27,8 +29,6 @@ const NavLink = ({
            ? "bg-gray-800 dark:bg-white text-white dark:text-black"
            : "hover:bg-gray-800 dark:hover:bg-white hover:text-white dark:hover:text-black"
        }`}
-      href={link.path}
-      onClick={onClick}
     >
       {link.title}
     </Link>

@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
-import Search from "./Search";
 import UserMenu from "./UserMenu";
 import NavLink from "./NavLink";
 import ThemeToggle from "../shared/ThemeToggle";
 import { links } from "@/lib/constants";
 import MobileMenu from "./MobileMenu";
+import Search from "./Search";
 import MobileSearch from "./MobileSearch";
 
 const Navbar = async () => {
@@ -22,9 +22,7 @@ const Navbar = async () => {
       </div>
       <div className="flex items-center gap-2">
         <MobileSearch />
-        <div className="mr-3 md:mr-2">
-          <ThemeToggle />
-        </div>
+        <ThemeToggle />
         <div className="hidden md:flex items-center gap-2">
           {links.map((link) => (
             <NavLink key={link.title} link={link} />
