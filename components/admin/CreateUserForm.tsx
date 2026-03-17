@@ -31,6 +31,13 @@ const CreateUserForm = ({
     formState: { errors },
   } = useForm<AdminCreateUserInputs>({
     resolver: zodResolver(adminCreateUserSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      name: "",
+      password: "",
+      isAdmin: false,
+    },
   });
 
   const handleCreateUserForm: SubmitHandler<AdminCreateUserInputs> = (data) => {
@@ -58,7 +65,7 @@ const CreateUserForm = ({
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
           type="text"
-          placeholder="username"
+          placeholder="Username"
           autoFocus
           aria-invalid={!!errors.username}
           {...register("username")}
@@ -71,7 +78,7 @@ const CreateUserForm = ({
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
           type="email"
-          placeholder="email"
+          placeholder="Email"
           aria-invalid={!!errors.email}
           {...register("email")}
         />
@@ -83,7 +90,7 @@ const CreateUserForm = ({
         <input
           className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
           type="text"
-          placeholder="name"
+          placeholder="Name"
           aria-invalid={!!errors.name}
           {...register("name")}
         />
@@ -99,7 +106,7 @@ const CreateUserForm = ({
           <input
             className="w-full ring-0"
             type={showPassword ? "text" : "password"}
-            placeholder="password"
+            placeholder="Password"
             {...register("password")}
           />
           <span
@@ -134,7 +141,7 @@ const CreateUserForm = ({
                 src={file}
                 width={48}
                 height={48}
-                alt="post image preview"
+                alt="user image preview"
                 className="h-12 w-12 object-cover rounded-full"
               />
               <button

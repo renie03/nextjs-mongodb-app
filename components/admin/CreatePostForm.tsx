@@ -26,14 +26,13 @@ const CreatePostForm = ({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<PostInputs>({
     resolver: zodResolver(postSchema),
     defaultValues: {
       title: "",
       desc: "",
-      category: "",
+      category: undefined,
       isFeatured: false,
     },
   });
@@ -47,13 +46,11 @@ const CreatePostForm = ({
   useEffect(() => {
     if (state.success) {
       toast.success(state.message);
-      reset();
-      setFile(null);
       setOpen(false);
     } else if (state.message) {
       toast.error(state.message);
     }
-  }, [state, setOpen, reset]);
+  }, [state, setOpen]);
 
   return (
     <form
@@ -75,9 +72,8 @@ const CreatePostForm = ({
         )}
       </div>
       <div>
-        <input
-          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
-          type="text"
+        <textarea
+          className="border border-gray-300 rounded-md p-3 w-full min-h-25 resize-y focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
           placeholder="Description"
           aria-invalid={!!errors.desc}
           {...register("desc")}
@@ -92,8 +88,8 @@ const CreatePostForm = ({
           aria-invalid={!!errors.category}
           {...register("category")}
         >
-          <option value="" disabled>
-            Select Category
+          <option value="" hidden>
+            Select a category
           </option>
           <option value="general">General</option>
           <option value="technology">Technology</option>

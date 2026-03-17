@@ -19,7 +19,7 @@ const LoginPage = () => {
           <SubmitButton
             text="Signin with Google"
             icon={<FcGoogle size={20} />}
-            className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 active:scale-99 active:opacity-50"
           />
         </form>
         <form action={githubLogin}>

@@ -161,11 +161,9 @@ export const adminUpdateUser = async (
 };
 
 export const deleteUser = async (
+  id: string,
   previousState: { success: boolean; message: string },
-  formData: FormData,
 ) => {
-  const id = formData.get("id") as string;
-
   const session = await auth();
   if (!session?.user?.isAdmin) {
     return {

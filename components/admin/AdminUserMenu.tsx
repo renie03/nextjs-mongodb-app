@@ -29,7 +29,7 @@ const AdminUserMenu = ({ session }: { session: Session | null }) => {
     <div className="flex items-center gap-5 mb-8 relative">
       <div ref={menuRef}>
         <div
-          className="cursor-pointer"
+          className="cursor-pointer active:opacity-70"
           onClick={() => setOpen((prev) => !prev)}
         >
           <Image

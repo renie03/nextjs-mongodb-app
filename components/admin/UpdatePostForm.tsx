@@ -33,7 +33,6 @@ const UpdatePostForm = ({
   } = useForm<PostInputs>({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      id: post._id,
       title: post.title,
       desc: post.desc,
       category: post.category,
@@ -43,7 +42,7 @@ const UpdatePostForm = ({
 
   const handleUpdatePostForm: SubmitHandler<PostInputs> = (data) => {
     startTransition(() => {
-      formAction({ ...data, img: file });
+      formAction({ ...data, img: file, id: post._id });
     });
   };
 
@@ -62,7 +61,6 @@ const UpdatePostForm = ({
       className="flex flex-col gap-5 text-black"
     >
       <h1 className="text-lg font-medium text-center">Update Post</h1>
-      <input type="hidden" {...register("id")} />
       <div className="flex flex-col gap-1">
         <label htmlFor="title">Title</label>
         <div>
@@ -82,9 +80,8 @@ const UpdatePostForm = ({
       <div className="flex flex-col gap-1">
         <label htmlFor="desc">Description</label>
         <div>
-          <input
-            className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
-            type="text"
+          <textarea
+            className="border border-gray-300 rounded-md p-3 w-full min-h-25 resize-y focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
             id="desc"
             aria-invalid={!!errors.desc}
             {...register("desc")}
@@ -97,8 +94,9 @@ const UpdatePostForm = ({
       <div className="flex flex-col gap-1">
         <label htmlFor="category">Category</label>
         <select
-          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1"
+          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
           id="category"
+          aria-invalid={!!errors.category}
           {...register("category")}
         >
           <option value="general">General</option>

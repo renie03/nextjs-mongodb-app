@@ -8,7 +8,7 @@ const MobileSearch = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="lg:hidden">
+    <div className="lg:hidden active:opacity-70">
       <button
         className="pr-1 cursor-pointer"
         onClick={() => setOpen((prev) => !prev)}

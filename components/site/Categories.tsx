@@ -38,7 +38,7 @@ const Categories = () => {
           className={`w-25 rounded-md font-medium text-center cursor-pointer ${
             category === item.value
               ? "bg-gray-800 dark:bg-white text-white dark:text-black"
-              : "bg-gray-200 dark:bg-gray-700"
+              : "bg-gray-200 dark:bg-gray-700 active:opacity-70"
           }`}
           onClick={() => handleChange(item.value)}
         >

@@ -7,7 +7,7 @@ const PostItem = ({ post }: { post: PostType }) => {
   return (
     <div className="border border-bgSoft rounded-xl">
       <Link href={`/posts/${post._id}`}>
-        <div className="relative aspect-2/1 rounded-t-xl overflow-hidden">
+        <div className="relative aspect-2/1 rounded-t-xl overflow-hidden active:opacity-70">
           <ImageKitBlur
             src={post.img || "/noproduct.jpg"}
             alt={post.title || "post image"}

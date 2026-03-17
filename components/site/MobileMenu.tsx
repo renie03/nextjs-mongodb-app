@@ -28,7 +28,7 @@ const MobileMenu = ({ session }: { session: Session | null }) => {
     <div className="md:hidden flex items-center" ref={menuRef}>
       {/* MOBILE BUTTON */}
       <button
-        className="cursor-pointer text-4xl"
+        className="cursor-pointer text-4xl active:opacity-70"
         onClick={() => setOpen((prev) => !prev)}
       >
         <div className="flex flex-col gap-[5.4px]">

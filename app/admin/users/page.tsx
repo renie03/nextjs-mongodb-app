@@ -49,11 +49,15 @@ const AdminUsersPage = async ({
                       alt={user.name || "user image"}
                       className="w-10 h-10 object-cover rounded-full"
                     />
-                    <span>{user.name}</span>
+                    <span className="max-w-30 truncate">{user.name}</span>
                   </div>
                 </td>
-                <td className="hidden lg:table-cell">{user.username}</td>
-                <td className="hidden xl:table-cell">{user.email}</td>
+                <td className="hidden lg:table-cell max-w-30 truncate">
+                  {user.username}
+                </td>
+                <td className="hidden xl:table-cell max-w-30 truncate">
+                  {user.email}
+                </td>
                 <td className="hidden lg:table-cell">
                   {user.isAdmin ? "true" : "false"}
                 </td>

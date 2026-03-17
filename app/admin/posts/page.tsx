@@ -47,10 +47,10 @@ const AdminPostsPage = async ({
                       alt={post.title || "post image"}
                       className="w-10 h-10 object-cover rounded-full"
                     />
-                    <span>{post.title}</span>
+                    <span className="max-w-30 truncate">{post.title}</span>
                   </div>
                 </td>
-                <td className="hidden xl:table-cell max-w-20 truncate">
+                <td className="hidden xl:table-cell max-w-30 truncate">
                   {post.desc}
                 </td>
                 <td className="hidden lg:table-cell">{post.category}</td>

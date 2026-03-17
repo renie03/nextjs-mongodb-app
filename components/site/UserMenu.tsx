@@ -27,7 +27,10 @@ const UserMenu = ({ session }: { session: Session | null }) => {
 
   return (
     <div className="relative" ref={menuRef}>
-      <div className="cursor-pointer" onClick={() => setOpen((prev) => !prev)}>
+      <div
+        className="cursor-pointer active:opacity-70"
+        onClick={() => setOpen((prev) => !prev)}
+      >
         <Image
           src={session?.user?.image || "/noavatar.png"}
           width={32}

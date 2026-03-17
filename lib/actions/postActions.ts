@@ -117,11 +117,9 @@ export const updatePost = async (
 };
 
 export const deletePost = async (
+  id: string,
   previousState: { success: boolean; message: string },
-  formData: FormData,
 ) => {
-  const id = formData.get("id") as string;
-
   const session = await auth();
   if (!session?.user?.isAdmin) {
     return {

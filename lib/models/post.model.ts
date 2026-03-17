@@ -32,6 +32,7 @@ const postSchema = new Schema<IPost>(
     category: {
       type: String,
       required: true,
+      enum: ["general", "technology", "health", "sports", "education"],
     },
     isFeatured: {
       type: Boolean,
@@ -42,7 +43,7 @@ const postSchema = new Schema<IPost>(
       default: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Post = models?.Post || model<IPost>("Post", postSchema);

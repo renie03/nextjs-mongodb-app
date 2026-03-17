@@ -37,7 +37,6 @@ const UpdateUserForm = ({
   } = useForm<AdminUpdateUserInputs>({
     resolver: zodResolver(adminUpdateUserSchema),
     defaultValues: {
-      id: user._id,
       username: user.username,
       email: user.email,
       name: user.name,
@@ -47,7 +46,7 @@ const UpdateUserForm = ({
 
   const handleUpdateUserForm: SubmitHandler<AdminUpdateUserInputs> = (data) => {
     const updateData: AdminUpdateUserInputs = {
-      id: data.id,
+      id: user._id,
       name: data.name,
       image: file,
       isAdmin: data.isAdmin,
@@ -82,7 +81,6 @@ const UpdateUserForm = ({
       className="flex flex-col gap-5 text-black"
     >
       <h1 className="text-lg font-medium text-center">Update User</h1>
-      <input type="hidden" {...register("id")} />
       {isCredentials && (
         <>
           <div className="flex flex-col gap-1">
@@ -185,7 +183,7 @@ const UpdateUserForm = ({
                 src={file}
                 width={48}
                 height={48}
-                alt="post image preview"
+                alt="user image preview"
                 className="h-12 w-12 object-cover rounded-full"
               />
               <button

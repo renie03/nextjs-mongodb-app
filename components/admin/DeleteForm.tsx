@@ -5,8 +5,8 @@ import { useActionState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 type DeleteActionProps = (
+  id: string,
   previousState: { success: boolean; message: string },
-  formData: FormData,
 ) => Promise<{ success: boolean; message: string }>;
 
 const DeleteForm = ({
@@ -20,7 +20,9 @@ const DeleteForm = ({
   id: string;
   action: DeleteActionProps;
 }) => {
-  const [state, formAction, isPending] = useActionState(action, {
+  const deleteActionWithId = action.bind(null, id);
+
+  const [state, formAction, isPending] = useActionState(deleteActionWithId, {
     success: false,
     message: "",
   });
@@ -44,7 +46,6 @@ const DeleteForm = ({
       </span>
       <div className="flex items-center justify-center gap-3">
         <form action={formAction} className="flex flex-col items-center">
-          <input type="hidden" name="id" value={id} />
           <button
             className="w-16 h-8 bg-red-600 dark:bg-red-700 text-white rounded-md cursor-pointer enabled:hover:bg-red-700 enabled:dark:hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isPending}

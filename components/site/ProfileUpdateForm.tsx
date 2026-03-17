@@ -40,6 +40,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
       username: session?.user?.username ?? "",
       email: session?.user?.email ?? "",
       name: session?.user?.name ?? "",
+      password: "",
     },
   });
 
@@ -144,7 +145,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
                 className="w-full ring-0"
                 type={showPassword ? "text" : "password"}
                 id="password"
-                placeholder="password"
+                placeholder="Password"
                 {...register("password")}
               />
               <span
@@ -188,7 +189,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
         <ImageKitUpload setState={setAvatar} setIsUploading={setIsUploading} />
       </div>
       <button
-        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:active:scale-98 enabled:active:opacity-70 enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-70"
         disabled={isPending || isUploading}
       >
         {isPending ? (

@@ -22,6 +22,10 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginInputs>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
   });
 
   const handleLoginForm: SubmitHandler<LoginInputs> = (data) => {
@@ -46,7 +50,7 @@ const LoginForm = () => {
         <input
           className="border border-borderColor rounded-md p-3 w-full aria-invalid:border-red-500 aria-invalid:ring-red-500"
           type="text"
-          placeholder="username"
+          placeholder="Username"
           autoFocus
           aria-invalid={!!errors.username}
           {...register("username")}
@@ -63,7 +67,7 @@ const LoginForm = () => {
           <input
             className="w-full ring-0"
             type={showPassword ? "text" : "password"}
-            placeholder="password"
+            placeholder="Password"
             {...register("password")}
           />
           <span
@@ -82,7 +86,7 @@ const LoginForm = () => {
         )}
       </div>
       <button
-        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:active:scale-98 enabled:active:opacity-70 enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-70"
         disabled={isPending}
       >
         {isPending ? (

@@ -27,7 +27,7 @@ const NavLink = ({
        ${
          pathname === link.path
            ? "bg-gray-800 dark:bg-white text-white dark:text-black"
-           : "hover:bg-gray-800 dark:hover:bg-white hover:text-white dark:hover:text-black"
+           : "hover:bg-gray-800 dark:hover:bg-white hover:text-white dark:hover:text-black active:opacity-70"
        }`}
     >
       {link.title}

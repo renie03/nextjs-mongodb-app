@@ -31,6 +31,13 @@ const RegisterForm = () => {
     formState: { errors },
   } = useForm<RegisterInputs>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      name: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
 
   const handleRegisterForm: SubmitHandler<RegisterInputs> = (data) => {
@@ -60,7 +67,7 @@ const RegisterForm = () => {
         <input
           className="border border-borderColor rounded-md p-3 w-full aria-invalid:border-red-500 aria-invalid:ring-red-500"
           type="text"
-          placeholder="username"
+          placeholder="Username"
           autoFocus
           aria-invalid={!!errors.username}
           {...registerForm("username")}
@@ -73,7 +80,7 @@ const RegisterForm = () => {
         <input
           className="border border-borderColor rounded-md p-3 w-full aria-invalid:border-red-500 aria-invalid:ring-red-500"
           type="email"
-          placeholder="email"
+          placeholder="Email"
           aria-invalid={!!errors.email}
           {...registerForm("email")}
         />
@@ -85,7 +92,7 @@ const RegisterForm = () => {
         <input
           className="border border-borderColor rounded-md p-3 w-full aria-invalid:border-red-500 aria-invalid:ring-red-500"
           type="text"
-          placeholder="name"
+          placeholder="Name"
           aria-invalid={!!errors.name}
           {...registerForm("name")}
         />
@@ -101,7 +108,7 @@ const RegisterForm = () => {
           <input
             className="w-full ring-0"
             type={showPassword ? "text" : "password"}
-            placeholder="password"
+            placeholder="Password"
             {...registerForm("password")}
           />
           <span
@@ -127,7 +134,7 @@ const RegisterForm = () => {
           <input
             className="w-full ring-0"
             type={showConfirmPassword ? "text" : "password"}
-            placeholder="confirm password"
+            placeholder="Confirm password"
             {...registerForm("confirmPassword")}
           />
           <span

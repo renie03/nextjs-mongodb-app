@@ -20,7 +20,7 @@ const Topbar = () => {
           <input className="ring-0" type="text" placeholder="Search..." />
         </div>
         <ThemeToggle />
-        <Link href="/" className="flex items-center gap-1">
+        <Link href="/" className="flex items-center gap-1 active:opacity-70">
           <MdPublic size={20} />
         </Link>
       </div>
