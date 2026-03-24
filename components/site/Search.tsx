@@ -37,7 +37,7 @@ const Search = () => {
         onChange={(e) => setQ(e.target.value)}
       />
       <button className="pr-1 cursor-pointer">
-        <FaSearch />
+        <FaSearch size={18} />
       </button>
     </form>
   );

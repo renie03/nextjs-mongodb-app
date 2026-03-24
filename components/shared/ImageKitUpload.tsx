@@ -29,7 +29,7 @@ const ImageKitUpload = ({
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(
-          `Request failed with status ${response.status}: ${errorText}`
+          `Request failed with status ${response.status}: ${errorText}`,
         );
       }
 
@@ -119,7 +119,7 @@ const ImageKitUpload = ({
       )}
       {/* UPLOAD */}
       <label
-        className="flex items-center gap-2 cursor-pointer text-gray-500 text-sm"
+        className="flex items-center gap-2 cursor-pointer text-gray-500 text-sm active:opacity-70 transition-all duration-200"
         htmlFor="file"
       >
         <IoCloudUploadOutline size={20} />

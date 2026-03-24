@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="mt-15 my-5 grid grid-cols-2 text-center gap-y-15 md:text-left md:flex md:justify-between">
+    <div className="pt-15 pb-5 grid grid-cols-2 text-center gap-y-15 md:text-left md:flex md:justify-between">
       <div className="flex flex-col gap-4 text-textSoft text-sm">
         <Link href="/" className="text-xl font-medium">
           TRENDBLOG

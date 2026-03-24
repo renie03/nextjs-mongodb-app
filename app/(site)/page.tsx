@@ -13,7 +13,7 @@ export default async function Home({
   const category = (await searchParams).category || "";
 
   return (
-    <div>
+    <div className="pt-5">
       <div className="mb-15">
         <h1 className="text-2xl font-bold mb-5">Featured Posts</h1>
         <Suspense

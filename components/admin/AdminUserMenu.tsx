@@ -29,7 +29,7 @@ const AdminUserMenu = ({ session }: { session: Session | null }) => {
     <div className="flex items-center gap-5 mb-8 relative">
       <div ref={menuRef}>
         <div
-          className="cursor-pointer active:opacity-70"
+          className="cursor-pointer active:opacity-70 transition-all duration-200"
           onClick={() => setOpen((prev) => !prev)}
         >
           <Image
@@ -56,7 +56,7 @@ const AdminUserMenu = ({ session }: { session: Session | null }) => {
             <div className="w-full flex items-center gap-3 mt-1 text-white">
               <Link
                 href="/update-user"
-                className="w-full p-1 bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 rounded-md font-medium text-center"
+                className="w-full p-1 bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 rounded-md font-medium text-center active:scale-98 active:opacity-70 transition-all duration-200"
                 onClick={() => setOpen(false)}
               >
                 Update

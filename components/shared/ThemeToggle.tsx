@@ -1,22 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="w-9 h-9 bg-bgSoft rounded-full animate-pulse" />;
+  }
 
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="relative w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 active:opacity-70"
+      className="flex items-center justify-center rounded-full cursor-pointer p-1.5 hover:bg-black/10 dark:hover:bg-white/10 active:opacity-70 transition-all duration-200"
     >
-      <div className="absolute transition-all duration-300 scale-100 rotate-0 dark:scale-0 dark:-rotate-90">
-        <MdDarkMode size={20} />
-      </div>
-      <div className="absolute transition-all duration-300 scale-0 -rotate-90 dark:scale-100 dark:rotate-0">
-        <MdLightMode size={20} />
-      </div>
+      {theme === "dark" ? <MdLightMode size={24} /> : <MdDarkMode size={24} />}
     </button>
   );
 };

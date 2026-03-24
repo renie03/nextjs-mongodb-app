@@ -28,25 +28,27 @@ const MobileMenu = ({ session }: { session: Session | null }) => {
     <div className="md:hidden flex items-center" ref={menuRef}>
       {/* MOBILE BUTTON */}
       <button
-        className="cursor-pointer text-4xl active:opacity-70"
+        className="w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 active:opacity-70 transition-all duration-200"
         onClick={() => setOpen((prev) => !prev)}
       >
-        <div className="flex flex-col gap-[5.4px]">
+        <div className="flex flex-col gap-1.25">
           <div
-            className={`h-0.75 rounded-md w-6 bg-text origin-left transition-all ease-in-out ${
-              open && "rotate-45"
-            }`}
-          ></div>
+            className={`h-0.75 w-6 bg-text origin-left ${open && "rotate-45"}`}
+          />
+          <div className={`h-0.75 w-6 bg-text ${open && "opacity-0"}`} />
           <div
-            className={`h-0.75 rounded-md w-6 bg-text transition-all ease-in-out ${
+            className={`h-0.75 w-6 bg-text origin-left ${open && "-rotate-45"}`}
+          />
+          {/* <div
+            className={`h-0.75 w-6 rounded-md bg-text transition-all ease-in-out ${
               open && "opacity-0"
             }`}
-          ></div>
+          />
           <div
-            className={`h-0.75 rounded-md w-6 bg-text origin-left transition-all ease-in-out ${
+            className={`h-0.75 w-6 rounded-md bg-text origin-left transition-all ease-in-out ${
               open && "-rotate-45"
             }`}
-          ></div>
+          /> */}
         </div>
       </button>
       {/* MOBILE LINK LIST */}

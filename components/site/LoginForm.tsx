@@ -86,7 +86,7 @@ const LoginForm = () => {
         )}
       </div>
       <button
-        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:active:scale-98 enabled:active:opacity-70 enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-70"
+        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
         disabled={isPending}
       >
         {isPending ? (

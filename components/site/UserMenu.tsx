@@ -28,19 +28,19 @@ const UserMenu = ({ session }: { session: Session | null }) => {
   return (
     <div className="relative" ref={menuRef}>
       <div
-        className="cursor-pointer active:opacity-70"
+        className="cursor-pointer active:opacity-70 transition-all duration-200"
         onClick={() => setOpen((prev) => !prev)}
       >
         <Image
           src={session?.user?.image || "/noavatar.png"}
-          width={32}
-          height={32}
+          width={36}
+          height={36}
           alt={session?.user?.name || "user avatar"}
-          className="w-8 h-8 object-cover rounded-full"
+          className="w-9 h-9 object-cover rounded-full"
         />
       </div>
       {open && (
-        <div className="absolute top-9 -right-8 md:right-0 w-65 p-5 bg-slate-200 dark:bg-slate-800 rounded-xl flex flex-col items-center gap-1">
+        <div className="absolute top-9.5 -right-8 md:right-0 w-65 p-5 bg-slate-200 dark:bg-slate-800 rounded-xl flex flex-col items-center gap-1">
           <Image
             src={session?.user?.image || "/noavatar.png"}
             width={48}
@@ -55,7 +55,7 @@ const UserMenu = ({ session }: { session: Session | null }) => {
           <div className="w-full flex items-center gap-3 mt-1 text-white">
             <Link
               href="/update-user"
-              className="w-full p-1 bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 rounded-md font-medium text-center"
+              className="w-full p-1 bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 rounded-md font-medium text-center active:scale-98 active:opacity-70 transition-all duration-200"
               onClick={() => setOpen(false)}
             >
               Update

@@ -20,22 +20,22 @@ const menuItems = [
       {
         title: "Dashboard",
         path: "/admin/dashboard",
-        icon: <MdDashboard size={20} />,
+        icon: <MdDashboard size={24} />,
       },
       {
         title: "Users",
         path: "/admin/users",
-        icon: <MdSupervisedUserCircle size={20} />,
+        icon: <MdSupervisedUserCircle size={24} />,
       },
       {
         title: "Posts",
         path: "/admin/posts",
-        icon: <MdShoppingBag size={20} />,
+        icon: <MdShoppingBag size={24} />,
       },
       {
         title: "Transactions",
         path: "",
-        icon: <MdAttachMoney size={20} />,
+        icon: <MdAttachMoney size={24} />,
       },
     ],
   },
@@ -45,17 +45,17 @@ const menuItems = [
       {
         title: "Revenue",
         path: "",
-        icon: <MdWork size={20} />,
+        icon: <MdWork size={24} />,
       },
       {
         title: "Reports",
         path: "",
-        icon: <MdAnalytics size={20} />,
+        icon: <MdAnalytics size={24} />,
       },
       {
         title: "Teams",
         path: "",
-        icon: <MdPeople size={20} />,
+        icon: <MdPeople size={24} />,
       },
     ],
   },
@@ -65,12 +65,12 @@ const menuItems = [
       {
         title: "Settings",
         path: "",
-        icon: <MdOutlineSettings size={20} />,
+        icon: <MdOutlineSettings size={24} />,
       },
       {
         title: "Help",
         path: "",
-        icon: <MdHelpCenter size={20} />,
+        icon: <MdHelpCenter size={24} />,
       },
     ],
   },

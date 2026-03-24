@@ -19,19 +19,22 @@ const LoginPage = () => {
           <SubmitButton
             text="Signin with Google"
             icon={<FcGoogle size={20} />}
-            className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50 active:scale-99 active:opacity-50"
+            className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
           />
         </form>
         <form action={githubLogin}>
           <SubmitButton
             text="Signin with Github"
             icon={<FaGithub size={20} />}
-            className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
           />
         </form>
         <span className="text-sm text-textSoft">
           Don&apos;t have an account?
-          <Link href="/register" className="ml-1 underline">
+          <Link
+            href="/register"
+            className="ml-1 underline active:opacity-70 transition-all duration-200"
+          >
             Register
           </Link>
         </span>

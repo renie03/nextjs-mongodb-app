@@ -8,7 +8,10 @@ const RegisterPage = () => {
         <RegisterForm />
         <span className="text-sm text-textSoft">
           Do you have an account?
-          <Link href="/login" className="ml-1 underline">
+          <Link
+            href="/login"
+            className="ml-1 underline active:opacity-70 transition-all duration-200"
+          >
             Login
           </Link>
         </span>
