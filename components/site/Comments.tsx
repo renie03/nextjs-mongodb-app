@@ -71,7 +71,10 @@ const Comments = ({
         </div>
       ) : (
         <div className="mb-2">
-          <Link href="/login" className="underline">
+          <Link
+            href="/login"
+            className="underline active:opacity-70 transition-all duration-200"
+          >
             Login to write a comment
           </Link>
         </div>
