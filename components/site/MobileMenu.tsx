@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Session } from "next-auth";
 import { links } from "@/lib/constants";
 import NavLink from "./NavLink";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const MobileMenu = ({ session }: { session: Session | null }) => {
   const [open, setOpen] = useState(false);
@@ -26,30 +27,11 @@ const MobileMenu = ({ session }: { session: Session | null }) => {
 
   return (
     <div className="md:hidden flex items-center" ref={menuRef}>
-      {/* MOBILE BUTTON */}
       <button
-        className="w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 active:opacity-70 transition-all duration-200"
         onClick={() => setOpen((prev) => !prev)}
+        className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-2 cursor-pointer active:opacity-70 transition-all duration-200"
       >
-        <div className="flex flex-col gap-1.25">
-          <div
-            className={`h-0.75 w-6 bg-text origin-left ${open && "rotate-45"}`}
-          />
-          <div className={`h-0.75 w-6 bg-text ${open && "opacity-0"}`} />
-          <div
-            className={`h-0.75 w-6 bg-text origin-left ${open && "-rotate-45"}`}
-          />
-          {/* <div
-            className={`h-0.75 w-6 rounded-md bg-text transition-all ease-in-out ${
-              open && "opacity-0"
-            }`}
-          />
-          <div
-            className={`h-0.75 w-6 rounded-md bg-text origin-left transition-all ease-in-out ${
-              open && "-rotate-45"
-            }`}
-          /> */}
-        </div>
+        <RxHamburgerMenu size={24} />
       </button>
       {/* MOBILE LINK LIST */}
       <div

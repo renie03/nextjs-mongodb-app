@@ -4,9 +4,9 @@ import Link from "next/link";
 const RegisterPage = () => {
   return (
     <div className="h-[calc(100vh-140px)] flex items-center justify-center">
-      <div className="border border-borderColor rounded-lg p-5 w-80 flex flex-col gap-3">
+      <div className="border border-borderColor rounded-lg p-5 w-80">
         <RegisterForm />
-        <span className="text-sm text-textSoft">
+        <p className="text-sm text-textSoft text-center mt-5">
           Do you have an account?
           <Link
             href="/login"
@@ -14,7 +14,7 @@ const RegisterPage = () => {
           >
             Login
           </Link>
-        </span>
+        </p>
       </div>
     </div>
   );

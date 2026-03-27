@@ -40,7 +40,7 @@ const UserMenu = ({ session }: { session: Session | null }) => {
         />
       </div>
       {open && (
-        <div className="absolute top-9.5 -right-8 md:right-0 w-65 p-5 bg-slate-200 dark:bg-slate-800 rounded-xl flex flex-col items-center gap-1">
+        <div className="absolute top-11 -right-8 md:right-0 w-65 p-5 bg-slate-200 dark:bg-slate-800 rounded-xl flex flex-col items-center gap-1">
           <Image
             src={session?.user?.image || "/noavatar.png"}
             width={48}

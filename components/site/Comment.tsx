@@ -72,15 +72,15 @@ const Comment = ({
           {userId === comment.user._id && (
             <div className="relative" ref={modalRef}>
               <button
-                className="cursor-pointer"
+                className="cursor-pointer active:opacity-70 transition-all duration-200"
                 onClick={() => setOpen((prev) => !prev)}
               >
-                <BsThreeDotsVertical />
+                <BsThreeDotsVertical size={20} />
               </button>
               {open && (
-                <div className="absolute top-5 right-0 p-3 bg-bgSoft rounded-lg flex flex-col gap-2 z-30">
+                <div className="absolute top-7 right-0 w-25 py-3 bg-bgSoft rounded-lg flex flex-col gap-1 z-30">
                   <button
-                    className="p-1 hover:bg-gray-200 hover:dark:bg-gray-700 rounded-md font-medium cursor-pointer"
+                    className="p-1 hover:bg-gray-200 hover:dark:bg-gray-700 rounded-md font-medium cursor-pointer active:opacity-70 transition-all duration-200"
                     onClick={() => {
                       setOpenUpdate(true);
                       setOpen(false);
@@ -89,7 +89,7 @@ const Comment = ({
                     Update
                   </button>
                   <button
-                    className="p-1 hover:bg-gray-200 hover:dark:bg-gray-700 rounded-md font-medium cursor-pointer"
+                    className="p-1 hover:bg-gray-200 hover:dark:bg-gray-700 rounded-md font-medium cursor-pointer active:opacity-70 transition-all duration-200"
                     onClick={() => {
                       setOpen(false);
                       setOpenDelete(true);

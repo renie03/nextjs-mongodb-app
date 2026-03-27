@@ -8,28 +8,30 @@ import Link from "next/link";
 const LoginPage = () => {
   return (
     <div className="h-[calc(100vh-140px)] flex items-center justify-center">
-      <div className="border border-borderColor rounded-lg p-5 w-80 flex flex-col gap-3">
+      <div className="border border-borderColor rounded-lg p-5 w-80">
         <LoginForm />
-        <div className="flex items-center">
+        <div className="flex items-center my-5">
           <hr className="flex-1 border-t border-borderColor" />
           <span className="px-3 text-center">or</span>
           <hr className="flex-1 border-t border-borderColor" />
         </div>
-        <form action={googleLogin}>
-          <SubmitButton
-            text="Signin with Google"
-            icon={<FcGoogle size={20} />}
-            className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
-          />
-        </form>
-        <form action={githubLogin}>
-          <SubmitButton
-            text="Signin with Github"
-            icon={<FaGithub size={20} />}
-            className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
-          />
-        </form>
-        <span className="text-sm text-textSoft">
+        <div className="flex flex-col gap-3">
+          <form action={googleLogin}>
+            <SubmitButton
+              text="Signin with Google"
+              icon={<FcGoogle size={24} />}
+              className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
+            />
+          </form>
+          <form action={githubLogin}>
+            <SubmitButton
+              text="Signin with Github"
+              icon={<FaGithub size={24} />}
+              className="bg-slate-100 dark:bg-slate-200 text-black rounded-md p-3 w-full flex items-center justify-center gap-2 cursor-pointer h-12 enabled:hover:bg-slate-200 enabled:dark:hover:bg-slate-100 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
+            />
+          </form>
+        </div>
+        <p className="text-sm text-textSoft text-center mt-5">
           Don&apos;t have an account?
           <Link
             href="/register"
@@ -37,7 +39,7 @@ const LoginPage = () => {
           >
             Register
           </Link>
-        </span>
+        </p>
       </div>
     </div>
   );

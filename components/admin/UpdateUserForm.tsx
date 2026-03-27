@@ -139,7 +139,7 @@ const UpdateUserForm = ({
           <label htmlFor="password">Password</label>
           <div>
             <div
-              className="border border-gray-300 rounded-md p-3 flex items-center justify-between focus-within:ring-black focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
+              className="border border-gray-300 rounded-md p-3 w-full flex items-center justify-between gap-3 focus-within:ring-black focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
               aria-invalid={!!errors.password}
             >
               <input
@@ -154,9 +154,9 @@ const UpdateUserForm = ({
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? (
-                  <MdOutlineVisibility size={20} />
+                  <MdOutlineVisibility size={24} />
                 ) : (
-                  <MdOutlineVisibilityOff size={20} />
+                  <MdOutlineVisibilityOff size={24} />
                 )}
               </span>
             </div>
@@ -189,9 +189,9 @@ const UpdateUserForm = ({
               <button
                 type="button"
                 onClick={() => setFile(null)}
-                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer"
+                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer active:opacity-70 transition-all duration-200"
               >
-                <IoClose size={18} />
+                <IoClose size={20} />
               </button>
             </div>
           </div>
@@ -199,7 +199,7 @@ const UpdateUserForm = ({
         <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
       <button
-        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
         disabled={isPending || isUploading}
       >
         {isPending ? (

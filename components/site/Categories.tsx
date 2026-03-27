@@ -31,14 +31,14 @@ const Categories = () => {
   };
 
   return (
-    <div className="flex flex-wrap gap-3 mb-4">
+    <div className="flex flex-wrap gap-3 mb-5">
       {categories.map((item) => (
         <button
           key={item.value}
-          className={`w-25 rounded-md font-medium text-center cursor-pointer ${
+          className={`w-25 rounded-md font-medium text-center cursor-pointer active:opacity-70 transition-all duration-200 ${
             category === item.value
               ? "bg-gray-800 dark:bg-white text-white dark:text-black"
-              : "bg-gray-200 dark:bg-gray-700 active:opacity-70"
+              : "bg-gray-200 dark:bg-gray-700"
           }`}
           onClick={() => handleChange(item.value)}
         >

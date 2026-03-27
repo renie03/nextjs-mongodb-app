@@ -96,14 +96,14 @@ const UpdateCommentForm = ({
         </div>
         <div className="flex items-center gap-3">
           <button
-            className="w-16 h-8 bg-gray-600 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-md cursor-pointer"
+            className="w-16 h-8 bg-gray-600 dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-md cursor-pointer active:scale-98 active:opacity-70 transition-all duration-200"
             type="button"
             onClick={() => setOpenUpdate(false)}
           >
             Cancel
           </button>
           <button
-            className="w-16 h-8 bg-blue-600 dark:bg-blue-700 text-white rounded-md cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-16 h-8 bg-blue-600 dark:bg-blue-700 text-white rounded-md cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
             disabled={mutation.isPending || desc.trim() === ""}
           >
             {mutation.isPending ? <div className="spinner" /> : "Update"}

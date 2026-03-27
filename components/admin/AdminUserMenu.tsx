@@ -37,11 +37,11 @@ const AdminUserMenu = ({ session }: { session: Session | null }) => {
             width={48}
             height={48}
             alt={session?.user?.name || "user avatar"}
-            className="rounded-full object-cover w-12 h-12"
+            className="w-12 h-12 object-cover rounded-full"
           />
         </div>
         {open && (
-          <div className="absolute top-13 -right-50 md:right-0 w-65 p-5 bg-slate-300 dark:bg-slate-800 rounded-xl flex flex-col items-center gap-1">
+          <div className="absolute top-14 -right-50 md:right-0 w-65 p-5 bg-slate-300 dark:bg-slate-800 rounded-xl flex flex-col items-center gap-1">
             <Image
               src={session?.user?.image || "/noavatar.png"}
               width={48}

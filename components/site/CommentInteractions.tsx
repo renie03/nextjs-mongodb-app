@@ -77,33 +77,33 @@ const CommentInteractions = ({
   };
 
   return (
-    <div className="flex items-center gap-3 mt-0.5">
-      <div className="flex items-center gap-0.5 mb-1 w-7.5">
+    <div className="flex items-center gap-5 -ml-2">
+      <div className="flex items-center w-7.5">
         <button
-          className="cursor-pointer disabled:opacity-50 disabled:cursor-auto"
+          className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-2 cursor-pointer active:opacity-70 transition-all duration-200"
           disabled={likeMutation.isPending || dislikeMutation.isPending}
           onClick={handleLike}
         >
           {userId && comment.likes.includes(userId) ? (
-            <AiFillLike size={20} />
+            <AiFillLike size={18} />
           ) : (
-            <AiOutlineLike size={20} />
+            <AiOutlineLike size={18} />
           )}
         </button>
         {comment.likesCount > 0 && (
           <span className="text-sm text-textSoft">{comment.likesCount}</span>
         )}
       </div>
-      <div className="flex items-center gap-0.5 mb-1 w-7.5">
+      <div className="flex items-center w-7.5">
         <button
-          className="cursor-pointer disabled:opacity-50 disabled:cursor-auto"
+          className="hover:bg-black/10 dark:hover:bg-white/10 rounded-full p-2 cursor-pointer active:opacity-70 transition-all duration-200"
           disabled={likeMutation.isPending || dislikeMutation.isPending}
           onClick={handleDislike}
         >
           {userId && comment.dislikes.includes(userId) ? (
-            <BiSolidDislike size={20} />
+            <BiSolidDislike size={18} />
           ) : (
-            <BiDislike size={20} />
+            <BiDislike size={18} />
           )}
         </button>
         {comment.dislikesCount > 0 && (

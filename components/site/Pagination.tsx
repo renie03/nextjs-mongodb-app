@@ -23,11 +23,11 @@ const Pagination = ({ totalData }: { totalData: number }) => {
   return (
     <div className="flex items-center justify-center gap-1 mt-5">
       <button
-        className="hover:bg-bgSoft hover:rounded-md p-1.5 cursor-pointer disabled:hidden"
+        className="hover:bg-bgSoft hover:rounded-md p-1.5 cursor-pointer active:opacity-70 transition-all duration-200 disabled:hidden"
         disabled={!hasPrev}
         onClick={() => handlePageChange(page - 1)}
       >
-        <IoIosArrowBack size={20} />
+        <IoIosArrowBack size={24} />
       </button>
       <div className="flex items-center gap-1">
         {Array.from(
@@ -37,7 +37,7 @@ const Pagination = ({ totalData }: { totalData: number }) => {
             return (
               <button
                 key={pageIndex}
-                className={`hover:bg-bgSoft rounded-md h-8 w-8 cursor-pointer ${
+                className={`hover:bg-bgSoft rounded-md h-8 w-8 cursor-pointer active:opacity-70 transition-all duration-200 ${
                   page === pageIndex ? "bg-bgSoft" : ""
                 }`}
                 onClick={() => handlePageChange(pageIndex)}
@@ -49,11 +49,11 @@ const Pagination = ({ totalData }: { totalData: number }) => {
         )}
       </div>
       <button
-        className="hover:bg-bgSoft hover:rounded-lg p-1.5 cursor-pointer disabled:hidden"
+        className="hover:bg-bgSoft hover:rounded-lg p-1.5 cursor-pointer active:opacity-70 transition-all duration-200 disabled:hidden"
         disabled={!hasNext}
         onClick={() => handlePageChange(page + 1)}
       >
-        <IoIosArrowForward size={20} />
+        <IoIosArrowForward size={24} />
       </button>
     </div>
   );

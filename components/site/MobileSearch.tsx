@@ -8,15 +8,15 @@ const MobileSearch = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="lg:hidden active:opacity-70">
+    <div className="lg:hidden">
       <button
-        className="pr-1 cursor-pointer"
+        className="pr-1 cursor-pointer active:opacity-70 transition-all duration-200"
         onClick={() => setOpen((prev) => !prev)}
       >
-        <FaSearch />
+        <FaSearch size={20} />
       </button>
       {open && (
-        <div className="absolute top-17 left-0 w-full bg-bg">
+        <div className="absolute top-17 left-0 w-full px-5 bg-bg">
           <Search />
         </div>
       )}

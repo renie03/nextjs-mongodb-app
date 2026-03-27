@@ -30,14 +30,14 @@ const Search = () => {
       onSubmit={handleSearch}
     >
       <input
-        className="w-full ring-0 pl-1"
+        className="w-full ring-0 pl-1.5"
         type="text"
         placeholder="Search"
         value={q}
         onChange={(e) => setQ(e.target.value)}
       />
-      <button className="pr-1 cursor-pointer">
-        <FaSearch size={18} />
+      <button className="pr-1 cursor-pointer active:opacity-70 transition-all duration-200">
+        <FaSearch size={20} />
       </button>
     </form>
   );

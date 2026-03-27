@@ -129,9 +129,9 @@ const UpdatePostForm = ({
               <button
                 type="button"
                 onClick={() => setFile(null)}
-                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer"
+                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer active:opacity-70 transition-all duration-200"
               >
-                <IoClose size={18} />
+                <IoClose size={20} />
               </button>
             </div>
           </div>
@@ -139,7 +139,7 @@ const UpdatePostForm = ({
         <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
       <button
-        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
         disabled={isPending || isUploading}
       >
         {isPending ? (

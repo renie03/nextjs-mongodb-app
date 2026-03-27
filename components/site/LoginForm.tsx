@@ -61,7 +61,7 @@ const LoginForm = () => {
       </div>
       <div>
         <div
-          className="border border-borderColor rounded-md p-3 flex items-center justify-between focus-within:ring-focusColor focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
+          className="border border-borderColor rounded-md p-3 w-full flex items-center justify-between gap-3 focus-within:ring-focusColor focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
           aria-invalid={!!errors.password}
         >
           <input
@@ -75,9 +75,9 @@ const LoginForm = () => {
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? (
-              <MdOutlineVisibility size={20} />
+              <MdOutlineVisibility size={24} />
             ) : (
-              <MdOutlineVisibilityOff size={20} />
+              <MdOutlineVisibilityOff size={24} />
             )}
           </span>
         </div>

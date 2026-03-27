@@ -73,7 +73,7 @@ const CreatePostForm = ({
       </div>
       <div>
         <textarea
-          className="border border-gray-300 rounded-md p-3 w-full min-h-25 resize-y focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500"
+          className="border border-gray-300 rounded-md p-3 w-full focus:ring-black focus:ring-1 aria-invalid:border-red-500 aria-invalid:ring-red-500 min-h-25 resize-y"
           placeholder="Description"
           aria-invalid={!!errors.desc}
           {...register("desc")}
@@ -124,9 +124,9 @@ const CreatePostForm = ({
               <button
                 type="button"
                 onClick={() => setFile(null)}
-                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer"
+                className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer active:opacity-70 transition-all duration-200"
               >
-                <IoClose size={18} />
+                <IoClose size={20} />
               </button>
             </div>
           </div>
@@ -134,7 +134,7 @@ const CreatePostForm = ({
         <ImageKitUpload setState={setFile} setIsUploading={setIsUploading} />
       </div>
       <button
-        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-blue-600 dark:bg-blue-700 text-white rounded-md p-3 cursor-pointer enabled:hover:bg-blue-700 enabled:dark:hover:bg-blue-600 enabled:active:scale-98 enabled:active:opacity-70 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
         disabled={isPending || isUploading}
       >
         {isPending ? (

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   LineChart,
   Line,
@@ -91,38 +90,29 @@ const FinanceChart = () => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke="var(--color-borderColor)"
+          />
           <XAxis
             dataKey="name"
-            axisLine={false}
-            tick={{ fill: "#d1d5db" }}
+            stroke="var(--color-text)"
             tickLine={false}
-            tickMargin={10}
+            tickMargin={5}
           />
-          <YAxis
-            axisLine={false}
-            tick={{ fill: "#d1d5db" }}
-            tickLine={false}
-            tickMargin={20}
+          <YAxis stroke="var(--color-text)" tickLine={false} tickMargin={10} />
+          <Tooltip
+            cursor={{
+              stroke: "var(--color-text)",
+            }}
+            contentStyle={{
+              backgroundColor: "var(--color-bg)",
+              borderColor: "var(--color-text)",
+            }}
           />
-          <Tooltip />
-          <Legend
-            align="center"
-            verticalAlign="top"
-            wrapperStyle={{ paddingTop: "10px", paddingBottom: "30px" }}
-          />
-          <Line
-            type="monotone"
-            dataKey="income"
-            stroke="#C3EBFA"
-            strokeWidth={5}
-          />
-          <Line
-            type="monotone"
-            dataKey="expense"
-            stroke="#CFCEFF"
-            strokeWidth={5}
-          />
+          <Legend />
+          <Line type="monotone" dataKey="income" stroke="#50C878" />
+          <Line type="monotone" dataKey="expense" stroke=" #C48AFF" />
         </LineChart>
       </ResponsiveContainer>
     </div>

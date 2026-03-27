@@ -138,7 +138,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
           <label htmlFor="password">Password</label>
           <div>
             <div
-              className="border border-borderColor rounded-md p-3 flex items-center justify-between focus-within:ring-focusColor focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
+              className="border border-borderColor rounded-md p-3 w-full flex items-center justify-between gap-3 focus-within:ring-focusColor focus-within:ring-1 aria-invalid:border-red-500 aria-invalid:focus-within:ring-red-500"
               aria-invalid={!!errors.password}
             >
               <input
@@ -153,9 +153,9 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? (
-                  <MdOutlineVisibility size={20} />
+                  <MdOutlineVisibility size={24} />
                 ) : (
-                  <MdOutlineVisibilityOff size={20} />
+                  <MdOutlineVisibilityOff size={24} />
                 )}
               </span>
             </div>
@@ -181,7 +181,7 @@ const ProfileUpdateForm = ({ session }: { session: Session | null }) => {
                 onClick={() => setAvatar(null)}
                 className="absolute -top-1 -right-1 bg-gray-500 p-px rounded-full text-white flex items-center justify-center cursor-pointer active:opacity-70 transition-all duration-200"
               >
-                <IoClose size={18} />
+                <IoClose size={20} />
               </button>
             </div>
           </div>

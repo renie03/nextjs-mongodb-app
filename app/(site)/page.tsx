@@ -13,7 +13,7 @@ export default async function Home({
   const category = (await searchParams).category || "";
 
   return (
-    <div className="pt-5">
+    <div>
       <div className="mb-15">
         <h1 className="text-2xl font-bold mb-5">Featured Posts</h1>
         <Suspense
@@ -46,7 +46,7 @@ export default async function Home({
       <div className="flex justify-end">
         <Link
           href={category ? `/posts/?category=${category}` : "/posts"}
-          className="mt-4 underline text-sm text-textSoft"
+          className="mt-5 underline text-sm text-textSoft active:opacity-70 transition-all duration-200"
         >
           View all posts
         </Link>

@@ -57,12 +57,12 @@ const FormModal = ({ table, type, data, id }: FormModalProps) => {
     <div>
       {/* BUTTON */}
       <button
-        className={`py-1 px-2 rounded-md cursor-pointer capitalize ${
+        className={`py-1 px-2 rounded-md text-white cursor-pointer capitalize active:scale-98 active:opacity-70 transition-all duration-200 ${
           type === "create"
-            ? "bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-600 text-white active:scale-98 active:opacity-70"
+            ? "bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-600"
             : type === "update"
-              ? "bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600 text-white active:scale-98 active:opacity-70"
-              : "bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600 text-white active:scale-98 active:opacity-70"
+              ? "bg-green-600 dark:bg-green-700 hover:bg-green-700 dark:hover:bg-green-600"
+              : "bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600"
         }`}
         onClick={() => setOpen(true)}
       >
@@ -72,14 +72,14 @@ const FormModal = ({ table, type, data, id }: FormModalProps) => {
       {open && (
         <div className="fixed inset-0 z-60 bg-black/60 flex items-center justify-center">
           <div
-            className="bg-white rounded-lg p-5 min-w-80 flex flex-col gap-2 relative"
+            className="bg-white rounded-lg p-5 min-w-80 relative"
             ref={modalRef}
           >
             <button
-              className="text-black cursor-pointer absolute top-2 right-2"
+              className="text-black cursor-pointer absolute top-2 right-2 active:opacity-70 transition-all duration-200"
               onClick={() => setOpen(false)}
             >
-              <IoClose size={22} />
+              <IoClose size={24} />
             </button>
 
             {/* POSTS */}
